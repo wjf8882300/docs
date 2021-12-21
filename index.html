@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>wangjf&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="wangjf&#39;s blog">
+<meta property="og:url" content="https://username.github.io/docs/index.html">
+<meta property="og:site_name" content="wangjf&#39;s blog">
+<meta property="og:locale">
+<meta property="article:author" content="Wang Jing Feng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/docs/atom.xml" title="wangjf's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/docs/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/docs/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/docs/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/docs/" id="logo">wangjf&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/docs/">Home</a>
+        
+          <a class="main-nav-link" href="/docs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/docs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://username.github.io/docs"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/21/git/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T10:23:20.000Z" itemprop="datePublished">2021-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/21/git/">git</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1-全局配置"><a href="#1-全局配置" class="headerlink" title="1.全局配置"></a>1.全局配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;your@email.com&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="2-git中添加ssh说明"><a href="#2-git中添加ssh说明" class="headerlink" title="2.git中添加ssh说明"></a>2.git中添加ssh说明</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;wangjingfeng2008@163.com&quot;</span><br><span class="line"></span><br><span class="line">把专用密钥添加到 ssh-agent 的高速缓存中：</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br><span class="line"></span><br><span class="line">如果在使用shh-add的时候提示：</span><br><span class="line">Could not open a connection to your authentication agent.</span><br><span class="line"></span><br><span class="line">则需手动开启ssh，如下；</span><br><span class="line">eval `ssh-agent -s`</span><br></pre></td></tr></table></figure>
+<h4 id="3-删除远程分支"><a href="#3-删除远程分支" class="headerlink" title="3.删除远程分支"></a>3.删除远程分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r -d origin/branch-name git push origin :branch-name</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-撤销未push的commit"><a href="#4-撤销未push的commit" class="headerlink" title="4.撤销未push的commit"></a>4.撤销未push的commit</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log git reset --hard commit_id</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-翻墙"><a href="#5-翻墙" class="headerlink" title="5.翻墙"></a>5.翻墙</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy http://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global https.proxy https://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global --unset http.proxy</span><br><span class="line"></span><br><span class="line">git config --global --unset https.proxy npm config delete proxy</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/21/git/" data-id="ckxfytji30000647ifftcdmfn" data-title="git" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-docker" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/21/docker/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T10:18:40.000Z" itemprop="datePublished">2021-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/21/docker/">docker</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1-docker概念与好处"><a href="#1-docker概念与好处" class="headerlink" title="1.docker概念与好处"></a>1.docker概念与好处</h4><p>docker由镜像与容器构成，镜像包含了要运行的所有环境、代码与数据。容器是运行时态生成的运行环境。</p>
+<ol>
+<li>环境隔离  需要的环境都在一个镜像中，运行一个容器就有了所需环境。</li>
+<li>快速部署  制作好镜像之后，可以方便部署。</li>
+<li>配置简单  不管是命令还是配置都简洁高效。</li>
+</ol>
+<h4 id="2-docker安装"><a href="#2-docker安装" class="headerlink" title="2. docker安装"></a>2. docker安装</h4><h5 id="1-centos-7及以上"><a href="#1-centos-7及以上" class="headerlink" title="1. centos 7及以上"></a>1. centos 7及以上</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># step 1: 安装必要的一些系统工具</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"># Step 2: 添加软件源信息</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"># Step 3: 更新并安装 Docker-CE</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">sudo yum -y install docker-ce</span><br></pre></td></tr></table></figure>
+<h5 id="2-Ubuntu-14-04-16-04"><a href="#2-Ubuntu-14-04-16-04" class="headerlink" title="2. Ubuntu 14.04 16.04"></a>2. Ubuntu 14.04 16.04</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># step 1.docker概念与好处1: 安装必要的一些系统工具</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"># step 2: 安装GPG证书</span><br><span class="line">curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"># Step 3: 写入软件源信息</span><br><span class="line">sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;</span><br><span class="line"># Step 4: 更新并安装 Docker-CE</span><br><span class="line">sudo apt-get -y update</span><br><span class="line">sudo apt-get -y install docker-ce</span><br></pre></td></tr></table></figure>
+<h4 id="3-docker开机启动"><a href="#3-docker开机启动" class="headerlink" title="3.docker开机启动"></a>3.docker开机启动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 添加开机启动</span><br><span class="line">systemctl enable docker.service</span><br><span class="line"># 启动docker服务</span><br><span class="line">systemctl start docker.service</span><br></pre></td></tr></table></figure>
+<h4 id="4-docker常用命令"><a href="#4-docker常用命令" class="headerlink" title="4.docker常用命令"></a>4.docker常用命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 查看镜像</span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line"># 拉取镜像</span><br><span class="line">docker pull xxx</span><br><span class="line"></span><br><span class="line"># 删除镜像</span><br><span class="line">docker rmi xxx</span><br><span class="line"></span><br><span class="line"># 查看运行的容器</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"># 启动容器</span><br><span class="line">docker start xxx</span><br><span class="line"></span><br><span class="line"># 停止容器</span><br><span class="line">docker stop xxx</span><br><span class="line"></span><br><span class="line"># 重启容器</span><br><span class="line">docker restart xxx</span><br><span class="line"></span><br><span class="line"># 进入容器</span><br><span class="line">docker exec -it xxx bash</span><br><span class="line"></span><br><span class="line"># 查看日志</span><br><span class="line">docker logs -f xxx --tail=10</span><br><span class="line"></span><br><span class="line"># 查看容器</span><br><span class="line">docker inspect xxx</span><br><span class="line"></span><br><span class="line"># 查看容器状态</span><br><span class="line">docker stats</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-制作镜像"><a href="#5-制作镜像" class="headerlink" title="5.制作镜像"></a>5.制作镜像</h4><h5 id="1-镜像加速"><a href="#1-镜像加速" class="headerlink" title="1. 镜像加速"></a>1. 镜像加速</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://w029dasz.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-准备Dockerfile"><a href="#2-准备Dockerfile" class="headerlink" title="2. 准备Dockerfile"></a>2. 准备Dockerfile</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># java镜像</span><br><span class="line">FROM openjdk:8-jdk-alpine</span><br><span class="line"> </span><br><span class="line"># 将本地文件夹挂载到当前容器</span><br><span class="line"># 创建/tmp目录并持久化到Docker数据文件夹，因为Spring Boot使用的内嵌Tomcat容器默认使用/tmp作为工作目录。</span><br><span class="line">VOLUME [&quot;/tmp&quot;]</span><br><span class="line"> </span><br><span class="line"># 拷贝文件到容器</span><br><span class="line">COPY *.jar /opt/app.jar</span><br><span class="line"> </span><br><span class="line"># 解决容器时间和宿主主机时间不一致问题</span><br><span class="line">RUN echo &#x27;http://mirrors.aliyun.com/alpine/v3.6/community/&#x27;&gt;/etc/apk/repositories &amp;&amp; echo &#x27;http://mirrors.aliyun.com/alpine/v3.6/main/&#x27;&gt;&gt;/etc/apk/repositories &amp;&amp; apk add --no-cache tzdata</span><br><span class="line">ENV TZ Asia/Shanghai</span><br><span class="line">RUN /bin/cp /usr/share/zoneinfo/$&#123;TZ&#125; /etc/localtime &amp;&amp; echo &#x27;$&#123;TZ&#125;&#x27; &gt;/etc/timezone</span><br><span class="line"> </span><br><span class="line">RUN apk add  --no-cache ffmpeg</span><br><span class="line"> </span><br><span class="line"># 打开服务端口</span><br><span class="line">EXPOSE 8080 8080</span><br><span class="line"> </span><br><span class="line"># 配置环境变量 todo jvm优化参数可以设置这里</span><br><span class="line">ENV JAVA_OPTS=&#x27;-Xmx1024m -Xms512m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8077&#x27; APP_OPTS=&#x27;&#x27;</span><br><span class="line"> </span><br><span class="line"># 配置容器启动后执行的命令</span><br><span class="line">ENTRYPOINT java $JAVA_OPTS  -server  -Dfile.encoding=UTF-8 -Duser.language=zh -Duser.region=CN -Djava.security.egd=file:/dev/./urandom $APP_OPTS -jar /opt/app.jar</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-制作镜像"><a href="#3-制作镜像" class="headerlink" title="3. 制作镜像"></a>3. 制作镜像</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 制作镜像</span><br><span class="line">docker build -t registry.uecent.com:5000/provider-auth:1.0.0 .</span><br><span class="line"># 上传镜像(非必要)</span><br><span class="line">docker push registry.uecent.com:5000/provider-auth:1.0.0</span><br><span class="line"># 启动镜像</span><br><span class="line">docker run -d --name provider-auth \ </span><br><span class="line">--restart=always  \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-v /data/provider-auth:/tmp \</span><br><span class="line">-e EUREKA_SERVER=http://172.19.115.13/eureka/ \</span><br><span class="line">-e APP_OPTS=\&quot;spring.profiles.active=dev\&quot; \</span><br><span class="line">--log-opt max-size=100m --log-opt max-file=3 \</span><br><span class="line">registry.uecent.com:5000/provider-auth:1.0.0</span><br><span class="line">-d 表示后台运行</span><br><span class="line">--name 指定容器名称</span><br><span class="line">--restart always表示总会重启</span><br><span class="line">-p 映射端口号</span><br><span class="line">-v 映射目录</span><br><span class="line">-e 指定环境变量</span><br><span class="line">--log-opt 日志相关</span><br><span class="line">--privileged 允许root权限</span><br><span class="line">--network=host 使用主机网络</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-docker-compose"><a href="#6-docker-compose" class="headerlink" title="6. docker-compose"></a>6. docker-compose</h4><h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line">sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose docker-compose --version</span><br></pre></td></tr></table></figure>
+<h5 id="2-docker-compose-yml"><a href="#2-docker-compose-yml" class="headerlink" title="2. docker-compose.yml"></a>2. docker-compose.yml</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3.2&#x27;</span><br><span class="line"> </span><br><span class="line">services:</span><br><span class="line">  redis:</span><br><span class="line">    container_name:  redis</span><br><span class="line">    image: redis:latest</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;6379:6379&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - /redis/data:/data</span><br><span class="line">  rabbitmq:</span><br><span class="line">    container_name:  rabbitmq</span><br><span class="line">    image: rabbitmq:management</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;15672:15672&quot;</span><br><span class="line">      - &quot;5672:5672&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - /redis/data:/data   </span><br><span class="line">    environment:</span><br><span class="line">      - RABBITMQ_DEFAULT_USER=rabbitmq</span><br><span class="line">      - RABBITMQ_DEFAULT_PASS=Qfka7ls2A40JEoMw</span><br><span class="line">```      </span><br><span class="line">##### 3. 启动</span><br></pre></td></tr></table></figure>
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><p>docker-compose up -d</p>
+<h1 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h1><p>docker-compse ps</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 7. docker私服</span><br><span class="line">##### 1. 安装</span><br></pre></td></tr></table></figure>
+<h1 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h1><p>docker pull registry </p>
+<h1 id="新建仓库目录"><a href="#新建仓库目录" class="headerlink" title="新建仓库目录"></a>新建仓库目录</h1><p>mkdir -p /data/registry</p>
+<h1 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h1><p>docker run -d -v /data/registry:/var/lib/registry -v /data/cert:/data/cert -p 5000:5000 -e REGISTRY_STORAGE_DELETE_ENABLED=true -e REGISTRY_HTTP_TLS_CERTIFICATE=/data/cert/cert.pem -e REGISTRY_HTTP_TLS_KEY=/data/cert/cert.key –restart=always –privileged=true –name registry registry:latest</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 2. 私服相关操作</span><br></pre></td></tr></table></figure>
+<p>搜索镜像：<br>curl -X GET <a target="_blank" rel="noopener" href="https://registry.uecent.com:5000/v2/_catalog">https://registry.uecent.com:5000/v2/_catalog</a></p>
+<p>获取镜像列表：<br>curl -X GET <a target="_blank" rel="noopener" href="https://registry.uecent.com:5000/v2/provider-auth/tags/list">https://registry.uecent.com:5000/v2/provider-auth/tags/list</a></p>
+<p>查询镜像tag：<br>curl -v –silent -H “Accept: application/vnd.docker.distribution.manifest.v2+json” -X GET <a target="_blank" rel="noopener" href="https://registry.uecent.com:5000/v2/provider-auth/manifests/latest">https://registry.uecent.com:5000/v2/provider-auth/manifests/latest</a> 2&gt;&amp;1 | grep Docker-Content-Digest | awk ‘{print ($3)}’</p>
+<p>删除镜像：<br>curl -v –silent -H “Accept: application/vnd.docker.distribution.manifest.v2+json” -X DELETE <a target="_blank" rel="noopener" href="https://registry.uecent.com:5000/v2/provider-auth/manifests/sha256:cc21a69e5d84b78f51eb8003d1f31743fa8cfc629b5e6379e751afff1ca34544">https://registry.uecent.com:5000/v2/provider-auth/manifests/sha256:cc21a69e5d84b78f51eb8003d1f31743fa8cfc629b5e6379e751afff1ca34544</a></p>
+<p>垃圾回收（在docker服务器上执行）：<br>docker exec -it registry /bin/registry garbage-collect /etc/docker/registry/config.yml</p>
+<pre><code>
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/21/docker/" data-id="ckxfyie6q0000ms7i4g53cfh3" data-title="docker" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-java-lamda" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/21/java-lamda/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T10:16:25.000Z" itemprop="datePublished">2021-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/21/java-lamda/">java lamda</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="java-lamda"><a href="#java-lamda" class="headerlink" title="java lamda"></a>java lamda</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">class User &#123;</span><br><span class="line">   /** 用户id */</span><br><span class="line">   private String id;</span><br><span class="line">   /** 用户姓名 */</span><br><span class="line">   private String name;</span><br><span class="line">   /** 性别:0-男/1-女 */</span><br><span class="line">   private String sex;</span><br><span class="line">   /** 年龄 */</span><br><span class="line">   private Integer age;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">@Data</span><br><span class="line">class UserSum &#123;</span><br><span class="line">   /** 性别:0-男/1-女 */</span><br><span class="line">   private String sex;</span><br><span class="line">   /** 年龄 */</span><br><span class="line">   private Integer age;</span><br><span class="line"> </span><br><span class="line">    public UserSum (String sex, Integer age) &#123;</span><br><span class="line">            this.sex= sex;</span><br><span class="line">            this.age= age;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        @Override</span><br><span class="line">        public String toString() &#123;</span><br><span class="line">            return this.sex+ &quot;:&quot; + this.age;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        @Override</span><br><span class="line">        public boolean equals(Object obj) &#123;</span><br><span class="line">            if(obj == null) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            if(!(obj instanceof UserSum)) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            if(obj == this) &#123;</span><br><span class="line">                return  true;</span><br><span class="line">            &#125;</span><br><span class="line">            UserSum o = (UserSum)obj;</span><br><span class="line">            return this.sex.equals(o.sex) &amp;&amp; this.age.equals(o.age);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        @Override</span><br><span class="line">        public int hashCode() &#123;</span><br><span class="line">            return this.sex.hashCode() + this.age.hashCode();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">List&lt;User&gt; userList;</span><br><span class="line"> </span><br><span class="line">// 循环</span><br><span class="line">userList.foreach(m-&gt;&#123;</span><br><span class="line">   // do something</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 过滤（筛选姓名为女的用户）</span><br><span class="line">List&lt;User&gt; list = userList.stream().filter(m-&gt;&quot;1&quot;.equals(m.getSex())).collect(Collectors.toList());</span><br><span class="line">// 两层过滤</span><br><span class="line">List&lt;UserRole&gt; list = userRoleList.stream().filter(m-&gt;userList.stream().filter(a-&gt;a.getId().equals(m.userId())).findFirst().isPresent()).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// list值转换(获取对象某个字段)</span><br><span class="line">List&lt;String&gt; list = userList.stream().map(User::getId).collect(Collectors.toList());</span><br><span class="line">// list值转换（某个对象转为另一个对象）</span><br><span class="line">List&lt;UserVO&gt; list = messageList.stream().map(m-&gt;&#123;</span><br><span class="line">   UserVO userVO = new UserVO();</span><br><span class="line">   userVO.setId(m.getId());</span><br><span class="line">   return userVO;</span><br><span class="line">&#125;).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// list转map</span><br><span class="line">Map&lt;String, String&gt; users = userList.stream().collect(Collectors.toMap(User::getId, User::getName));</span><br><span class="line">Map&lt;String, User&gt; users = userList.stream().collect(Collectors.toMap(User::getName, Function.identity()));</span><br><span class="line">Map&lt;String, String&gt; users = userList.stream().collect(Collectors.toMap(User::getId, u-&gt;u.getAge().toString())); // 类型转换</span><br><span class="line"> // 解决key值重复</span><br><span class="line">Map&lt;String, User&gt; users = userList.stream().collect(Collectors.toMap(User::getName, Function.identity(), (key1, key2) -&gt; key2));</span><br><span class="line"> </span><br><span class="line">// map转list</span><br><span class="line">List&lt;User&gt; userList = map.entrySet().stream().map(e -&gt; new User(e.getKey(),e.getValue())).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// list去重</span><br><span class="line">List&lt;User&gt; userList = users.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparing(user -&gt;user.getName()))), ArrayList::new));</span><br><span class="line"> </span><br><span class="line">// 分组</span><br><span class="line">Map&lt;String, List&lt;User&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(User::getSex));</span><br><span class="line">Map&lt;String, List&lt;User&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(m-&gt;Integer.value(m.getSex())));</span><br><span class="line">Map&lt;String, List&lt;String&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(User::getSex, Collectors.mapping(User::getId, Collectors.toList())));</span><br><span class="line">// 分组并对key排序</span><br><span class="line">TreeMap&lt;String, List&lt;User&gt;&gt;  map = list.stream().collect(Collectors.groupingBy(User::getSex, TreeMap::new, Collectors.toList()));</span><br><span class="line">// 多条件分组</span><br><span class="line">// 方式一</span><br><span class="line">Map&lt;String, Map&lt;String, List&lt;User&gt;&gt;&gt; collect = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName)));</span><br><span class="line">// 方式二</span><br><span class="line">Map&lt;UserSum, List&lt;User&gt;&gt; collect1 = list.stream().collect(Collectors.groupingBy(um -&gt; new UserSum(um.getSex(), um.getName())));</span><br><span class="line">// 分组求和, BigDecimal可以用Collectors.reducing(BigDecimal.ZERO, User::getAge, BigDecimal::add)</span><br><span class="line">Map&lt;String, Map&lt;String, Integer&gt;&gt; collect2 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName, Collectors.summarizingInt(User::getAge))));</span><br><span class="line">// 求每组最大值（返回对象）</span><br><span class="line">Map&lt;String, User&gt; collect4 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(User::getAge)), Optional::get)));</span><br><span class="line">// 求每组最大值（返回值）</span><br><span class="line">Map&lt;String, Integer&gt; collect5 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.reducing(0, User::getAge, Integer::max)));</span><br><span class="line">// 求平均数</span><br><span class="line">Map&lt;String, Double&gt; collect8 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.averagingInt(User::getAge)));</span><br><span class="line">// 获取年龄小于30岁的（having group by ）</span><br><span class="line">Map&lt;Long, Long&gt; collect = result.stream().collect(Collectors.collectingAndThen(Collectors.groupingBy(User::getAge, Collectors.counting()), m -&gt; &#123;</span><br><span class="line">                m.values().removeIf(v -&gt; v &gt;= 30);</span><br><span class="line">                return m;</span><br><span class="line">            &#125;));</span><br><span class="line"> </span><br><span class="line">// 排序</span><br><span class="line">// 反序排序</span><br><span class="line">List&lt;User&gt; list = userList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());</span><br><span class="line">// 按照某个字段排序（默认正序）</span><br><span class="line">List&lt;User&gt; collect = users.stream().sorted(Comparator.comparing(User::getName)).collect(Collectors.toList());</span><br><span class="line">// 按照某个字段排序（倒叙）</span><br><span class="line">List&lt;User&gt; collect = users.stream().sorted(Comparator.comparing(User::getName).reversed()).collect(Collectors.toList());</span><br><span class="line">// 某个字段处理后再排序</span><br><span class="line">Collections.sort(userList, (o1, o2)-&gt;Integer.valueOf(o1.getId()).compareTo(Integer.valueOf(o2.getId())));</span><br><span class="line">// 多字段排序先根据性别正序排序，再根据姓名倒叙排序</span><br><span class="line">List&lt;User&gt; collection = users.stream().sorted(Comparator.comparing(User::getSex).thenComparing(User::getName).reversed()).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// 求最大值、最小值</span><br><span class="line">Integer max = list.stream().map(User::getAge).max(Integer::compareTo).get();</span><br><span class="line">Integer min= list.stream().map(User::getAge).min(Integer::compareTo).get();</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">// 分页，从0开始取前5条</span><br><span class="line">List&lt;User&gt; collection = list.stream().skip(0).limit(5).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// 初始化map</span><br><span class="line">Map&lt;String, String&gt; events = new ImmutableMap.Builder&lt;String, String&gt;().put(&quot;abc&quot;, &quot;123&quot;).build();    </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">//String 字符串转换list&lt;Integer&gt;类型</span><br><span class="line">List&lt;Integer&gt; channels = Arrays.stream(ids.split(&quot;,&quot;)).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/21/java-lamda/" data-id="ckxfyie6w0001ms7ife4993pv" data-title="java lamda" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2021/12/">December 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/docs/2021/12/21/git/">git</a>
+          </li>
+        
+          <li>
+            <a href="/docs/2021/12/21/docker/">docker</a>
+          </li>
+        
+          <li>
+            <a href="/docs/2021/12/21/java-lamda/">java lamda</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Wang Jing Feng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/docs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/docs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/docs/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/docs/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/docs/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
