@@ -71,6 +71,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hexo搭建github博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T11:43:24.000Z" itemprop="datePublished">2021-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/">hexo搭建github博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1）GitHub上面新建一个repository</p>
+<p>2）clone到本地</p>
+<p>3）安装hexo<br>npm i hexo-cli -g</p>
+<p>4）验证是否安装成功<br>hexo -v</p>
+<p>5）找个空目录初始化<br>hexo init</p>
+<p>6）生成静态页面<br>hexo g</p>
+<p>7）打开本地网页：<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a><br>hexo s</p>
+<p>8）修改配置文件_config.yml<br>deploy:<br>  type: git<br>  repo: <a href="mailto:&#x67;&#105;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;</a>:wjf8882300/docs.git<br>  branch: master</p>
+<p>9）安装git插件<br>npm install –save hexo-deployer-git</p>
+<p>10）把生成的文件拷贝到git目录</p>
+<p>11）git提交<br>hexo d</p>
+<p>12）github选择repository——&gt;Settings——&gt;Pages，选择分支和主题。上面就是博客地址。</p>
+<p>13）写文章<br>hexo new post “docker”</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" data-id="ckxg1i37600001g7igsp4e6n3" data-title="hexo搭建github博客" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/docs/2021/12/21/git/" class="article-date">
@@ -248,6 +299,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/">hexo搭建github博客</a>
+          </li>
         
           <li>
             <a href="/docs/2021/12/21/git/">git</a>
