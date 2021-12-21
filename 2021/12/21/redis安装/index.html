@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>git | wangjf&#39;s blog</title>
+  <title>redis安装 | wangjf&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="1.全局配置123git config --global user.name &quot;yourname&quot;git config --global user.email &quot;your@email.com&quot; 2.git中添加ssh说明12345678910ssh-keygen -t rsa -C &quot;wangjingfeng2008@163.com&quot;把专">
+  <meta name="description" content="后端启动：1.&#x2F;redis-server &amp;  windows服务：1234# 注册redis服务redis-server --service-install redis.conf --service-name redis# 启动redis服务net start redis  docker方式启动：1234mkdir -p &#x2F;data&#x2F;redischown -R 1000:1000 &#x2F;da">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git">
-<meta property="og:url" content="https://username.github.io/docs/2021/12/21/git/index.html">
+<meta property="og:title" content="redis安装">
+<meta property="og:url" content="https://username.github.io/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/index.html">
 <meta property="og:site_name" content="wangjf&#39;s blog">
-<meta property="og:description" content="1.全局配置123git config --global user.name &quot;yourname&quot;git config --global user.email &quot;your@email.com&quot; 2.git中添加ssh说明12345678910ssh-keygen -t rsa -C &quot;wangjingfeng2008@163.com&quot;把专">
+<meta property="og:description" content="后端启动：1.&#x2F;redis-server &amp;  windows服务：1234# 注册redis服务redis-server --service-install redis.conf --service-name redis# 启动redis服务net start redis  docker方式启动：1234mkdir -p &#x2F;data&#x2F;redischown -R 1000:1000 &#x2F;da">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-12-21T10:23:20.000Z">
-<meta property="article:modified_time" content="2021-12-21T12:01:01.394Z">
+<meta property="article:published_time" content="2021-12-21T11:54:09.000Z">
+<meta property="article:modified_time" content="2021-12-21T11:56:30.544Z">
 <meta property="article:author" content="Wang Jing Feng">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/docs/atom.xml" title="wangjf's blog" type="application/atom+xml">
@@ -74,10 +74,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-redis安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/docs/2021/12/21/git/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T10:23:20.000Z" itemprop="datePublished">2021-12-21</time>
+    <a href="/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T11:54:09.000Z" itemprop="datePublished">2021-12-21</time>
 </a>
     
   </div>
@@ -88,7 +88,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      git
+      redis安装
     </h1>
   
 
@@ -96,22 +96,25 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h4 id="1-全局配置"><a href="#1-全局配置" class="headerlink" title="1.全局配置"></a>1.全局配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;your@email.com&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="2-git中添加ssh说明"><a href="#2-git中添加ssh说明" class="headerlink" title="2.git中添加ssh说明"></a>2.git中添加ssh说明</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;wangjingfeng2008@163.com&quot;</span><br><span class="line"></span><br><span class="line">把专用密钥添加到 ssh-agent 的高速缓存中：</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br><span class="line"></span><br><span class="line">如果在使用shh-add的时候提示：</span><br><span class="line">Could not open a connection to your authentication agent.</span><br><span class="line"></span><br><span class="line">则需手动开启ssh，如下；</span><br><span class="line">eval `ssh-agent -s`</span><br></pre></td></tr></table></figure>
-<h4 id="3-删除远程分支"><a href="#3-删除远程分支" class="headerlink" title="3.删除远程分支"></a>3.删除远程分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r -d origin/branch-name git push origin :branch-name</span><br></pre></td></tr></table></figure>
+        <h4 id="后端启动："><a href="#后端启动：" class="headerlink" title="后端启动："></a>后端启动：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server &amp;</span><br></pre></td></tr></table></figure>
 
-<h4 id="4-撤销未push的commit"><a href="#4-撤销未push的commit" class="headerlink" title="4.撤销未push的commit"></a>4.撤销未push的commit</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log git reset --hard commit_id</span><br></pre></td></tr></table></figure>
+<h4 id="windows服务："><a href="#windows服务：" class="headerlink" title="windows服务："></a>windows服务：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 注册redis服务</span><br><span class="line">redis-server --service-install redis.conf --service-name redis</span><br><span class="line"># 启动redis服务</span><br><span class="line">net start redis</span><br></pre></td></tr></table></figure>
 
-<h4 id="5-翻墙"><a href="#5-翻墙" class="headerlink" title="5.翻墙"></a>5.翻墙</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy http://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global https.proxy https://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global --unset http.proxy</span><br><span class="line"></span><br><span class="line">git config --global --unset https.proxy npm config delete proxy</span><br></pre></td></tr></table></figure>
+<h4 id="docker方式启动："><a href="#docker方式启动：" class="headerlink" title="docker方式启动："></a>docker方式启动：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/redis</span><br><span class="line">chown -R 1000:1000 /data/redis</span><br><span class="line"> </span><br><span class="line">docker run -d --name redis --restart=always -p 6379:6379 -v /data/redis:/data wjf8882300/redis:latest</span><br></pre></td></tr></table></figure>
 
+<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM redis</span><br><span class="line">MAINTAINER wangjingfeng2008@163.com</span><br><span class="line">COPY redis.conf /usr/local/etc/redis/redis.conf</span><br><span class="line">EXPOSE 6379</span><br><span class="line">CMD [ &quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot; ]</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="修改配置文件-redis-conf"><a href="#修改配置文件-redis-conf" class="headerlink" title="修改配置文件 redis.conf"></a>修改配置文件 redis.conf</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#bind 127.0.0.1</span><br><span class="line"> </span><br><span class="line">requirepass kCOs142GAhrVR3cw</span><br><span class="line"> </span><br><span class="line">port 6379</span><br><span class="line"> </span><br><span class="line">notify-keyspace-events &quot;Ex&quot;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/git/" data-id="ckxfytji30000647ifftcdmfn" data-title="git" class="article-share-link">Teilen</a>
+      <a data-url="https://username.github.io/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" data-id="ckxg22cy50000nk7igtb53qy8" data-title="redis安装" class="article-share-link">Teilen</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
 
     </footer>
   </div>
@@ -119,19 +122,19 @@
     
 <nav id="article-nav">
   
-    <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
-          hexo搭建github博客
+          redis集群
         
       </div>
     </a>
   
   
-    <a href="/docs/2021/12/21/docker/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">docker</div>
+      <div class="article-nav-title">hexo搭建github博客</div>
     </a>
   
 </nav>

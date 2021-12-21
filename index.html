@@ -71,6 +71,152 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-redis批量删除key" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T11:54:27.000Z" itemprop="datePublished">2021-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">redis批量删除key</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>比如删除com:uecent:udata:basketball*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 redis_delete.py -d 3 -k com:uecent:udata:basketball</span><br></pre></td></tr></table></figure>
+<p>参数说明：<br>-d 表示第几个数据库<br>-k 表示前缀</p>
+<p>redis_delete.py源码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:UTF-8 -*-</span><br><span class="line">import redis</span><br><span class="line">import sys</span><br><span class="line">import getopt</span><br><span class="line"> </span><br><span class="line">############################################</span><br><span class="line"># example:</span><br><span class="line"># delete db0: python3 redis_delete.py  -k &#x27;udata.climb&#x27; -d 0</span><br><span class="line"># delete db1: python3 redis_delete.py  -k &#x27;udata.climb&#x27; -d 1</span><br><span class="line">############################################</span><br><span class="line"> </span><br><span class="line">host = &#x27;127.0.0.1&#x27;</span><br><span class="line">port = &#x27;6379&#x27;</span><br><span class="line">password = &#x27;kCOs142GAhrVR3cw&#x27;</span><br><span class="line"> </span><br><span class="line">def delete(key, database):</span><br><span class="line">    r = redis.Redis(host=host, port=port, db=database, password=password, decode_responses=True)</span><br><span class="line">    list_keys = r.keys(&quot;%s*&quot; % key)</span><br><span class="line"> </span><br><span class="line">    for key in list_keys:</span><br><span class="line">        r.delete(key)</span><br><span class="line"> </span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    root_path = &quot;&quot;</span><br><span class="line">    is_rename = True</span><br><span class="line"> </span><br><span class="line">    argv = sys.argv[1:]</span><br><span class="line">    if len(argv) &lt; 1:</span><br><span class="line">        print(&#x27;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#x27;)</span><br><span class="line">        sys.exit()</span><br><span class="line"> </span><br><span class="line">    # 获取命令行参数</span><br><span class="line">    try:</span><br><span class="line">        opts, args = getopt.getopt(argv, &quot;hk:d:&quot;, [&quot;kKey=&quot;, &quot;dDatabase=&quot;])</span><br><span class="line">    except getopt.GetoptError:</span><br><span class="line">        print(&#x27;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#x27;)</span><br><span class="line">        sys.exit(2)</span><br><span class="line"> </span><br><span class="line">    for opt, arg in opts:</span><br><span class="line">        if opt == &#x27;-h&#x27;:</span><br><span class="line">            print(&#x27;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#x27;)</span><br><span class="line">            sys.exit()</span><br><span class="line">        elif opt in (&quot;-k&quot;, &quot;--kKey&quot;):</span><br><span class="line">            key = arg</span><br><span class="line">        elif opt in (&quot;-d&quot;, &quot;--dDatabase&quot;):</span><br><span class="line">            database = arg</span><br><span class="line">    delete(key, int(database))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" data-id="ckxg22cy60001nk7i3rkxbhmy" data-title="redis批量删除key" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-redis集群" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T11:54:16.000Z" itemprop="datePublished">2021-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/">redis集群</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一主多从集群<br>以三台机器为例<br>node1: 172.19.192.179:6379<br>node2: 172.19.192.179:6380<br>node3: 172.19.192.179:6381</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># node1: 172.19.192.179:6379</span><br><span class="line">docker run -d --name redis-node1 -p 6379:6379 -v /data/redis/node1:/data redis:5.0.5</span><br><span class="line"># node2: 172.19.192.179:6380</span><br><span class="line">docker run -d --name redis-node2 -p 6380:6379 -v /data/redis/node2:/data redis:5.0.5</span><br><span class="line"># node3: 172.19.192.179:6381</span><br><span class="line">docker run -d --name redis-node3 -p 6381:6379 -v /data/redis/node3:/data redis:5.0.5</span><br><span class="line"></span><br><span class="line"># node2上执行</span><br><span class="line">docker exec -it redis-node2 redis-cli</span><br><span class="line">127.0.0.1:6379&gt; auth kCOs142GAhrVR3cw</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; slaveof 172.19.192.179 6379</span><br><span class="line">OK</span><br><span class="line"> </span><br><span class="line"># node3上执行</span><br><span class="line">docker exec -it redis-node3 redis-cli</span><br><span class="line">127.0.0.1:6379&gt; auth kCOs142GAhrVR3cw</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; slaveof 172.19.192.179 6379</span><br><span class="line">OK</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="cluster集群"><a href="#cluster集群" class="headerlink" title="cluster集群"></a>cluster集群</h4><h5 id="1-编写redis-cluster-tmpl"><a href="#1-编写redis-cluster-tmpl" class="headerlink" title="1.编写redis-cluster.tmpl"></a>1.编写redis-cluster.tmpl</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># redis端口</span><br><span class="line">port $&#123;PORT&#125;</span><br><span class="line"># 设置密码</span><br><span class="line">requirepass kCOs142GAhrVR3cw</span><br><span class="line">masterauth kCOs142GAhrVR3cw</span><br><span class="line"># 关闭保护模式</span><br><span class="line">protected-mode no</span><br><span class="line"># 开启集群</span><br><span class="line">cluster-enabled yes</span><br><span class="line"># 集群节点配置</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line"># 超时</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line"># 集群节点IP host模式为宿主机IP</span><br><span class="line">cluster-announce-ip 172.19.192.179</span><br><span class="line"># 集群节点端口 7001 - 7006</span><br><span class="line">cluster-announce-port $&#123;PORT&#125;</span><br><span class="line">cluster-announce-bus-port 1$&#123;PORT&#125;</span><br><span class="line"># 开启 appendonly 备份模式</span><br><span class="line">appendonly yes</span><br><span class="line"># 每秒钟备份</span><br><span class="line">appendfsync everysec</span><br><span class="line"># 对aof文件进行压缩时，是否执行同步操作</span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line"># 当目前aof文件大小超过上一次重写时的aof文件大小的100%时会再次进行重写</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line"># 重写前AOF文件的大小最小值 默认 64mb</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-编写redis-cluster-config-sh"><a href="#2-编写redis-cluster-config-sh" class="headerlink" title="2.编写redis-cluster-config.sh"></a>2.编写redis-cluster-config.sh</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for port in `seq 7001 7006`; do \</span><br><span class="line">  mkdir -p ./redis-cluster/$&#123;port&#125;/conf \</span><br><span class="line">  &amp;&amp; PORT=$&#123;port&#125; envsubst &lt; ./redis-cluster.tmpl &gt; ./redis-cluster/$&#123;port&#125;/conf/redis.conf \</span><br><span class="line">  &amp;&amp; mkdir -p ./redis-cluster/$&#123;port&#125;/data; \</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-执行redis-cluster-config-sh创建集群所需目录"><a href="#3-执行redis-cluster-config-sh创建集群所需目录" class="headerlink" title="3.执行redis-cluster-config.sh创建集群所需目录"></a>3.执行redis-cluster-config.sh创建集群所需目录</h5><h5 id="4-编写docker-compose-yaml"><a href="#4-编写docker-compose-yaml" class="headerlink" title="4.编写docker-compose.yaml"></a>4.编写docker-compose.yaml</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;2.2&#x27;</span><br><span class="line"> </span><br><span class="line">services:</span><br><span class="line">  redis7001:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7001</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7001/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7001/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7001:7001&quot;</span><br><span class="line">      - &quot;17001:17001&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;</span><br><span class="line">       </span><br><span class="line">         </span><br><span class="line"> </span><br><span class="line">  redis7002:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7002</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7002/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7002/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7002:7002&quot;</span><br><span class="line">      - &quot;17002:17002&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;  </span><br><span class="line"> </span><br><span class="line">  redis7003:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7003</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7003/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7003/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7003:7003&quot;</span><br><span class="line">      - &quot;17003:17003&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;    </span><br><span class="line">       </span><br><span class="line">  redis7004:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7004</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7004/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7004/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7004:7004&quot;</span><br><span class="line">      - &quot;17004:17004&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;  </span><br><span class="line"> </span><br><span class="line">  redis7005:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7005</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7005/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7005/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7005:7005&quot;</span><br><span class="line">      - &quot;17005:17005&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;   </span><br><span class="line"> </span><br><span class="line">  redis7006:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7006</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7006/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7006/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7006:7006&quot;</span><br><span class="line">      - &quot;17006:17006&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai   </span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;</span><br></pre></td></tr></table></figure>
+<h5 id="5-启动redis集群容器"><a href="#5-启动redis集群容器" class="headerlink" title="5.启动redis集群容器"></a>5.启动redis集群容器</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-执行命令完成集群配置"><a href="#6-执行命令完成集群配置" class="headerlink" title="6.执行命令完成集群配置"></a>6.执行命令完成集群配置</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis7001 redis-cli -p 7001 -a kCOs142GAhrVR3cw --cluster create 172.19.192.179:7001 172.19.192.179:7002 172.19.192.179:7003 172.19.192.179:7004 172.19.192.179:7005 172.19.192.179:7006 --cluster-replicas 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-测试集群"><a href="#7-测试集群" class="headerlink" title="7.测试集群"></a>7.测试集群</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis7001 redis-cli -h 172.19.192.179 -p 7005 -a kCOs142GAhrVR3cw ping</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/" data-id="ckxg22cy90003nk7ibqcc842i" data-title="redis集群" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-redis安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2021-12-21T11:54:09.000Z" itemprop="datePublished">2021-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/">redis安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="后端启动："><a href="#后端启动：" class="headerlink" title="后端启动："></a>后端启动：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server &amp;</span><br></pre></td></tr></table></figure>
+
+<h4 id="windows服务："><a href="#windows服务：" class="headerlink" title="windows服务："></a>windows服务：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 注册redis服务</span><br><span class="line">redis-server --service-install redis.conf --service-name redis</span><br><span class="line"># 启动redis服务</span><br><span class="line">net start redis</span><br></pre></td></tr></table></figure>
+
+<h4 id="docker方式启动："><a href="#docker方式启动：" class="headerlink" title="docker方式启动："></a>docker方式启动：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/redis</span><br><span class="line">chown -R 1000:1000 /data/redis</span><br><span class="line"> </span><br><span class="line">docker run -d --name redis --restart=always -p 6379:6379 -v /data/redis:/data wjf8882300/redis:latest</span><br></pre></td></tr></table></figure>
+
+<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM redis</span><br><span class="line">MAINTAINER wangjingfeng2008@163.com</span><br><span class="line">COPY redis.conf /usr/local/etc/redis/redis.conf</span><br><span class="line">EXPOSE 6379</span><br><span class="line">CMD [ &quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot; ]</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="修改配置文件-redis-conf"><a href="#修改配置文件-redis-conf" class="headerlink" title="修改配置文件 redis.conf"></a>修改配置文件 redis.conf</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#bind 127.0.0.1</span><br><span class="line"> </span><br><span class="line">requirepass kCOs142GAhrVR3cw</span><br><span class="line"> </span><br><span class="line">port 6379</span><br><span class="line"> </span><br><span class="line">notify-keyspace-events &quot;Ex&quot;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" data-id="ckxg22cy50000nk7igtb53qy8" data-title="redis安装" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-hexo搭建github博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" class="article-date">
@@ -100,7 +246,7 @@
 <p>5）找个空目录初始化<br>hexo init</p>
 <p>6）生成静态页面<br>hexo g</p>
 <p>7）打开本地网页：<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a><br>hexo s</p>
-<p>8）修改配置文件_config.yml<br>deploy:<br>  type: git<br>  repo: <a href="mailto:&#x67;&#105;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;</a>:wjf8882300/docs.git<br>  branch: master</p>
+<p>8）修改配置文件_config.yml<br>deploy:<br>  type: git<br>  repo: <a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a>:wjf8882300/docs.git<br>  branch: master</p>
 <p>9）安装git插件<br>npm install –save hexo-deployer-git</p>
 <p>10）把生成的文件拷贝到git目录</p>
 <p>11）git提交<br>hexo d</p>
@@ -114,6 +260,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li></ul>
+
     </footer>
   </div>
   
@@ -159,6 +307,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li></ul>
+
     </footer>
   </div>
   
@@ -223,6 +373,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/docker/" rel="tag">docker</a></li></ul>
+
     </footer>
   </div>
   
@@ -262,6 +414,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/java/" rel="tag">java</a></li></ul>
+
     </footer>
   </div>
   
@@ -280,9 +434,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/docs/tags/docker/" style="font-size: 10px;">docker</a> <a href="/docs/tags/git/" style="font-size: 15px;">git</a> <a href="/docs/tags/java/" style="font-size: 10px;">java</a> <a href="/docs/tags/redis/" style="font-size: 20px;">redis</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -301,19 +469,23 @@
       <ul>
         
           <li>
+            <a href="/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">redis批量删除key</a>
+          </li>
+        
+          <li>
+            <a href="/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/">redis集群</a>
+          </li>
+        
+          <li>
+            <a href="/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/">redis安装</a>
+          </li>
+        
+          <li>
             <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/">hexo搭建github博客</a>
           </li>
         
           <li>
             <a href="/docs/2021/12/21/git/">git</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2021/12/21/docker/">docker</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2021/12/21/java-lamda/">java lamda</a>
           </li>
         
       </ul>
