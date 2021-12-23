@@ -487,7 +487,15 @@ java通过dump生成内存分析的文件，再通过eclipse memory analyzer工�
 <p>java通过dump生成内存分析的文件，再通过eclipse memory analyzer工具分析定位。</p>
 <h5 id="1-1-启动时添加">1.1.启动时添加</h5>
 <p>启动jar包时添加红字部分，便于通过jvm监控工具链接程序，并进行内存监控。</p>
-<pre class="line-numbers language-none"><code class="language-none">java -jar -Dspring.profiles.active&#x3D;$&#123;PROFILE&#125; -Djava.rmi.server.hostname&#x3D;$&#123;IP&#125; -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port&#x3D;1099 -Dcom.sun.management.jmxremote.rmi.port&#x3D;1099 -Dcom.sun.management.jmxremote.authenticate&#x3D;false -Dcom.sun.management.jmxremote.ssl&#x3D;false bill.1.0.0.jar<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">java -jar \
+-Dspring.profiles.active&#x3D;$&#123;PROFILE&#125; \
+-Djava.rmi.server.hostname&#x3D;$&#123;IP&#125; \
+-Dcom.sun.management.jmxremote \
+-Dcom.sun.management.jmxremote.port&#x3D;1099 \
+-Dcom.sun.management.jmxremote.rmi.port&#x3D;1099 \
+-Dcom.sun.management.jmxremote.authenticate&#x3D;false \
+-Dcom.sun.management.jmxremote.ssl&#x3D;false \
+bill.1.0.0.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="1-2-jvm监控工具">1.2.jvm监控工具</h5>
 <p>C:\Program Files (x86)\Java\jdk1.8.0_191\bin\jvisualvm.exe</p>
 <h6 id="1）添加要监控的服务器">1）添加要监控的服务器</h6>
@@ -504,7 +512,8 @@ java通过dump生成内存分析的文件，再通过eclipse memory analyzer工�
 <p><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-06.png" alt></p>
 <h4 id="2-通过arthas在线查看">2.通过arthas在线查看</h4>
 <p>arthas服务端</p>
-<pre class="line-numbers language-none"><code class="language-none">docker exec -i provider-auth &#x2F;bin&#x2F;sh -c &#39;java -jar &#x2F;opt&#x2F;arthas&#x2F;arthas-boot.jar 6 --attach-only --session-timeout&#x3D;31536000 --tunnel-server ws:&#x2F;&#x2F;172.19.115.12:7777&#x2F;ws --agent-id 172.19.115.8&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">docker exec -i provider-auth \
+&#x2F;bin&#x2F;sh -c &#39;java -jar &#x2F;opt&#x2F;arthas&#x2F;arthas-boot.jar 6 --attach-only --session-timeout&#x3D;31536000 --tunnel-server ws:&#x2F;&#x2F;172.19.115.12:7777&#x2F;ws --agent-id 172.19.115.8&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>手工调试：</p>
 <pre class="line-numbers language-none"><code class="language-none">docker exec -it provider-auth sh
 
@@ -721,7 +730,7 @@ thread -n 3 # 查看前3个占用cpu最高的线程</p>
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
                         <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
