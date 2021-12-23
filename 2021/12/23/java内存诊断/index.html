@@ -33,8 +33,7 @@ java通过dump生成内存分析的文件，再通过eclipse memory analyzer工�
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -475,6 +474,9 @@ java通过dump生成内存分析的文件，再通过eclipse memory analyzer工�
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -485,8 +487,7 @@ java通过dump生成内存分析的文件，再通过eclipse memory analyzer工�
 <p>java通过dump生成内存分析的文件，再通过eclipse memory analyzer工具分析定位。</p>
 <h5 id="1-1-启动时添加">1.1.启动时添加</h5>
 <p>启动jar包时添加红字部分，便于通过jvm监控工具链接程序，并进行内存监控。</p>
-<pre><code>java -jar -Dspring.profiles.active=$&#123;PROFILE&#125; -Djava.rmi.server.hostname=$&#123;IP&#125; -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.rmi.port=1099 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false bill.1.0.0.jar
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">java -jar -Dspring.profiles.active&#x3D;$&#123;PROFILE&#125; -Djava.rmi.server.hostname&#x3D;$&#123;IP&#125; -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port&#x3D;1099 -Dcom.sun.management.jmxremote.rmi.port&#x3D;1099 -Dcom.sun.management.jmxremote.authenticate&#x3D;false -Dcom.sun.management.jmxremote.ssl&#x3D;false bill.1.0.0.jar<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="1-2-jvm监控工具">1.2.jvm监控工具</h5>
 <p>C:\Program Files (x86)\Java\jdk1.8.0_191\bin\jvisualvm.exe</p>
 <h6 id="1）添加要监控的服务器">1）添加要监控的服务器</h6>
@@ -503,13 +504,11 @@ java通过dump生成内存分析的文件，再通过eclipse memory analyzer工�
 <p><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-06.png" alt></p>
 <h4 id="2-通过arthas在线查看">2.通过arthas在线查看</h4>
 <p>arthas服务端</p>
-<pre><code>docker exec -i provider-auth /bin/sh -c 'java -jar /opt/arthas/arthas-boot.jar 6 --attach-only --session-timeout=31536000 --tunnel-server ws://172.19.115.12:7777/ws --agent-id 172.19.115.8'
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">docker exec -i provider-auth &#x2F;bin&#x2F;sh -c &#39;java -jar &#x2F;opt&#x2F;arthas&#x2F;arthas-boot.jar 6 --attach-only --session-timeout&#x3D;31536000 --tunnel-server ws:&#x2F;&#x2F;172.19.115.12:7777&#x2F;ws --agent-id 172.19.115.8&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>手工调试：</p>
-<pre><code>docker exec -it provider-auth sh
+<pre class="line-numbers language-none"><code class="language-none">docker exec -it provider-auth sh
 
-java -jar /opt/arthas/arthas-boot.jar 6
-</code></pre>
+java -jar &#x2F;opt&#x2F;arthas&#x2F;arthas-boot.jar 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>–attach-only # 表示非交互式启动<br>
 –tunnel-server # 表示tunnel-server地址和端口<br>
 –agent-id # 表示当前arthas的标识</p>
@@ -873,8 +872,6 @@ thread -n 3 # 查看前3个占用cpu最高的线程</p>
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

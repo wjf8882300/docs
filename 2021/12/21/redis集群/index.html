@@ -35,8 +35,7 @@ node3: 172.19.192.179:6381
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -477,6 +476,9 @@ node3: 172.19.192.179:6381
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -487,12 +489,12 @@ node3: 172.19.192.179:6381
 node1: 172.19.192.179:6379<br>
 node2: 172.19.192.179:6380<br>
 node3: 172.19.192.179:6381</p>
-<pre><code># node1: 172.19.192.179:6379
-docker run -d --name redis-node1 -p 6379:6379 -v /data/redis/node1:/data redis:5.0.5
+<pre class="line-numbers language-none"><code class="language-none"># node1: 172.19.192.179:6379
+docker run -d --name redis-node1 -p 6379:6379 -v &#x2F;data&#x2F;redis&#x2F;node1:&#x2F;data redis:5.0.5
 # node2: 172.19.192.179:6380
-docker run -d --name redis-node2 -p 6380:6379 -v /data/redis/node2:/data redis:5.0.5
+docker run -d --name redis-node2 -p 6380:6379 -v &#x2F;data&#x2F;redis&#x2F;node2:&#x2F;data redis:5.0.5
 # node3: 172.19.192.179:6381
-docker run -d --name redis-node3 -p 6381:6379 -v /data/redis/node3:/data redis:5.0.5
+docker run -d --name redis-node3 -p 6381:6379 -v &#x2F;data&#x2F;redis&#x2F;node3:&#x2F;data redis:5.0.5
 
 # node2上执行
 docker exec -it redis-node2 redis-cli
@@ -507,11 +509,10 @@ docker exec -it redis-node3 redis-cli
 OK
 127.0.0.1:6379&gt; slaveof 172.19.192.179 6379
 OK
-
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="cluster集群">cluster集群</h4>
 <h5 id="1-编写redis-cluster-tmpl">1.编写redis-cluster.tmpl</h5>
-<pre><code># redis端口
+<pre class="line-numbers language-none"><code class="language-none"># redis端口
 port $&#123;PORT&#125;
 # 设置密码
 requirepass n2dasUhH0Iziq18Z
@@ -538,34 +539,32 @@ no-appendfsync-on-rewrite no
 # 当目前aof文件大小超过上一次重写时的aof文件大小的100%时会再次进行重写
 auto-aof-rewrite-percentage 100
 # 重写前AOF文件的大小最小值 默认 64mb
-auto-aof-rewrite-min-size 64mb
-</code></pre>
+auto-aof-rewrite-min-size 64mb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="2-编写redis-cluster-config-sh"><a target="_blank" rel="noopener" href="http://2.xn--redis-cluster-config-v596ay077d.sh">2.编写redis-cluster-config.sh</a></h5>
-<pre><code>for port in `seq 7001 7006`; do \
-  mkdir -p ./redis-cluster/$&#123;port&#125;/conf \
-  &amp;&amp; PORT=$&#123;port&#125; envsubst &lt; ./redis-cluster.tmpl &gt; ./redis-cluster/$&#123;port&#125;/conf/redis.conf \
-  &amp;&amp; mkdir -p ./redis-cluster/$&#123;port&#125;/data; \
-done
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">for port in &#96;seq 7001 7006&#96;; do \
+  mkdir -p .&#x2F;redis-cluster&#x2F;$&#123;port&#125;&#x2F;conf \
+  &amp;&amp; PORT&#x3D;$&#123;port&#125; envsubst &lt; .&#x2F;redis-cluster.tmpl &gt; .&#x2F;redis-cluster&#x2F;$&#123;port&#125;&#x2F;conf&#x2F;redis.conf \
+  &amp;&amp; mkdir -p .&#x2F;redis-cluster&#x2F;$&#123;port&#125;&#x2F;data; \
+done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="3-执行redis-cluster-config-sh创建集群所需目录">3.执行redis-cluster-config.sh创建集群所需目录</h5>
 <h5 id="4-编写docker-compose-yaml">4.编写docker-compose.yaml</h5>
-<pre><code>version: '2.2'
+<pre class="line-numbers language-none"><code class="language-none">version: &#39;2.2&#39;
  
 services:
   redis7001:
-    image: 'redis'
+    image: &#39;redis&#39;
     container_name: redis7001
     command:
-      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]
+      [&quot;redis-server&quot;, &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf&quot;]
     volumes:
-      - ./redis-cluster/7001/conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis-cluster/7001/data:/data
+      - .&#x2F;redis-cluster&#x2F;7001&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf
+      - .&#x2F;redis-cluster&#x2F;7001&#x2F;data:&#x2F;data
     ports:
       - &quot;7001:7001&quot;
       - &quot;17001:17001&quot;
     environment:
       # 设置时区为上海，否则时间会有问题
-      - TZ=Asia/Shanghai
+      - TZ&#x3D;Asia&#x2F;Shanghai
     logging:
       driver: &quot;json-file&quot;
       options:
@@ -575,19 +574,19 @@ services:
          
  
   redis7002:
-    image: 'redis'
+    image: &#39;redis&#39;
     container_name: redis7002
     command:
-      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]
+      [&quot;redis-server&quot;, &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf&quot;]
     volumes:
-      - ./redis-cluster/7002/conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis-cluster/7002/data:/data
+      - .&#x2F;redis-cluster&#x2F;7002&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf
+      - .&#x2F;redis-cluster&#x2F;7002&#x2F;data:&#x2F;data
     ports:
       - &quot;7002:7002&quot;
       - &quot;17002:17002&quot;
     environment:
       # 设置时区为上海，否则时间会有问题
-      - TZ=Asia/Shanghai
+      - TZ&#x3D;Asia&#x2F;Shanghai
     logging:
       driver: &quot;json-file&quot;
       options:
@@ -595,19 +594,19 @@ services:
         max-file: &quot;3&quot;  
  
   redis7003:
-    image: 'redis'
+    image: &#39;redis&#39;
     container_name: redis7003
     command:
-      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]
+      [&quot;redis-server&quot;, &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf&quot;]
     volumes:
-      - ./redis-cluster/7003/conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis-cluster/7003/data:/data
+      - .&#x2F;redis-cluster&#x2F;7003&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf
+      - .&#x2F;redis-cluster&#x2F;7003&#x2F;data:&#x2F;data
     ports:
       - &quot;7003:7003&quot;
       - &quot;17003:17003&quot;
     environment:
       # 设置时区为上海，否则时间会有问题
-      - TZ=Asia/Shanghai
+      - TZ&#x3D;Asia&#x2F;Shanghai
     logging:
       driver: &quot;json-file&quot;
       options:
@@ -615,19 +614,19 @@ services:
         max-file: &quot;3&quot;    
        
   redis7004:
-    image: 'redis'
+    image: &#39;redis&#39;
     container_name: redis7004
     command:
-      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]
+      [&quot;redis-server&quot;, &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf&quot;]
     volumes:
-      - ./redis-cluster/7004/conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis-cluster/7004/data:/data
+      - .&#x2F;redis-cluster&#x2F;7004&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf
+      - .&#x2F;redis-cluster&#x2F;7004&#x2F;data:&#x2F;data
     ports:
       - &quot;7004:7004&quot;
       - &quot;17004:17004&quot;
     environment:
       # 设置时区为上海，否则时间会有问题
-      - TZ=Asia/Shanghai
+      - TZ&#x3D;Asia&#x2F;Shanghai
     logging:
       driver: &quot;json-file&quot;
       options:
@@ -635,19 +634,19 @@ services:
         max-file: &quot;3&quot;  
  
   redis7005:
-    image: 'redis'
+    image: &#39;redis&#39;
     container_name: redis7005
     command:
-      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]
+      [&quot;redis-server&quot;, &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf&quot;]
     volumes:
-      - ./redis-cluster/7005/conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis-cluster/7005/data:/data
+      - .&#x2F;redis-cluster&#x2F;7005&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf
+      - .&#x2F;redis-cluster&#x2F;7005&#x2F;data:&#x2F;data
     ports:
       - &quot;7005:7005&quot;
       - &quot;17005:17005&quot;
     environment:
       # 设置时区为上海，否则时间会有问题
-      - TZ=Asia/Shanghai
+      - TZ&#x3D;Asia&#x2F;Shanghai
     logging:
       driver: &quot;json-file&quot;
       options:
@@ -655,35 +654,30 @@ services:
         max-file: &quot;3&quot;   
  
   redis7006:
-    image: 'redis'
+    image: &#39;redis&#39;
     container_name: redis7006
     command:
-      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]
+      [&quot;redis-server&quot;, &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf&quot;]
     volumes:
-      - ./redis-cluster/7006/conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis-cluster/7006/data:/data
+      - .&#x2F;redis-cluster&#x2F;7006&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf
+      - .&#x2F;redis-cluster&#x2F;7006&#x2F;data:&#x2F;data
     ports:
       - &quot;7006:7006&quot;
       - &quot;17006:17006&quot;
     environment:
       # 设置时区为上海，否则时间会有问题
-      - TZ=Asia/Shanghai   
+      - TZ&#x3D;Asia&#x2F;Shanghai   
     logging:
       driver: &quot;json-file&quot;
       options:
         max-size: &quot;100m&quot;
-        max-file: &quot;3&quot;
-</code></pre>
+        max-file: &quot;3&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="5-启动redis集群容器">5.启动redis集群容器</h5>
-<pre><code>docker-compose up -d
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">docker-compose up -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="6-执行命令完成集群配置">6.执行命令完成集群配置</h5>
-<pre><code>docker exec -it redis7001 redis-cli -p 7001 -a n2dasUhH0Iziq18Z --cluster create 172.19.192.179:7001 172.19.192.179:7002 172.19.192.179:7003 172.19.192.179:7004 172.19.192.179:7005 172.19.192.179:7006 --cluster-replicas 1
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">docker exec -it redis7001 redis-cli -p 7001 -a n2dasUhH0Iziq18Z --cluster create 172.19.192.179:7001 172.19.192.179:7002 172.19.192.179:7003 172.19.192.179:7004 172.19.192.179:7005 172.19.192.179:7006 --cluster-replicas 1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="7-测试集群">7.测试集群</h5>
-<pre><code>docker exec -it redis7001 redis-cli -h 172.19.192.179 -p 7005 -a n2dasUhH0Iziq18Z ping
-</code></pre>
-
+<pre class="line-numbers language-none"><code class="language-none">docker exec -it redis7001 redis-cli -h 172.19.192.179 -p 7005 -a n2dasUhH0Iziq18Z ping<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -1027,8 +1021,6 @@ services:
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

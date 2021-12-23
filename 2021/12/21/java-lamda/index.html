@@ -8,11 +8,10 @@
     <meta name="description" content="java lamda
 @Data
 class User &amp;#123;
-   /** 用户id */
+   &amp;#x2F;** 用户id *&amp;#x2F;
    private String id;
-   /** 用户姓名 */
-   private String name;
-   /** 性别">
+   &amp;#x2F;** 用户姓名 *&amp;#x2F;
+   private St">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -37,8 +36,7 @@ class User &amp;#123;
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -479,34 +477,37 @@ class User &amp;#123;
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="java-lamda">java lamda</h4>
-<pre><code>@Data
+<pre class="line-numbers language-none"><code class="language-none">@Data
 class User &#123;
-   /** 用户id */
+   &#x2F;** 用户id *&#x2F;
    private String id;
-   /** 用户姓名 */
+   &#x2F;** 用户姓名 *&#x2F;
    private String name;
-   /** 性别:0-男/1-女 */
+   &#x2F;** 性别:0-男&#x2F;1-女 *&#x2F;
    private String sex;
-   /** 年龄 */
+   &#x2F;** 年龄 *&#x2F;
    private Integer age;
 &#125;
  
 @Data
 class UserSum &#123;
-   /** 性别:0-男/1-女 */
+   &#x2F;** 性别:0-男&#x2F;1-女 *&#x2F;
    private String sex;
-   /** 年龄 */
+   &#x2F;** 年龄 *&#x2F;
    private Integer age;
  
     public UserSum (String sex, Integer age) &#123;
-            this.sex= sex;
-            this.age= age;
+            this.sex&#x3D; sex;
+            this.age&#x3D; age;
         &#125;
  
         @Override
@@ -516,16 +517,16 @@ class UserSum &#123;
  
         @Override
         public boolean equals(Object obj) &#123;
-            if(obj == null) &#123;
+            if(obj &#x3D;&#x3D; null) &#123;
                 return false;
             &#125;
             if(!(obj instanceof UserSum)) &#123;
                 return false;
             &#125;
-            if(obj == this) &#123;
+            if(obj &#x3D;&#x3D; this) &#123;
                 return  true;
             &#125;
-            UserSum o = (UserSum)obj;
+            UserSum o &#x3D; (UserSum)obj;
             return this.sex.equals(o.sex) &amp;&amp; this.age.equals(o.age);
         &#125;
  
@@ -537,90 +538,89 @@ class UserSum &#123;
  
 List&lt;User&gt; userList;
  
-// 循环
+&#x2F;&#x2F; 循环
 userList.foreach(m-&gt;&#123;
-   // do something
+   &#x2F;&#x2F; do something
 &#125;);
  
-// 过滤（筛选姓名为女的用户）
-List&lt;User&gt; list = userList.stream().filter(m-&gt;&quot;1&quot;.equals(m.getSex())).collect(Collectors.toList());
-// 两层过滤
-List&lt;UserRole&gt; list = userRoleList.stream().filter(m-&gt;userList.stream().filter(a-&gt;a.getId().equals(m.userId())).findFirst().isPresent()).collect(Collectors.toList());
+&#x2F;&#x2F; 过滤（筛选姓名为女的用户）
+List&lt;User&gt; list &#x3D; userList.stream().filter(m-&gt;&quot;1&quot;.equals(m.getSex())).collect(Collectors.toList());
+&#x2F;&#x2F; 两层过滤
+List&lt;UserRole&gt; list &#x3D; userRoleList.stream().filter(m-&gt;userList.stream().filter(a-&gt;a.getId().equals(m.userId())).findFirst().isPresent()).collect(Collectors.toList());
  
-// list值转换(获取对象某个字段)
-List&lt;String&gt; list = userList.stream().map(User::getId).collect(Collectors.toList());
-// list值转换（某个对象转为另一个对象）
-List&lt;UserVO&gt; list = messageList.stream().map(m-&gt;&#123;
-   UserVO userVO = new UserVO();
+&#x2F;&#x2F; list值转换(获取对象某个字段)
+List&lt;String&gt; list &#x3D; userList.stream().map(User::getId).collect(Collectors.toList());
+&#x2F;&#x2F; list值转换（某个对象转为另一个对象）
+List&lt;UserVO&gt; list &#x3D; messageList.stream().map(m-&gt;&#123;
+   UserVO userVO &#x3D; new UserVO();
    userVO.setId(m.getId());
    return userVO;
 &#125;).collect(Collectors.toList());
  
-// list转map
-Map&lt;String, String&gt; users = userList.stream().collect(Collectors.toMap(User::getId, User::getName));
-Map&lt;String, User&gt; users = userList.stream().collect(Collectors.toMap(User::getName, Function.identity()));
-Map&lt;String, String&gt; users = userList.stream().collect(Collectors.toMap(User::getId, u-&gt;u.getAge().toString())); // 类型转换
- // 解决key值重复
-Map&lt;String, User&gt; users = userList.stream().collect(Collectors.toMap(User::getName, Function.identity(), (key1, key2) -&gt; key2));
+&#x2F;&#x2F; list转map
+Map&lt;String, String&gt; users &#x3D; userList.stream().collect(Collectors.toMap(User::getId, User::getName));
+Map&lt;String, User&gt; users &#x3D; userList.stream().collect(Collectors.toMap(User::getName, Function.identity()));
+Map&lt;String, String&gt; users &#x3D; userList.stream().collect(Collectors.toMap(User::getId, u-&gt;u.getAge().toString())); &#x2F;&#x2F; 类型转换
+ &#x2F;&#x2F; 解决key值重复
+Map&lt;String, User&gt; users &#x3D; userList.stream().collect(Collectors.toMap(User::getName, Function.identity(), (key1, key2) -&gt; key2));
  
-// map转list
-List&lt;User&gt; userList = map.entrySet().stream().map(e -&gt; new User(e.getKey(),e.getValue())).collect(Collectors.toList());
+&#x2F;&#x2F; map转list
+List&lt;User&gt; userList &#x3D; map.entrySet().stream().map(e -&gt; new User(e.getKey(),e.getValue())).collect(Collectors.toList());
  
-// list去重
-List&lt;User&gt; userList = users.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparing(user -&gt;user.getName()))), ArrayList::new));
+&#x2F;&#x2F; list去重
+List&lt;User&gt; userList &#x3D; users.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparing(user -&gt;user.getName()))), ArrayList::new));
  
-// 分组
-Map&lt;String, List&lt;User&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(User::getSex));
-Map&lt;String, List&lt;User&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(m-&gt;Integer.value(m.getSex())));
-Map&lt;String, List&lt;String&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(User::getSex, Collectors.mapping(User::getId, Collectors.toList())));
-// 分组并对key排序
-TreeMap&lt;String, List&lt;User&gt;&gt;  map = list.stream().collect(Collectors.groupingBy(User::getSex, TreeMap::new, Collectors.toList()));
-// 多条件分组
-// 方式一
-Map&lt;String, Map&lt;String, List&lt;User&gt;&gt;&gt; collect = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName)));
-// 方式二
-Map&lt;UserSum, List&lt;User&gt;&gt; collect1 = list.stream().collect(Collectors.groupingBy(um -&gt; new UserSum(um.getSex(), um.getName())));
-// 分组求和, BigDecimal可以用Collectors.reducing(BigDecimal.ZERO, User::getAge, BigDecimal::add)
-Map&lt;String, Map&lt;String, Integer&gt;&gt; collect2 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName, Collectors.summarizingInt(User::getAge))));
-// 求每组最大值（返回对象）
-Map&lt;String, User&gt; collect4 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(User::getAge)), Optional::get)));
-// 求每组最大值（返回值）
-Map&lt;String, Integer&gt; collect5 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.reducing(0, User::getAge, Integer::max)));
-// 求平均数
-Map&lt;String, Double&gt; collect8 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.averagingInt(User::getAge)));
-// 获取年龄小于30岁的（having group by ）
-Map&lt;Long, Long&gt; collect = result.stream().collect(Collectors.collectingAndThen(Collectors.groupingBy(User::getAge, Collectors.counting()), m -&gt; &#123;
-                m.values().removeIf(v -&gt; v &gt;= 30);
+&#x2F;&#x2F; 分组
+Map&lt;String, List&lt;User&gt;&gt; map &#x3D; userList.parallelStream().collect(Collectors.groupingBy(User::getSex));
+Map&lt;String, List&lt;User&gt;&gt; map &#x3D; userList.parallelStream().collect(Collectors.groupingBy(m-&gt;Integer.value(m.getSex())));
+Map&lt;String, List&lt;String&gt;&gt; map &#x3D; userList.parallelStream().collect(Collectors.groupingBy(User::getSex, Collectors.mapping(User::getId, Collectors.toList())));
+&#x2F;&#x2F; 分组并对key排序
+TreeMap&lt;String, List&lt;User&gt;&gt;  map &#x3D; list.stream().collect(Collectors.groupingBy(User::getSex, TreeMap::new, Collectors.toList()));
+&#x2F;&#x2F; 多条件分组
+&#x2F;&#x2F; 方式一
+Map&lt;String, Map&lt;String, List&lt;User&gt;&gt;&gt; collect &#x3D; list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName)));
+&#x2F;&#x2F; 方式二
+Map&lt;UserSum, List&lt;User&gt;&gt; collect1 &#x3D; list.stream().collect(Collectors.groupingBy(um -&gt; new UserSum(um.getSex(), um.getName())));
+&#x2F;&#x2F; 分组求和, BigDecimal可以用Collectors.reducing(BigDecimal.ZERO, User::getAge, BigDecimal::add)
+Map&lt;String, Map&lt;String, Integer&gt;&gt; collect2 &#x3D; list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName, Collectors.summarizingInt(User::getAge))));
+&#x2F;&#x2F; 求每组最大值（返回对象）
+Map&lt;String, User&gt; collect4 &#x3D; list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(User::getAge)), Optional::get)));
+&#x2F;&#x2F; 求每组最大值（返回值）
+Map&lt;String, Integer&gt; collect5 &#x3D; list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.reducing(0, User::getAge, Integer::max)));
+&#x2F;&#x2F; 求平均数
+Map&lt;String, Double&gt; collect8 &#x3D; list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.averagingInt(User::getAge)));
+&#x2F;&#x2F; 获取年龄小于30岁的（having group by ）
+Map&lt;Long, Long&gt; collect &#x3D; result.stream().collect(Collectors.collectingAndThen(Collectors.groupingBy(User::getAge, Collectors.counting()), m -&gt; &#123;
+                m.values().removeIf(v -&gt; v &gt;&#x3D; 30);
                 return m;
             &#125;));
  
-// 排序
-// 反序排序
-List&lt;User&gt; list = userList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-// 按照某个字段排序（默认正序）
-List&lt;User&gt; collect = users.stream().sorted(Comparator.comparing(User::getName)).collect(Collectors.toList());
-// 按照某个字段排序（倒叙）
-List&lt;User&gt; collect = users.stream().sorted(Comparator.comparing(User::getName).reversed()).collect(Collectors.toList());
-// 某个字段处理后再排序
+&#x2F;&#x2F; 排序
+&#x2F;&#x2F; 反序排序
+List&lt;User&gt; list &#x3D; userList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+&#x2F;&#x2F; 按照某个字段排序（默认正序）
+List&lt;User&gt; collect &#x3D; users.stream().sorted(Comparator.comparing(User::getName)).collect(Collectors.toList());
+&#x2F;&#x2F; 按照某个字段排序（倒叙）
+List&lt;User&gt; collect &#x3D; users.stream().sorted(Comparator.comparing(User::getName).reversed()).collect(Collectors.toList());
+&#x2F;&#x2F; 某个字段处理后再排序
 Collections.sort(userList, (o1, o2)-&gt;Integer.valueOf(o1.getId()).compareTo(Integer.valueOf(o2.getId())));
-// 多字段排序先根据性别正序排序，再根据姓名倒叙排序
-List&lt;User&gt; collection = users.stream().sorted(Comparator.comparing(User::getSex).thenComparing(User::getName).reversed()).collect(Collectors.toList());
+&#x2F;&#x2F; 多字段排序先根据性别正序排序，再根据姓名倒叙排序
+List&lt;User&gt; collection &#x3D; users.stream().sorted(Comparator.comparing(User::getSex).thenComparing(User::getName).reversed()).collect(Collectors.toList());
  
-// 求最大值、最小值
-Integer max = list.stream().map(User::getAge).max(Integer::compareTo).get();
-Integer min= list.stream().map(User::getAge).min(Integer::compareTo).get();
- 
- 
-// 分页，从0开始取前5条
-List&lt;User&gt; collection = list.stream().skip(0).limit(5).collect(Collectors.toList());
- 
-// 初始化map
-Map&lt;String, String&gt; events = new ImmutableMap.Builder&lt;String, String&gt;().put(&quot;abc&quot;, &quot;123&quot;).build();    
+&#x2F;&#x2F; 求最大值、最小值
+Integer max &#x3D; list.stream().map(User::getAge).max(Integer::compareTo).get();
+Integer min&#x3D; list.stream().map(User::getAge).min(Integer::compareTo).get();
  
  
-//String 字符串转换list&lt;Integer&gt;类型
-List&lt;Integer&gt; channels = Arrays.stream(ids.split(&quot;,&quot;)).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-</code></pre>
+&#x2F;&#x2F; 分页，从0开始取前5条
+List&lt;User&gt; collection &#x3D; list.stream().skip(0).limit(5).collect(Collectors.toList());
+ 
+&#x2F;&#x2F; 初始化map
+Map&lt;String, String&gt; events &#x3D; new ImmutableMap.Builder&lt;String, String&gt;().put(&quot;abc&quot;, &quot;123&quot;).build();    
+ 
+ 
+&#x2F;&#x2F;String 字符串转换list&lt;Integer&gt;类型
+List&lt;Integer&gt; channels &#x3D; Arrays.stream(ids.split(&quot;,&quot;)).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -966,8 +966,6 @@ List&lt;Integer&gt; channels = Arrays.stream(ids.split(&quot;,&quot;)).mapToInt(
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

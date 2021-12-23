@@ -7,11 +7,10 @@
     <meta name="keywords" content="redis批量删除key, docker linux java database blockchain">
     <meta name="description" content="比如删除com:uecent:udata:basketball*
 python3 redis_delete.py -d 3 -k com:uecent:udata:basketball
-
 参数说明：
 -d 表示第几个数据库
 -k 表示前缀
-">
+r">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -36,8 +35,7 @@ python3 redis_delete.py -d 3 -k com:uecent:udata:basketball
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -478,67 +476,67 @@ python3 redis_delete.py -d 3 -k com:uecent:udata:basketball
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>比如删除com:uecent:udata:basketball*</p>
-<pre><code>python3 redis_delete.py -d 3 -k com:uecent:udata:basketball
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">python3 redis_delete.py -d 3 -k com:uecent:udata:basketball<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>参数说明：<br>
 -d 表示第几个数据库<br>
 -k 表示前缀</p>
 <p>redis_delete.py源码</p>
-<pre><code># -*- coding:UTF-8 -*-
+<pre class="line-numbers language-none"><code class="language-none"># -*- coding:UTF-8 -*-
 import redis
 import sys
 import getopt
  
 ############################################
 # example:
-# delete db0: python3 redis_delete.py  -k 'udata.climb' -d 0
-# delete db1: python3 redis_delete.py  -k 'udata.climb' -d 1
+# delete db0: python3 redis_delete.py  -k &#39;udata.climb&#39; -d 0
+# delete db1: python3 redis_delete.py  -k &#39;udata.climb&#39; -d 1
 ############################################
  
-host = '127.0.0.1'
-port = '6379'
-password = 'n2dasUhH0Iziq18Z'
+host &#x3D; &#39;127.0.0.1&#39;
+port &#x3D; &#39;6379&#39;
+password &#x3D; &#39;n2dasUhH0Iziq18Z&#39;
  
 def delete(key, database):
-    r = redis.Redis(host=host, port=port, db=database, password=password, decode_responses=True)
-    list_keys = r.keys(&quot;%s*&quot; % key)
+    r &#x3D; redis.Redis(host&#x3D;host, port&#x3D;port, db&#x3D;database, password&#x3D;password, decode_responses&#x3D;True)
+    list_keys &#x3D; r.keys(&quot;%s*&quot; % key)
  
     for key in list_keys:
         r.delete(key)
  
-if __name__ == &quot;__main__&quot;:
-    root_path = &quot;&quot;
-    is_rename = True
+if __name__ &#x3D;&#x3D; &quot;__main__&quot;:
+    root_path &#x3D; &quot;&quot;
+    is_rename &#x3D; True
  
-    argv = sys.argv[1:]
+    argv &#x3D; sys.argv[1:]
     if len(argv) &lt; 1:
-        print('redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;')
+        print(&#39;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#39;)
         sys.exit()
  
     # 获取命令行参数
     try:
-        opts, args = getopt.getopt(argv, &quot;hk:d:&quot;, [&quot;kKey=&quot;, &quot;dDatabase=&quot;])
+        opts, args &#x3D; getopt.getopt(argv, &quot;hk:d:&quot;, [&quot;kKey&#x3D;&quot;, &quot;dDatabase&#x3D;&quot;])
     except getopt.GetoptError:
-        print('redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;')
+        print(&#39;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#39;)
         sys.exit(2)
  
     for opt, arg in opts:
-        if opt == '-h':
-            print('redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;')
+        if opt &#x3D;&#x3D; &#39;-h&#39;:
+            print(&#39;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#39;)
             sys.exit()
         elif opt in (&quot;-k&quot;, &quot;--kKey&quot;):
-            key = arg
+            key &#x3D; arg
         elif opt in (&quot;-d&quot;, &quot;--dDatabase&quot;):
-            database = arg
-    delete(key, int(database))
-</code></pre>
-
+            database &#x3D; arg
+    delete(key, int(database))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -882,8 +880,6 @@ if __name__ == &quot;__main__&quot;:
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

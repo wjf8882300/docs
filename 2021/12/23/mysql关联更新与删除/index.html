@@ -8,9 +8,9 @@
     <meta name="description" content="1.更新子查询语法：
 UPDATE ycd_t_match_term t
 INNER JOIN (
-    SELECT r.`term_id`,
+    SELECT r.&amp;#96;term_id&amp;#96;,
         DATE_ADD(
-        MAX(m.`start_date`),">
+        MAX(m.&amp;#96;s">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -35,8 +35,7 @@ INNER JOIN (
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -477,42 +476,42 @@ INNER JOIN (
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="1-更新子查询语法：">1.更新子查询语法：</h4>
-<pre><code>UPDATE ycd_t_match_term t
+<pre class="line-numbers language-none"><code class="language-none">UPDATE ycd_t_match_term t
 INNER JOIN (
-    SELECT r.`term_id`,
+    SELECT r.&#96;term_id&#96;,
         DATE_ADD(
-        MAX(m.`start_date`),
+        MAX(m.&#96;start_date&#96;),
         INTERVAL 4 HOUR
         ) max_start_date
     FROM ycd_t_term_match_relation r, ycd_t_match m
-    WHERE r.`match_id` = m.id
-    GROUP BY r.`term_id`
-) a ON a.term_id = t.`id`
-SET t.`settlement_date` = a.max_start_date
-WHERE t.`settlement_date` IS NULL;
-</code></pre>
+    WHERE r.&#96;match_id&#96; &#x3D; m.id
+    GROUP BY r.&#96;term_id&#96;
+) a ON a.term_id &#x3D; t.&#96;id&#96;
+SET t.&#96;settlement_date&#96; &#x3D; a.max_start_date
+WHERE t.&#96;settlement_date&#96; IS NULL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-删除子查询语法：">2.删除子查询语法：</h4>
-<pre><code>DELETE d FROM ycd_t_user_activity d
+<pre class="line-numbers language-none"><code class="language-none">DELETE d FROM ycd_t_user_activity d
 WHERE d.id IN (
 SELECT id
 FROM
 (
     SELECT a.id
     FROM ycd_t_user_activity a
-    WHERE a.id != (
+    WHERE a.id !&#x3D; (
         SELECT MIN(e.id)
         FROM ycd_t_user_activity e
-        WHERE e.`user_id` = a.user_id)
+        WHERE e.&#96;user_id&#96; &#x3D; a.user_id)
     ) AS X
-);
-</code></pre>
-
+);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -856,8 +855,6 @@ FROM
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

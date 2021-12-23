@@ -33,8 +33,7 @@ import com.yie">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -475,13 +474,16 @@ import com.yie">
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>访问日志在进入controller时才调用，若之前发生错误（如参数转换json对象时，参考spring-boot-原始报文日志），此处无法调用。</p>
-<pre><code>package com.yier.platform.aop;
+<pre class="line-numbers language-none"><code class="language-none">package com.yier.platform.aop;
  
 import com.yier.platform.common.po.medical.res.BaseMedicalRes;
 import com.yier.platform.common.util.JsonUtils;
@@ -499,39 +501,39 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class VisitLogIntercept &#123;
  
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger &#x3D; LoggerFactory.getLogger(getClass());
  
-    private static final int MAX_RESULT_LENGTH = 10000;
+    private static final int MAX_RESULT_LENGTH &#x3D; 10000;
  
-    /** 打印日志与响应时间 */
+    &#x2F;** 打印日志与响应时间 *&#x2F;
     @Around(&quot;within(com.yier.platform.controller..*Controller)&quot;)
     public Object around(ProceedingJoinPoint pjp) throws Throwable &#123;
-        long curTime = System.currentTimeMillis();
-        ServletRequestAttributes req = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String controller = pjp.getTarget().getClass().getName();
-        String method =  pjp.getSignature().getName();
-        Object args = WebUtil.getArgs(pjp.getArgs());
+        long curTime &#x3D; System.currentTimeMillis();
+        ServletRequestAttributes req &#x3D; (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        String controller &#x3D; pjp.getTarget().getClass().getName();
+        String method &#x3D;  pjp.getSignature().getName();
+        Object args &#x3D; WebUtil.getArgs(pjp.getArgs());
  
-        if(req == null || req.getRequest() == null)&#123;
+        if(req &#x3D;&#x3D; null || req.getRequest() &#x3D;&#x3D; null)&#123;
             return pjp.proceed();
         &#125;
  
-        if(args == null &amp;&amp; req.getRequest().getParameterMap() != null) &#123;
-            args = req.getRequest().getParameterMap();
+        if(args &#x3D;&#x3D; null &amp;&amp; req.getRequest().getParameterMap() !&#x3D; null) &#123;
+            args &#x3D; req.getRequest().getParameterMap();
         &#125;
         logger.info(&quot;IP：&#123;&#125;，类：&#123;&#125;，方法：&#123;&#125;，参数：&#123;&#125;&quot;, WebUtil.getHost(req.getRequest()), controller, method, JsonUtils.toJsonString(args));
-        Object result = pjp.proceed();
+        Object result &#x3D; pjp.proceed();
  
-        // 若返回结果超过1万，则截取前1万个字符打印（实测发现有超过100万的）
-        String strResult = &quot;&quot;;
-        if(result != null) &#123;
+        &#x2F;&#x2F; 若返回结果超过1万，则截取前1万个字符打印（实测发现有超过100万的）
+        String strResult &#x3D; &quot;&quot;;
+        if(result !&#x3D; null) &#123;
             if(result instanceof BaseMedicalRes) &#123;
-                strResult = JsonUtils.toJsonString(result);
+                strResult &#x3D; JsonUtils.toJsonString(result);
             &#125; else &#123;
-                strResult = result.toString();
+                strResult &#x3D; result.toString();
             &#125;
             if(strResult.length() &gt; MAX_RESULT_LENGTH) &#123;
-                strResult = strResult.substring(0, MAX_RESULT_LENGTH) + &quot;...&quot;;
+                strResult &#x3D; strResult.substring(0, MAX_RESULT_LENGTH) + &quot;...&quot;;
             &#125;
         &#125;
  
@@ -539,9 +541,8 @@ public class VisitLogIntercept &#123;
         return result;
     &#125;
  
-&#125;
-</code></pre>
-<pre><code>package com.yier.platform.common.util;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">package com.yier.platform.common.util;
  
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -558,82 +559,82 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
  
-/**
+&#x2F;**
  * Web层辅助工具类
  * @author zhimou.qu
  * @create 2018年7月12日
- */
+ *&#x2F;
 public class WebUtil &#123;
  
-    /** 获取当前ServletRequestAttributes */
+    &#x2F;** 获取当前ServletRequestAttributes *&#x2F;
     public static ServletRequestAttributes getCurServletRequestAttributes() &#123;
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     &#125;
  
-    /** 获取当前HttpServletRequest */
+    &#x2F;** 获取当前HttpServletRequest *&#x2F;
     public static HttpServletRequest getCurRequest() &#123;
         return getCurServletRequestAttributes().getRequest();
     &#125;
  
-    /** 获取当前HttpServletResponse */
+    &#x2F;** 获取当前HttpServletResponse *&#x2F;
     public static HttpServletResponse getCurResponse() &#123;
         return getCurServletRequestAttributes().getResponse();
     &#125;
  
-    /** 获取客户端IP */
+    &#x2F;** 获取客户端IP *&#x2F;
     public static final String getHost(HttpServletRequest request) &#123;
-        String ip = request.getHeader(&quot;X-Forwarded-For&quot;);
+        String ip &#x3D; request.getHeader(&quot;X-Forwarded-For&quot;);
         if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;
-            ip = request.getHeader(&quot;Proxy-Client-IP&quot;);
+            ip &#x3D; request.getHeader(&quot;Proxy-Client-IP&quot;);
         &#125;
         if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;
-            ip = request.getHeader(&quot;WL-Proxy-Client-IP&quot;);
+            ip &#x3D; request.getHeader(&quot;WL-Proxy-Client-IP&quot;);
         &#125;
         if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;
-            ip = request.getHeader(&quot;X-Real-IP&quot;);
+            ip &#x3D; request.getHeader(&quot;X-Real-IP&quot;);
         &#125;
         if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;
-            ip = request.getRemoteAddr();
+            ip &#x3D; request.getRemoteAddr();
         &#125;
         if (&quot;127.0.0.1&quot;.equals(ip)) &#123;
-            InetAddress inet = null;
+            InetAddress inet &#x3D; null;
             try &#123;
-                inet = InetAddress.getLocalHost();
+                inet &#x3D; InetAddress.getLocalHost();
             &#125; catch (UnknownHostException e) &#123;
                 e.printStackTrace();
             &#125;
-            ip = inet.getHostAddress();
+            ip &#x3D; inet.getHostAddress();
         &#125;
-        if (ip != null &amp;&amp; ip.length() &gt; 15) &#123;
+        if (ip !&#x3D; null &amp;&amp; ip.length() &gt; 15) &#123;
             if (ip.indexOf(&quot;,&quot;) &gt; 0) &#123;
-                ip = ip.substring(0, ip.indexOf(&quot;,&quot;));
+                ip &#x3D; ip.substring(0, ip.indexOf(&quot;,&quot;));
             &#125;
         &#125;
         return ip;
     &#125;
  
-    /**
+    &#x2F;**
      * 获取路径
      *
      * @author  wangjf
      * @date    2019年1月24日 下午5:20:22
      * @param request
      * @return
-     */
+     *&#x2F;
     public static final String getRequestPath(HttpServletRequest request) &#123;
         return request.getServletPath();
     &#125;
  
  
-    /**
+    &#x2F;**
      * 获取参数
      * @param args
      * @return
-     */
+     *&#x2F;
     public static final Object getArgs(Object args) &#123;
-        if(args != null) &#123;
+        if(args !&#x3D; null) &#123;
             if(args instanceof Object[]) &#123;
-                List&lt;Object&gt; argList = Lists.newArrayList();
+                List&lt;Object&gt; argList &#x3D; Lists.newArrayList();
                 for(Object object : (Object[])args)&#123;
                     if(isServletObject(object)) &#123;
                         continue;
@@ -641,31 +642,29 @@ public class WebUtil &#123;
                     argList.add(object);
                 &#125;
                 if(CollectionUtils.isEmpty(argList)) &#123;
-                    args = null;
+                    args &#x3D; null;
                 &#125; else &#123;
-                    args = argList.toArray();
+                    args &#x3D; argList.toArray();
                 &#125;
             &#125; else if(isServletObject(args)) &#123;
-                args = null;
+                args &#x3D; null;
             &#125;
         &#125;
         return args;
     &#125;
  
-    /**
+    &#x2F;**
      * 判断是否是servlet对象
      * @param object
      * @return
-     */
+     *&#x2F;
     private static boolean isServletObject(Object object) &#123;
         if(object instanceof Model || object instanceof HttpServletRequest || object instanceof ModelAndView || object instanceof MultipartFile) &#123;
             return true;
         &#125;
         return false;
     &#125;
-&#125;
-</code></pre>
-
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -1009,8 +1008,6 @@ public class WebUtil &#123;
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

@@ -9,8 +9,7 @@
 git config --global user.name &amp;quot;yourname&amp;quot;
 
 git config --global user.email &amp;quot;your@email.com&amp;quot;
-
-2.">
+2.g">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -35,8 +34,7 @@ git config --global user.email &amp;quot;your@email.com&amp;quot;
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -477,43 +475,41 @@ git config --global user.email &amp;quot;your@email.com&amp;quot;
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="1-全局配置">1.全局配置</h4>
-<pre><code>git config --global user.name &quot;yourname&quot;
+<pre class="line-numbers language-none"><code class="language-none">git config --global user.name &quot;yourname&quot;
 
-git config --global user.email &quot;your@email.com&quot;
-</code></pre>
+git config --global user.email &quot;your@email.com&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-git中添加ssh说明">2.git中添加ssh说明</h4>
-<pre class="line-numbers language-language-生成密钥"><code class="language-language-生成密钥">ssh-keygen -t rsa -C "wangjingfeng2008@163.com"
+<pre class="line-numbers language-生成密钥" data-language="生成密钥"><code class="language-生成密钥">ssh-keygen -t rsa -C &quot;wangjingfeng2008@163.com&quot;
 
 把专用密钥添加到 ssh-agent 的高速缓存中：
-ssh-add ~/.ssh/id_rsa
+ssh-add ~&#x2F;.ssh&#x2F;id_rsa
 
 如果在使用shh-add的时候提示：
 Could not open a connection to your authentication agent.
 
 则需手动开启ssh，如下；
-eval `ssh-agent -s`
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+eval &#96;ssh-agent -s&#96;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="3-删除远程分支">3.删除远程分支</h4>
-<pre><code>git branch -r -d origin/branch-name git push origin :branch-name
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">git branch -r -d origin&#x2F;branch-name git push origin :branch-name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="4-撤销未push的commit">4.撤销未push的commit</h4>
-<pre><code>git log git reset --hard commit_id
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">git log git reset --hard commit_id<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="5-翻墙">5.翻墙</h4>
-<pre><code>git config --global https.proxy http://127.0.0.1:1080
+<pre class="line-numbers language-none"><code class="language-none">git config --global https.proxy http:&#x2F;&#x2F;127.0.0.1:1080
 
-git config --global https.proxy https://127.0.0.1:1080
+git config --global https.proxy https:&#x2F;&#x2F;127.0.0.1:1080
 
 git config --global --unset http.proxy
 
-git config --global --unset https.proxy npm config delete proxy
-</code></pre>
+git config --global --unset https.proxy npm config delete proxy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -858,8 +854,6 @@ git config --global --unset https.proxy npm config delete proxy
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

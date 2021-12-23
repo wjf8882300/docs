@@ -6,13 +6,12 @@
     <meta charset="utf-8">
     <meta name="keywords" content="docker安装mysql, docker linux java database blockchain">
     <meta name="description" content="1、创建目录
-mkdir -p /data/usr-data
-
+mkdir -p &amp;#x2F;data&amp;#x2F;usr-data
 2、启动实例
 docker run -d \
---name=&amp;quot;mysql&amp;quot; \
+--name&amp;#x3D;&amp;quot;mysql&amp;quot; \
 --restart always \
--e MYSQL_ROOT_HOST=">
+-e MY">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -37,8 +36,7 @@ docker run -d \
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -479,32 +477,31 @@ docker run -d \
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="1、创建目录">1、创建目录</h4>
-<pre><code>mkdir -p /data/usr-data
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">mkdir -p &#x2F;data&#x2F;usr-data<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="2、启动实例">2、启动实例</h4>
-<pre><code>docker run -d \
---name=&quot;mysql&quot; \
+<pre class="line-numbers language-none"><code class="language-none">docker run -d \
+--name&#x3D;&quot;mysql&quot; \
 --restart always \
--e MYSQL_ROOT_HOST=% \
--e MYSQL_ROOT_PWD=KijVtGsAWN2hxLUu \
--v /data/usr-data:/data/usr-data \
+-e MYSQL_ROOT_HOST&#x3D;% \
+-e MYSQL_ROOT_PWD&#x3D;KijVtGsAWN2hxLUu \
+-v &#x2F;data&#x2F;usr-data:&#x2F;data&#x2F;usr-data \
 -p 3306:3306 \
-qq79428316/club-mysql:5.7.25
-</code></pre>
+qq79428316&#x2F;club-mysql:5.7.25<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="3、创建数据库和普通用户并分配权限">3、创建数据库和普通用户并分配权限</h4>
-<pre><code>CREATE DATABASE IF NOT EXISTS live DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+<pre class="line-numbers language-none"><code class="language-none">CREATE DATABASE IF NOT EXISTS live DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 
-CREATE USER 'dev-ue-live'@'%' IDENTIFIED BY 'fiJW6t9m27spYZd0';
+CREATE USER &#39;dev-ue-live&#39;@&#39;%&#39; IDENTIFIED BY &#39;fiJW6t9m27spYZd0&#39;;
 
-GRANT ALL ON live.* TO 'dev-ue-live'@'%';
-</code></pre>
-
+GRANT ALL ON live.* TO &#39;dev-ue-live&#39;@&#39;%&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -848,8 +845,6 @@ GRANT ALL ON live.* TO 'dev-ue-live'@'%';
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

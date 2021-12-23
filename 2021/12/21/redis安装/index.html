@@ -6,12 +6,11 @@
     <meta charset="utf-8">
     <meta name="keywords" content="redis安装, docker linux java database blockchain">
     <meta name="description" content="后端启动：
-./redis-server &amp;amp;
-
+.&amp;#x2F;redis-server &amp;amp;
 windows服务：
 # 注册redis服务
 redis-server --service-install redis.conf --service-name redis
-# 启动re">
+# ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -36,8 +35,7 @@ redis-server --service-install redis.conf --service-name redis
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -478,43 +476,40 @@ redis-server --service-install redis.conf --service-name redis
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="后端启动：">后端启动：</h4>
-<pre><code>./redis-server &amp;
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">.&#x2F;redis-server &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="windows服务：">windows服务：</h4>
-<pre><code># 注册redis服务
+<pre class="line-numbers language-none"><code class="language-none"># 注册redis服务
 redis-server --service-install redis.conf --service-name redis
 # 启动redis服务
-net start redis
-</code></pre>
+net start redis<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="docker方式启动：">docker方式启动：</h4>
-<pre><code>mkdir -p /data/redis
-chown -R 1000:1000 /data/redis
+<pre class="line-numbers language-none"><code class="language-none">mkdir -p &#x2F;data&#x2F;redis
+chown -R 1000:1000 &#x2F;data&#x2F;redis
  
-docker run -d --name redis --restart=always -p 6379:6379 -v /data/redis:/data wjf8882300/redis:latest
-</code></pre>
+docker run -d --name redis --restart&#x3D;always -p 6379:6379 -v &#x2F;data&#x2F;redis:&#x2F;data wjf8882300&#x2F;redis:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="Dockerfile">Dockerfile</h4>
-<pre><code>FROM redis
+<pre class="line-numbers language-none"><code class="language-none">FROM redis
 MAINTAINER wangjingfeng2008@163.com
-COPY redis.conf /usr/local/etc/redis/redis.conf
+COPY redis.conf &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf
 EXPOSE 6379
-CMD [ &quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot; ]
-</code></pre>
+CMD [ &quot;redis-server&quot;, &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf&quot; ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="修改配置文件-redis-conf">修改配置文件 redis.conf</h4>
-<pre><code>#bind 127.0.0.1
+<pre class="line-numbers language-none"><code class="language-none">#bind 127.0.0.1
  
 requirepass n2dasUhH0Iziq18Z
  
 port 6379
  
-notify-keyspace-events &quot;Ex&quot;
-</code></pre>
-
+notify-keyspace-events &quot;Ex&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -858,8 +853,6 @@ notify-keyspace-events &quot;Ex&quot;
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

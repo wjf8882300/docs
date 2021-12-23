@@ -34,8 +34,7 @@ docker由镜像与容器构成，镜像包含了要运行的所有环境、代�
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -476,6 +475,9 @@ docker由镜像与容器构成，镜像包含了要运行的所有环境、代�
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -490,34 +492,31 @@ docker由镜像与容器构成，镜像包含了要运行的所有环境、代�
 </ol>
 <h4 id="2-docker安装">2. docker安装</h4>
 <h5 id="1-centos-7及以上">1. centos 7及以上</h5>
-<pre><code># step 1: 安装必要的一些系统工具
+<pre class="line-numbers language-none"><code class="language-none"># step 1: 安装必要的一些系统工具
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 # Step 2: 添加软件源信息
-sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+sudo yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo
 # Step 3: 更新并安装 Docker-CE
 sudo yum makecache fast
-sudo yum -y install docker-ce
-</code></pre>
+sudo yum -y install docker-ce<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="2-Ubuntu-14-04-16-04">2. Ubuntu 14.04 16.04</h5>
-<pre><code># step 1.docker概念与好处1: 安装必要的一些系统工具
+<pre class="line-numbers language-none"><code class="language-none"># step 1.docker概念与好处1: 安装必要的一些系统工具
 sudo apt-get update
 sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
 # step 2: 安装GPG证书
-curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;ubuntu&#x2F;gpg | sudo apt-key add -
 # Step 3: 写入软件源信息
-sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;
+sudo add-apt-repository &quot;deb [arch&#x3D;amd64] http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;ubuntu $(lsb_release -cs) stable&quot;
 # Step 4: 更新并安装 Docker-CE
 sudo apt-get -y update
-sudo apt-get -y install docker-ce
-</code></pre>
+sudo apt-get -y install docker-ce<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="3-docker开机启动">3.docker开机启动</h4>
-<pre><code># 添加开机启动
+<pre class="line-numbers language-none"><code class="language-none"># 添加开机启动
 systemctl enable docker.service
 # 启动docker服务
-systemctl start docker.service
-</code></pre>
+systemctl start docker.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="4-docker常用命令">4.docker常用命令</h4>
-<pre><code># 查看镜像
+<pre class="line-numbers language-none"><code class="language-none"># 查看镜像
 docker images
 
 # 拉取镜像
@@ -542,40 +541,38 @@ docker restart xxx
 docker exec -it xxx bash
 
 # 查看日志
-docker logs -f xxx --tail=10
+docker logs -f xxx --tail&#x3D;10
 
 # 查看容器
 docker inspect xxx
 
 # 查看容器状态
-docker stats
-</code></pre>
+docker stats<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="5-制作镜像">5.制作镜像</h4>
 <h5 id="1-镜像加速">1. 镜像加速</h5>
-<pre><code>sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'
+<pre class="line-numbers language-none"><code class="language-none">sudo mkdir -p &#x2F;etc&#x2F;docker
+sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;
 &#123;
-  &quot;registry-mirrors&quot;: [&quot;https://w029dasz.mirror.aliyuncs.com&quot;]
+  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;w029dasz.mirror.aliyuncs.com&quot;]
 &#125;
 EOF
 sudo systemctl daemon-reload
-sudo systemctl restart docker
-</code></pre>
+sudo systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="2-准备Dockerfile">2. 准备Dockerfile</h5>
-<pre><code># java镜像
+<pre class="line-numbers language-none"><code class="language-none"># java镜像
 FROM openjdk:8-jdk-alpine
  
 # 将本地文件夹挂载到当前容器
-# 创建/tmp目录并持久化到Docker数据文件夹，因为Spring Boot使用的内嵌Tomcat容器默认使用/tmp作为工作目录。
-VOLUME [&quot;/tmp&quot;]
+# 创建&#x2F;tmp目录并持久化到Docker数据文件夹，因为Spring Boot使用的内嵌Tomcat容器默认使用&#x2F;tmp作为工作目录。
+VOLUME [&quot;&#x2F;tmp&quot;]
  
 # 拷贝文件到容器
-COPY *.jar /opt/app.jar
+COPY *.jar &#x2F;opt&#x2F;app.jar
  
 # 解决容器时间和宿主主机时间不一致问题
-RUN echo 'http://mirrors.aliyun.com/alpine/v3.6/community/'&gt;/etc/apk/repositories &amp;&amp; echo 'http://mirrors.aliyun.com/alpine/v3.6/main/'&gt;&gt;/etc/apk/repositories &amp;&amp; apk add --no-cache tzdata
-ENV TZ Asia/Shanghai
-RUN /bin/cp /usr/share/zoneinfo/$&#123;TZ&#125; /etc/localtime &amp;&amp; echo '$&#123;TZ&#125;' &gt;/etc/timezone
+RUN echo &#39;http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;alpine&#x2F;v3.6&#x2F;community&#x2F;&#39;&gt;&#x2F;etc&#x2F;apk&#x2F;repositories &amp;&amp; echo &#39;http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;alpine&#x2F;v3.6&#x2F;main&#x2F;&#39;&gt;&gt;&#x2F;etc&#x2F;apk&#x2F;repositories &amp;&amp; apk add --no-cache tzdata
+ENV TZ Asia&#x2F;Shanghai
+RUN &#x2F;bin&#x2F;cp &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;$&#123;TZ&#125; &#x2F;etc&#x2F;localtime &amp;&amp; echo &#39;$&#123;TZ&#125;&#39; &gt;&#x2F;etc&#x2F;timezone
  
 RUN apk add  --no-cache ffmpeg
  
@@ -583,26 +580,24 @@ RUN apk add  --no-cache ffmpeg
 EXPOSE 8080 8080
  
 # 配置环境变量 todo jvm优化参数可以设置这里
-ENV JAVA_OPTS='-Xmx1024m -Xms512m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8077' APP_OPTS=''
+ENV JAVA_OPTS&#x3D;&#39;-Xmx1024m -Xms512m -Xdebug -Xnoagent -Djava.compiler&#x3D;NONE -Xrunjdwp:transport&#x3D;dt_socket,server&#x3D;y,suspend&#x3D;n,address&#x3D;8077&#39; APP_OPTS&#x3D;&#39;&#39;
  
 # 配置容器启动后执行的命令
-ENTRYPOINT java $JAVA_OPTS  -server  -Dfile.encoding=UTF-8 -Duser.language=zh -Duser.region=CN -Djava.security.egd=file:/dev/./urandom $APP_OPTS -jar /opt/app.jar
-</code></pre>
+ENTRYPOINT java $JAVA_OPTS  -server  -Dfile.encoding&#x3D;UTF-8 -Duser.language&#x3D;zh -Duser.region&#x3D;CN -Djava.security.egd&#x3D;file:&#x2F;dev&#x2F;.&#x2F;urandom $APP_OPTS -jar &#x2F;opt&#x2F;app.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="3-制作镜像">3. 制作镜像</h5>
-<pre><code># 制作镜像
-docker build -t registry.uecent.com:5000/provider-auth:1.0.0 .
+<pre class="line-numbers language-none"><code class="language-none"># 制作镜像
+docker build -t registry.uecent.com:5000&#x2F;provider-auth:1.0.0 .
 # 上传镜像(非必要)
-docker push registry.uecent.com:5000/provider-auth:1.0.0
+docker push registry.uecent.com:5000&#x2F;provider-auth:1.0.0
 # 启动镜像
 docker run -d --name provider-auth \ 
---restart=always  \
+--restart&#x3D;always  \
 -p 80:80 \
--v /data/provider-auth:/tmp \
--e EUREKA_SERVER=http://172.19.115.13/eureka/ \
--e APP_OPTS=\&quot;spring.profiles.active=dev\&quot; \
---log-opt max-size=100m --log-opt max-file=3 \
-registry.uecent.com:5000/provider-auth:1.0.0
-</code></pre>
+-v &#x2F;data&#x2F;provider-auth:&#x2F;tmp \
+-e EUREKA_SERVER&#x3D;http:&#x2F;&#x2F;172.19.115.13&#x2F;eureka&#x2F; \
+-e APP_OPTS&#x3D;\&quot;spring.profiles.active&#x3D;dev\&quot; \
+--log-opt max-size&#x3D;100m --log-opt max-file&#x3D;3 \
+registry.uecent.com:5000&#x2F;provider-auth:1.0.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参数说明：<br>
 -d 表示后台运行<br>
 –name 指定容器名称<br>
@@ -615,12 +610,11 @@ registry.uecent.com:5000/provider-auth:1.0.0
 –network=host 使用主机网络</p>
 <h4 id="6-docker-compose">6. docker-compose</h4>
 <h5 id="1-安装">1. 安装</h5>
-<pre><code>sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose docker-compose --version
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">sudo curl -L &quot;https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.24.0&#x2F;docker-compose-$(uname -s)-$(uname -m)&quot; -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose
+sudo chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose
+sudo ln -s &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose &#x2F;usr&#x2F;bin&#x2F;docker-compose docker-compose --version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h5 id="2-docker-compose-yml">2. docker-compose.yml</h5>
-<pre><code>version: '3.2'
+<pre class="line-numbers language-none"><code class="language-none">version: &#39;3.2&#39;
  
 services:
   redis:
@@ -630,7 +624,7 @@ services:
     ports:
       - &quot;6379:6379&quot;
     volumes:
-      - /redis/data:/data
+      - &#x2F;redis&#x2F;data:&#x2F;data
   rabbitmq:
     container_name:  rabbitmq
     image: rabbitmq:management
@@ -639,43 +633,39 @@ services:
       - &quot;15672:15672&quot;
       - &quot;5672:5672&quot;
     volumes:
-      - /redis/data:/data   
+      - &#x2F;redis&#x2F;data:&#x2F;data   
     environment:
-      - RABBITMQ_DEFAULT_USER=rabbitmq
-      - RABBITMQ_DEFAULT_PASS=Qfka7ls2A40JEoMw
-</code></pre>
+      - RABBITMQ_DEFAULT_USER&#x3D;rabbitmq
+      - RABBITMQ_DEFAULT_PASS&#x3D;Qfka7ls2A40JEoMw<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="3-启动">3.启动</h5>
-<pre><code># 启动
+<pre class="line-numbers language-none"><code class="language-none"># 启动
 docker-compose up -d
 # 查看
-docker-compse ps
-</code></pre>
+docker-compse ps<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="7-docker私服">7.docker私服</h4>
 <h5 id="1-安装-2">1.安装</h5>
-<pre><code># 拉取镜像
+<pre class="line-numbers language-none"><code class="language-none"># 拉取镜像
 docker pull registry 
 # 新建仓库目录
-mkdir -p /data/registry
+mkdir -p &#x2F;data&#x2F;registry
 # 启动容器
-docker run -d -v /data/registry:/var/lib/registry -v /data/cert:/data/cert -p 5000:5000 -e REGISTRY_STORAGE_DELETE_ENABLED=true -e REGISTRY_HTTP_TLS_CERTIFICATE=/data/cert/cert.pem -e REGISTRY_HTTP_TLS_KEY=/data/cert/cert.key --restart=always --privileged=true --name registry registry:latest
-</code></pre>
+docker run -d -v &#x2F;data&#x2F;registry:&#x2F;var&#x2F;lib&#x2F;registry -v &#x2F;data&#x2F;cert:&#x2F;data&#x2F;cert -p 5000:5000 -e REGISTRY_STORAGE_DELETE_ENABLED&#x3D;true -e REGISTRY_HTTP_TLS_CERTIFICATE&#x3D;&#x2F;data&#x2F;cert&#x2F;cert.pem -e REGISTRY_HTTP_TLS_KEY&#x3D;&#x2F;data&#x2F;cert&#x2F;cert.key --restart&#x3D;always --privileged&#x3D;true --name registry registry:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="2-私服相关操作">2.私服相关操作</h5>
-<pre><code>搜索镜像：
-curl -X GET https://registry.uecent.com:5000/v2/_catalog
+<pre class="line-numbers language-none"><code class="language-none">搜索镜像：
+curl -X GET https:&#x2F;&#x2F;registry.uecent.com:5000&#x2F;v2&#x2F;_catalog
 
 获取镜像列表：
-curl -X GET https://registry.uecent.com:5000/v2/provider-auth/tags/list
+curl -X GET https:&#x2F;&#x2F;registry.uecent.com:5000&#x2F;v2&#x2F;provider-auth&#x2F;tags&#x2F;list
 
 查询镜像tag：
-curl -v --silent -H &quot;Accept: application/vnd.docker.distribution.manifest.v2+json&quot; -X GET https://registry.uecent.com:5000/v2/provider-auth/manifests/latest 2&gt;&amp;1 | grep Docker-Content-Digest | awk '&#123;print ($3)&#125;'
+curl -v --silent -H &quot;Accept: application&#x2F;vnd.docker.distribution.manifest.v2+json&quot; -X GET https:&#x2F;&#x2F;registry.uecent.com:5000&#x2F;v2&#x2F;provider-auth&#x2F;manifests&#x2F;latest 2&gt;&amp;1 | grep Docker-Content-Digest | awk &#39;&#123;print ($3)&#125;&#39;
 
 删除镜像：
-curl -v --silent -H &quot;Accept: application/vnd.docker.distribution.manifest.v2+json&quot; -X DELETE https://registry.uecent.com:5000/v2/provider-auth/manifests/sha256:cc21a69e5d84b78f51eb8003d1f31743fa8cfc629b5e6379e751afff1ca34544
+curl -v --silent -H &quot;Accept: application&#x2F;vnd.docker.distribution.manifest.v2+json&quot; -X DELETE https:&#x2F;&#x2F;registry.uecent.com:5000&#x2F;v2&#x2F;provider-auth&#x2F;manifests&#x2F;sha256:cc21a69e5d84b78f51eb8003d1f31743fa8cfc629b5e6379e751afff1ca34544
 
 垃圾回收（在docker服务器上执行）：
-docker exec -it registry /bin/registry garbage-collect /etc/docker/registry/config.yml
-
-</code></pre>
+docker exec -it registry &#x2F;bin&#x2F;registry garbage-collect &#x2F;etc&#x2F;docker&#x2F;registry&#x2F;config.yml
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -1020,8 +1010,6 @@ docker exec -it registry /bin/registry garbage-collect /etc/docker/registry/conf
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

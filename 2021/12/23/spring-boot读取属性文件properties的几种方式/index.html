@@ -34,8 +34,7 @@ com.zyd.url=http://www.baidu.com
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -476,6 +475,9 @@ com.zyd.url=http://www.baidu.com
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -485,34 +487,31 @@ com.zyd.url=http://www.baidu.com
 <blockquote><p>com.zyd.url=http://www.baidu.com</p>
 </blockquote>
 <h4 id="一、-ConfigurationProperties方式">一、@ConfigurationProperties方式</h4>
-<pre><code>@Configuration
-@ConfigurationProperties(prefix = &quot;com.zyd&quot;)
+<pre class="line-numbers language-none"><code class="language-none">@Configuration
+@ConfigurationProperties(prefix &#x3D; &quot;com.zyd&quot;)
 public class PropertiesConfig &#123;
     private String url;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="二、使用-Value注解方式">二、使用@Value注解方式</h4>
-<pre><code>@Controller
+<pre class="line-numbers language-none"><code class="language-none">@Controller
 public class TestController &#123;
  
     @Value(&quot;$&#123;com.zyd.url&#125;&quot;)
     private String url;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="三、使用Environment">三、使用Environment</h4>
-<pre><code>@Controller
+<pre class="line-numbers language-none"><code class="language-none">@Controller
 public class TestController &#123;
     @Autowired
     private Environment env;
  
-    @RequestMapping(&quot;/env&quot;)
+    @RequestMapping(&quot;&#x2F;env&quot;)
     public Map&lt;String, Object&gt; env() throws UnsupportedEncodingException &#123;
-        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+        Map&lt;String, Object&gt; map &#x3D; new HashMap&lt;String, Object&gt;();
         map.put(&quot;url&quot;, env.getProperty(&quot;com.zyd.url&quot;));
         return map;
     &#125;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="四、使用PropertiesLoaderUtils">四、使用PropertiesLoaderUtils</h4>
 <p>可以自定义属性文件，如app-config.properties</p>
 <blockquote>
@@ -869,8 +868,6 @@ public class TestController &#123;
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

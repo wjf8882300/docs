@@ -33,8 +33,7 @@ HASH分区：基于用户定义的表">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -475,6 +474,9 @@ HASH分区：基于用户定义的表">
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -487,64 +489,63 @@ HASH分区：基于用户定义的表达式的返回值来进行选择的分区�
 KEY分区：类似于按HASH分区，区别在于KEY分区只支持计算一列或多列，且MySQL服务器提供其自身的哈希函数。必须有一列或多列包含整数值。<br>
 以xxl-job为例，这是一张日志表，每天产上约30万条记录</p>
 <h4 id="1-创建表xxl-job-log并创建分区">1. 创建表xxl_job_log并创建分区</h4>
-<pre><code>/* 注意：需要id和trigger_time作为双主键，有主键的表但分区字段（trigger_time）不是主键，新建分区表时会报A PRIMARY KEY must include all columns in the table’s partitioning function */
-CREATE TABLE `xxl_job_log` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `job_group` INT(11) NOT NULL COMMENT '执行器主键ID',
-  `job_id` INT(11) NOT NULL COMMENT '任务，主键ID',
-  `executor_address` VARCHAR(255) DEFAULT NULL COMMENT '执行器地址，本次执行的地址',
-  `executor_handler` VARCHAR(255) DEFAULT NULL COMMENT '执行器任务handler',
-  `executor_param` VARCHAR(512) DEFAULT NULL COMMENT '执行器任务参数',
-  `executor_sharding_param` VARCHAR(20) DEFAULT NULL COMMENT '执行器任务分片参数，格式如 1/2',
-  `executor_fail_retry_count` INT(11) NOT NULL DEFAULT '0' COMMENT '失败重试次数',
-  `trigger_time` DATETIME NOT NULL COMMENT '调度-时间',
-  `trigger_code` INT(11) NOT NULL COMMENT '调度-结果',
-  `trigger_msg` TEXT COMMENT '调度-日志',
-  `handle_time` DATETIME DEFAULT NULL COMMENT '执行-时间',
-  `handle_code` INT(11) NOT NULL COMMENT '执行-状态',
-  `handle_msg` TEXT COMMENT '执行-日志',
-  `alarm_status` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '告警状态：0-默认、1-无需告警、2-告警成功、3-告警失败',
-  PRIMARY KEY (`id`, `trigger_time`),
-  KEY `I_trigger_time` (`trigger_time`),
-  KEY `I_handle_code` (`handle_code`),
-  KEY `I_alarm_status` (`alarm_status`),
-  KEY `I_trigger_code` (`trigger_code`),
-  KEY `I_job_group` (`job_group`),
-  KEY `I_job_id` (`job_id`)
-) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;* 注意：需要id和trigger_time作为双主键，有主键的表但分区字段（trigger_time）不是主键，新建分区表时会报A PRIMARY KEY must include all columns in the table’s partitioning function *&#x2F;
+CREATE TABLE &#96;xxl_job_log&#96; (
+  &#96;id&#96; BIGINT(20) NOT NULL AUTO_INCREMENT,
+  &#96;job_group&#96; INT(11) NOT NULL COMMENT &#39;执行器主键ID&#39;,
+  &#96;job_id&#96; INT(11) NOT NULL COMMENT &#39;任务，主键ID&#39;,
+  &#96;executor_address&#96; VARCHAR(255) DEFAULT NULL COMMENT &#39;执行器地址，本次执行的地址&#39;,
+  &#96;executor_handler&#96; VARCHAR(255) DEFAULT NULL COMMENT &#39;执行器任务handler&#39;,
+  &#96;executor_param&#96; VARCHAR(512) DEFAULT NULL COMMENT &#39;执行器任务参数&#39;,
+  &#96;executor_sharding_param&#96; VARCHAR(20) DEFAULT NULL COMMENT &#39;执行器任务分片参数，格式如 1&#x2F;2&#39;,
+  &#96;executor_fail_retry_count&#96; INT(11) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;失败重试次数&#39;,
+  &#96;trigger_time&#96; DATETIME NOT NULL COMMENT &#39;调度-时间&#39;,
+  &#96;trigger_code&#96; INT(11) NOT NULL COMMENT &#39;调度-结果&#39;,
+  &#96;trigger_msg&#96; TEXT COMMENT &#39;调度-日志&#39;,
+  &#96;handle_time&#96; DATETIME DEFAULT NULL COMMENT &#39;执行-时间&#39;,
+  &#96;handle_code&#96; INT(11) NOT NULL COMMENT &#39;执行-状态&#39;,
+  &#96;handle_msg&#96; TEXT COMMENT &#39;执行-日志&#39;,
+  &#96;alarm_status&#96; TINYINT(4) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;告警状态：0-默认、1-无需告警、2-告警成功、3-告警失败&#39;,
+  PRIMARY KEY (&#96;id&#96;, &#96;trigger_time&#96;),
+  KEY &#96;I_trigger_time&#96; (&#96;trigger_time&#96;),
+  KEY &#96;I_handle_code&#96; (&#96;handle_code&#96;),
+  KEY &#96;I_alarm_status&#96; (&#96;alarm_status&#96;),
+  KEY &#96;I_trigger_code&#96; (&#96;trigger_code&#96;),
+  KEY &#96;I_job_group&#96; (&#96;job_group&#96;),
+  KEY &#96;I_job_id&#96; (&#96;job_id&#96;)
+) ENGINE&#x3D;INNODB AUTO_INCREMENT&#x3D;1 DEFAULT CHARSET&#x3D;utf8mb4;
  
-/* 依托字段trigger_time新建分区表，每天一个分区，此处手工创建，需再建一个定时创建分区的任务 */
+&#x2F;* 依托字段trigger_time新建分区表，每天一个分区，此处手工创建，需再建一个定时创建分区的任务 *&#x2F;
 ALTER TABLE xxl_job_log PARTITION BY RANGE COLUMNS(trigger_time)(
-    PARTITION p20211212 VALUES LESS THAN('2021-12-12'),
-    PARTITION p20211213 VALUES LESS THAN('2021-12-13'),
-    PARTITION p20211214 VALUES LESS THAN('2021-12-14'),
-    PARTITION p20211215 VALUES LESS THAN('2021-12-15'),
-    PARTITION p20211216 VALUES LESS THAN('2021-12-16')
+    PARTITION p20211212 VALUES LESS THAN(&#39;2021-12-12&#39;),
+    PARTITION p20211213 VALUES LESS THAN(&#39;2021-12-13&#39;),
+    PARTITION p20211214 VALUES LESS THAN(&#39;2021-12-14&#39;),
+    PARTITION p20211215 VALUES LESS THAN(&#39;2021-12-15&#39;),
+    PARTITION p20211216 VALUES LESS THAN(&#39;2021-12-16&#39;)
 );
  
-/* 查询分区表情况 */
+&#x2F;* 查询分区表情况 *&#x2F;
 SELECT partition_name, partition_description AS val FROM information_schema.partitions
-WHERE table_name='xxl_job_log' AND table_schema='xxl_job';     
+WHERE table_name&#x3D;&#39;xxl_job_log&#39; AND table_schema&#x3D;&#39;xxl_job&#39;;     
  
 partition_name  val          
 --------------  --------------
-p20211212       '2021-12-12' 
-p20211213       '2021-12-13' 
-p20211214       '2021-12-14' 
-p20211215       '2021-12-15' 
-p20211216       '2021-12-16'
+p20211212       &#39;2021-12-12&#39; 
+p20211213       &#39;2021-12-13&#39; 
+p20211214       &#39;2021-12-14&#39; 
+p20211215       &#39;2021-12-15&#39; 
+p20211216       &#39;2021-12-16&#39;
  
-/* 查询分区表情况 */
+&#x2F;* 查询分区表情况 *&#x2F;
 EXPLAIN PARTITIONS SELECT * FROM xxl_job_log;
     id  select_type  table        partitions                                                             type    possible_keys  key     key_len  ref       rows  filtered  Extra  
 ------  -----------  -----------  ---------------------------------------------------------------------  ------  -------------  ------  -------  ------  ------  --------  --------
      1  SIMPLE       xxl_job_log  p20211212,p20211213,p20211214,p20211215,p20211216,p20211217,p20211218  ALL     (NULL)         (NULL)  (NULL)   (NULL)  583426    100.00  (NULL)
-
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-创建自动分区">2.创建自动分区</h4>
 <h5 id="2-1-创建自动分区存储过程pro-xxl-job-log">2.1 创建自动分区存储过程pro_xxl_job_log</h5>
 <p>创建存储过程，每天新增3个分区，并删除15天前的分区</p>
-<pre><code>DELIMITER $$
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER $$
 DROP PROCEDURE IF EXISTS pro_xxl_job_log
 $$
 CREATE PROCEDURE pro_xxl_job_log()
@@ -556,98 +557,92 @@ BEGIN
   DECLARE v_maxval VARCHAR(20);
   DECLARE i INT;
    
-  /*增加新分区代码，执行时，不要复制此行*/
-  SELECT MAX(CAST(REPLACE(partition_description, '''', '') AS DATE)) AS val
+  &#x2F;*增加新分区代码，执行时，不要复制此行*&#x2F;
+  SELECT MAX(CAST(REPLACE(partition_description, &#39;&#39;&#39;&#39;, &#39;&#39;) AS DATE)) AS val
   INTO   v_maxdate
   FROM   INFORMATION_SCHEMA.PARTITIONS
-  WHERE  TABLE_NAME = 'xxl_job_log' AND TABLE_SCHEMA = 'xxl_job';
+  WHERE  TABLE_NAME &#x3D; &#39;xxl_job_log&#39; AND TABLE_SCHEMA &#x3D; &#39;xxl_job&#39;;
    
-  SET v_sysdate = SYSDATE();
+  SET v_sysdate &#x3D; SYSDATE();
    
-  WHILE v_maxdate &lt;= (v_sysdate + INTERVAL 3 DAY) DO
-    SET v_pt = DATE_FORMAT(v_maxdate+ INTERVAL 1 DAY ,'%Y%m%d');
-    SET v_maxval = DATE_FORMAT(v_maxdate + INTERVAL 1 DAY, '%Y-%m-%d');
-    SET @sql = CONCAT('alter table xxl_job_log add partition (partition p', v_pt, ' values less than(''', v_maxval, '''))');
+  WHILE v_maxdate &lt;&#x3D; (v_sysdate + INTERVAL 3 DAY) DO
+    SET v_pt &#x3D; DATE_FORMAT(v_maxdate+ INTERVAL 1 DAY ,&#39;%Y%m%d&#39;);
+    SET v_maxval &#x3D; DATE_FORMAT(v_maxdate + INTERVAL 1 DAY, &#39;%Y-%m-%d&#39;);
+    SET @sql &#x3D; CONCAT(&#39;alter table xxl_job_log add partition (partition p&#39;, v_pt, &#39; values less than(&#39;&#39;&#39;, v_maxval, &#39;&#39;&#39;))&#39;);
     -- SELECT @sql;
     PREPARE stmt FROM @sql;
     EXECUTE stmt;
     DEALLOCATE PREPARE stmt;
-    SET v_maxdate = v_maxdate + INTERVAL 1 DAY;
+    SET v_maxdate &#x3D; v_maxdate + INTERVAL 1 DAY;
   END WHILE;
    
-  /*删除旧分区，执行时，不要复制此行*/
-  SELECT MIN(CAST(REPLACE(partition_description, '''', '') AS DATE)) AS val
+  &#x2F;*删除旧分区，执行时，不要复制此行*&#x2F;
+  SELECT MIN(CAST(REPLACE(partition_description, &#39;&#39;&#39;&#39;, &#39;&#39;) AS DATE)) AS val
   INTO   v_mindate
   FROM   INFORMATION_SCHEMA.PARTITIONS
-  WHERE  TABLE_NAME = 'xxl_job_log' AND TABLE_SCHEMA = 'xxl_job';
+  WHERE  TABLE_NAME &#x3D; &#39;xxl_job_log&#39; AND TABLE_SCHEMA &#x3D; &#39;xxl_job&#39;;
      
-  WHILE v_mindate &lt;= (v_sysdate - INTERVAL 15 DAY) DO
-    SET v_pt = DATE_FORMAT(v_mindate - INTERVAL 1 DAY,'%Y%m%d');
-    SET @sql = CONCAT('alter table xxl_job_log drop partition p', v_pt);
+  WHILE v_mindate &lt;&#x3D; (v_sysdate - INTERVAL 15 DAY) DO
+    SET v_pt &#x3D; DATE_FORMAT(v_mindate - INTERVAL 1 DAY,&#39;%Y%m%d&#39;);
+    SET @sql &#x3D; CONCAT(&#39;alter table xxl_job_log drop partition p&#39;, v_pt);
     -- SELECT @sql;
     PREPARE stmt FROM @sql;
     EXECUTE stmt;
     DEALLOCATE PREPARE stmt;
-    SET v_mindate = v_mindate + INTERVAL 1 DAY;
+    SET v_mindate &#x3D; v_mindate + INTERVAL 1 DAY;
   END WHILE;
   
 END$$
-DELIMITER ;
-</code></pre>
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>测试存储过程</p>
-<pre><code>/* 调用存储过程*/
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;* 调用存储过程*&#x2F;
 CALL pro_xxl_job_log;
  
- /* 查询分区表情况 */
+ &#x2F;* 查询分区表情况 *&#x2F;
 SELECT partition_name, partition_description AS val FROM information_schema.partitions
-WHERE table_name='xxl_job_log' AND table_schema='xxl_job';     
+WHERE table_name&#x3D;&#39;xxl_job_log&#39; AND table_schema&#x3D;&#39;xxl_job&#39;;     
  
 partition_name  val          
 --------------  --------------
-p20211212       '2021-12-12' 
-p20211213       '2021-12-13' 
-p20211214       '2021-12-14' 
-p20211215       '2021-12-15' 
-p20211216       '2021-12-16' 
-p20211217       '2021-12-17' 
-p20211218       '2021-12-18'
+p20211212       &#39;2021-12-12&#39; 
+p20211213       &#39;2021-12-13&#39; 
+p20211214       &#39;2021-12-14&#39; 
+p20211215       &#39;2021-12-15&#39; 
+p20211216       &#39;2021-12-16&#39; 
+p20211217       &#39;2021-12-17&#39; 
+p20211218       &#39;2021-12-18&#39;
  
-由上可见新增了p20211217、p20211218两个分区
-</code></pre>
+由上可见新增了p20211217、p20211218两个分区<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="2-2-开启事件">2.2 开启事件</h5>
-<pre><code>/* 查询是否开启事件 */
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;* 查询是否开启事件 *&#x2F;
 show variables like &quot;event_scheduler&quot;;
 Variable_name    Value  
 ---------------  --------
 event_scheduler  OFF   
  
-/* 临时开启事件 */
-SET GLOBAL event_scheduler = ON;
-永久开启事件：修改mysql配置文件my.cnf，在[mysqld]下面增加：event_scheduler=ON
-
-</code></pre>
+&#x2F;* 临时开启事件 *&#x2F;
+SET GLOBAL event_scheduler &#x3D; ON;
+永久开启事件：修改mysql配置文件my.cnf，在[mysqld]下面增加：event_scheduler&#x3D;ON
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="2-3-编写事件">2.3 编写事件</h5>
 <p>设置从2021-12-15 00:00:00开始，每24小时执行一次</p>
-<pre><code>DELIMITER $$
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER $$
 DROP EVENT IF EXISTS auto_pt $$
 CREATE EVENT auto_pt
 ON SCHEDULE
 EVERY 24 HOUR
-STARTS '2021-12-15 00:00:00'
+STARTS &#39;2021-12-15 00:00:00&#39;
 DO
 BEGIN
     CALL pro_xxl_job_log();
 END$$
-DELIMITER ;
-</code></pre>
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看事件</p>
-<pre><code>show events;
+<pre class="line-numbers language-none"><code class="language-none">show events;
  
 Db       Name     Definer  Time zone  Type       Execute at  Interval value  Interval field  Starts               Ends    Status   Originator  character_set_client  collation_connection  Database Collation 
 -------  -------  -------  ---------  ---------  ----------  --------------  --------------  -------------------  ------  -------  ----------  --------------------  --------------------  --------------------
-xxl_job  auto_pt  root@%   SYSTEM     RECURRING  (NULL)      24              HOUR            2021-12-15 00:00:00  (NULL)  ENABLED           1  utf8                  utf8_general_ci       utf8mb4_unicode_ci
-</code></pre>
-
+xxl_job  auto_pt  root@%   SYSTEM     RECURRING  (NULL)      24              HOUR            2021-12-15 00:00:00  (NULL)  ENABLED           1  utf8                  utf8_general_ci       utf8mb4_unicode_ci<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -991,8 +986,6 @@ xxl_job  auto_pt  root@%   SYSTEM     RECURRING  (NULL)      24              HOU
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

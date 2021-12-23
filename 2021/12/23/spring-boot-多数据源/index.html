@@ -9,9 +9,8 @@
 datasource:
     druid:
       football:
-        url: jdbc:postgresql://xxx.xxx.xxx:5432/xxx
-        username: xxx
-">
+        url: jdbc:postgresql:&amp;#x2F;&amp;#x2F;xxx.xxx.xxx:5432&amp;#x2F;xxx
+       ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -36,8 +35,7 @@ datasource:
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -478,16 +476,19 @@ datasource:
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="1-配置文件">1.配置文件</h4>
-<pre><code>datasource:
+<pre class="line-numbers language-none"><code class="language-none">datasource:
     druid:
       football:
-        url: jdbc:postgresql://xxx.xxx.xxx:5432/xxx
+        url: jdbc:postgresql:&#x2F;&#x2F;xxx.xxx.xxx:5432&#x2F;xxx
         username: xxx
         password: xxxxxx
         driver-class-name: org.postgresql.Driver
@@ -498,14 +499,14 @@ datasource:
         minIdle: 1
         timeBetweenEvictionRunsMillis: 60000
         minEvictableIdleTimeMillis: 300000
-        validationQuery: select 'x'
+        validationQuery: select &#39;x&#39;
         testWhileIdle: true
         testOnBorrow: false
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
       basketball:
-        url: jdbc:postgresql://xxx.xxx.xxx:5432/xxx
+        url: jdbc:postgresql:&#x2F;&#x2F;xxx.xxx.xxx:5432&#x2F;xxx
         username: xxx
         password: xxxxxx
         driver-class-name: org.postgresql.Driver
@@ -516,15 +517,14 @@ datasource:
         minIdle: 1
         timeBetweenEvictionRunsMillis: 60000
         minEvictableIdleTimeMillis: 300000
-        validationQuery: select 'x'
+        validationQuery: select &#39;x&#39;
         testWhileIdle: true
         testOnBorrow: false
         testOnReturn: false
         poolPreparedStatements: true
-        maxOpenPreparedStatements: 20
-</code></pre>
+        maxOpenPreparedStatements: 20<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-DataSourceConfig配置类">2.DataSourceConfig配置类</h4>
-<pre><code>package com.uecent.provider.api.module.common.config;
+<pre class="line-numbers language-none"><code class="language-none">package com.uecent.provider.api.module.common.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -536,22 +536,21 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig &#123;
 
-    @Bean(name = &quot;footballDataSource&quot;)
-    @ConfigurationProperties(prefix=&quot;spring.datasource.druid.football&quot;)
+    @Bean(name &#x3D; &quot;footballDataSource&quot;)
+    @ConfigurationProperties(prefix&#x3D;&quot;spring.datasource.druid.football&quot;)
     public DataSource footballDataSource() &#123;
         return DruidDataSourceBuilder.create().build();
     &#125;
 
-    @Bean(name = &quot;basketballDataSource&quot;)
-    @ConfigurationProperties(prefix=&quot;spring.datasource.druid.basketball&quot;)
+    @Bean(name &#x3D; &quot;basketballDataSource&quot;)
+    @ConfigurationProperties(prefix&#x3D;&quot;spring.datasource.druid.basketball&quot;)
     public DataSource basketballDataSource() &#123;
         return DruidDataSourceBuilder.create().build();
     &#125;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="3-针对两个数据源的配置类">3.针对两个数据源的配置类</h4>
 <p>MybatisBasketballConfig.java</p>
-<pre><code>package com.uecent.provider.api.module.common.config;
+<pre class="line-numbers language-none"><code class="language-none">package com.uecent.provider.api.module.common.config;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -567,28 +566,28 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
-/**
+&#x2F;**
  * Mybatis配置
- */
-@MapperScan(value = MybatisBasketballConfig.PACKAGE, nameGenerator = MybatisGenerator.class, sqlSessionTemplateRef = &quot;basketballSqlSessionTemplate&quot;)
+ *&#x2F;
+@MapperScan(value &#x3D; MybatisBasketballConfig.PACKAGE, nameGenerator &#x3D; MybatisGenerator.class, sqlSessionTemplateRef &#x3D; &quot;basketballSqlSessionTemplate&quot;)
 @Configuration
 public class MybatisBasketballConfig &#123;
 
-    static final String PACKAGE = &quot;com.uecent.provider.api.mapper.basketball&quot;;
-    static final String MAPPER_LOCATION = &quot;classpath:mapper/basketball/*.xml&quot;;
+    static final String PACKAGE &#x3D; &quot;com.uecent.provider.api.mapper.basketball&quot;;
+    static final String MAPPER_LOCATION &#x3D; &quot;classpath:mapper&#x2F;basketball&#x2F;*.xml&quot;;
 
-    @Bean(name = &quot;basketballTransactionManager&quot;)
+    @Bean(name &#x3D; &quot;basketballTransactionManager&quot;)
     public DataSourceTransactionManager basketballTransactionManager(@Qualifier(&quot;basketballDataSource&quot;) DataSource dataSource) &#123;
         return new DataSourceTransactionManager(dataSource);
     &#125;
 
-    @Bean(name = &quot;basketballSqlSessionFactory&quot;)
+    @Bean(name &#x3D; &quot;basketballSqlSessionFactory&quot;)
     public SqlSessionFactory basketballSqlSessionFactory(@Qualifier(&quot;basketballDataSource&quot;) DataSource dataSource)
             throws Exception &#123;
-        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        final SqlSessionFactoryBean sessionFactory &#x3D; new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MybatisBasketballConfig.MAPPER_LOCATION));
-        MybatisConfiguration configuration = new MybatisConfiguration();
+        MybatisConfiguration configuration &#x3D; new MybatisConfiguration();
         configuration.setJdbcTypeForNull(JdbcType.NULL);
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCacheEnabled(false);
@@ -597,15 +596,14 @@ public class MybatisBasketballConfig &#123;
     &#125;
 
 
-    @Bean(name = &quot;basketballSqlSessionTemplate&quot;)
+    @Bean(name &#x3D; &quot;basketballSqlSessionTemplate&quot;)
     public SqlSessionTemplate sqlSessionTemplateOne(@Qualifier(&quot;basketballSqlSessionFactory&quot;) SqlSessionFactory sqlSessionFactory) throws Exception &#123;
         return new SqlSessionTemplate(sqlSessionFactory);
     &#125;
 &#125;
-
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>MybatisFootballConfig.java</p>
-<pre><code>package com.uecent.provider.api.module.common.config;
+<pre class="line-numbers language-none"><code class="language-none">package com.uecent.provider.api.module.common.config;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -622,30 +620,30 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
-/**
+&#x2F;**
  * Mybatis配置
- */
-@MapperScan(value = MybatisFootballConfig.PACKAGE, nameGenerator = MybatisGenerator.class, sqlSessionTemplateRef = &quot;footballSqlSessionTemplate&quot;)
+ *&#x2F;
+@MapperScan(value &#x3D; MybatisFootballConfig.PACKAGE, nameGenerator &#x3D; MybatisGenerator.class, sqlSessionTemplateRef &#x3D; &quot;footballSqlSessionTemplate&quot;)
 @Configuration
 public class MybatisFootballConfig &#123;
 
-    static final String PACKAGE = &quot;com.uecent.provider.api.mapper.football&quot;;
-    static final String MAPPER_LOCATION = &quot;classpath:mapper/football/*.xml&quot;;
+    static final String PACKAGE &#x3D; &quot;com.uecent.provider.api.mapper.football&quot;;
+    static final String MAPPER_LOCATION &#x3D; &quot;classpath:mapper&#x2F;football&#x2F;*.xml&quot;;
 
-    @Bean(name = &quot;footballTransactionManager&quot;)
+    @Bean(name &#x3D; &quot;footballTransactionManager&quot;)
     @Primary
     public DataSourceTransactionManager footballTransactionManager(@Qualifier(&quot;footballDataSource&quot;) DataSource dataSource) &#123;
         return new DataSourceTransactionManager(dataSource);
     &#125;
 
-    @Bean(name = &quot;footballSqlSessionFactory&quot;)
+    @Bean(name &#x3D; &quot;footballSqlSessionFactory&quot;)
     @Primary
     public SqlSessionFactory footballSqlSessionFactory(@Qualifier(&quot;footballDataSource&quot;) DataSource dataSource)
             throws Exception &#123;
-        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        final SqlSessionFactoryBean sessionFactory &#x3D; new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MybatisFootballConfig.MAPPER_LOCATION));
-        MybatisConfiguration configuration = new MybatisConfiguration();
+        MybatisConfiguration configuration &#x3D; new MybatisConfiguration();
         configuration.setJdbcTypeForNull(JdbcType.NULL);
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCacheEnabled(false);
@@ -653,14 +651,12 @@ public class MybatisFootballConfig &#123;
         return sessionFactory.getObject();
     &#125;
 
-    @Bean(name = &quot;footballSqlSessionTemplate&quot;)
+    @Bean(name &#x3D; &quot;footballSqlSessionTemplate&quot;)
     @Primary
     public SqlSessionTemplate sqlSessionTemplateOne(@Qualifier(&quot;footballSqlSessionFactory&quot;) SqlSessionFactory sqlSessionFactory) throws Exception &#123;
         return new SqlSessionTemplate(sqlSessionFactory);
     &#125;
-&#125;
-</code></pre>
-
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -1004,8 +1000,6 @@ public class MybatisFootballConfig &#123;
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

@@ -34,8 +34,7 @@ import org.springframework.boot.web.servlet.Filter">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -476,6 +475,9 @@ import org.springframework.boot.web.servlet.Filter">
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -483,7 +485,7 @@ import org.springframework.boot.web.servlet.Filter">
             <div id="articleContent">
                 <p>日志记录在进入controller之前</p>
 <h4 id="1-配置FilterConfig">1.配置FilterConfig</h4>
-<pre><code>package com.yier.platform.aop;
+<pre class="line-numbers language-none"><code class="language-none">package com.yier.platform.aop;
  
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -494,17 +496,16 @@ public class FilterConfig &#123;
  
     @Bean
     public FilterRegistrationBean registFilter() &#123;
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+        FilterRegistrationBean registration &#x3D; new FilterRegistrationBean();
         registration.setFilter(new LogParamFilter());
-        registration.addUrlPatterns(&quot;/*&quot;);
+        registration.addUrlPatterns(&quot;&#x2F;*&quot;);
         registration.setName(&quot;LogFilter&quot;);
         registration.setOrder(0);
         return registration;
     &#125;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-配置LogParamFilter">2.配置LogParamFilter</h4>
-<pre><code>package com.yier.platform.aop;
+<pre class="line-numbers language-none"><code class="language-none">package com.yier.platform.aop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -522,10 +523,10 @@ import java.util.Enumeration;
  
 @Slf4j
 public class LogParamFilter extends OncePerRequestFilter implements Ordered &#123;
-    // put filter at the end of all other filters to make sure we are processing after all others
-    private int order = Ordered.LOWEST_PRECEDENCE - 8;
-    public static final String SPLIT_STRING_M = &quot;=&quot;;
-    public static final String SPLIT_STRING_DOT = &quot;, &quot;;
+    &#x2F;&#x2F; put filter at the end of all other filters to make sure we are processing after all others
+    private int order &#x3D; Ordered.LOWEST_PRECEDENCE - 8;
+    public static final String SPLIT_STRING_M &#x3D; &quot;&#x3D;&quot;;
+    public static final String SPLIT_STRING_DOT &#x3D; &quot;, &quot;;
  
     @Override
     public int getOrder() &#123;
@@ -535,35 +536,35 @@ public class LogParamFilter extends OncePerRequestFilter implements Ordered &#12
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException &#123;
-        ContentCachingRequestWrapper wrapperRequest = new ContentCachingRequestWrapper(request);
-        ContentCachingResponseWrapper wrapperResponse = new ContentCachingResponseWrapper(response);
-        //String urlParams = getRequestParams(request);
+        ContentCachingRequestWrapper wrapperRequest &#x3D; new ContentCachingRequestWrapper(request);
+        ContentCachingResponseWrapper wrapperResponse &#x3D; new ContentCachingResponseWrapper(response);
+        &#x2F;&#x2F;String urlParams &#x3D; getRequestParams(request);
         filterChain.doFilter(wrapperRequest, wrapperResponse);
  
  
-        String requestBodyStr = getRequestBody(wrapperRequest);
+        String requestBodyStr &#x3D; getRequestBody(wrapperRequest);
         log.info(&quot;url:&#123;&#125;, request body:&#123;&#125;&quot;, request.getRequestURI(), requestBodyStr);
  
-        String responseBodyStr = getResponseBody(wrapperResponse);
+        String responseBodyStr &#x3D; getResponseBody(wrapperResponse);
         log.info(&quot;url:&#123;&#125;, response body:&#123;&#125;&quot;, request.getRequestURI(), responseBodyStr);
         wrapperResponse.copyBodyToResponse();
     &#125;
  
-    /**
+    &#x2F;**
      * 打印请求参数
      *
      * @param request
-     */
+     *&#x2F;
     private String getRequestBody(ContentCachingRequestWrapper request) &#123;
-        ContentCachingRequestWrapper wrapper = WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);
-        if (wrapper != null) &#123;
-            byte[] buf = wrapper.getContentAsByteArray();
+        ContentCachingRequestWrapper wrapper &#x3D; WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);
+        if (wrapper !&#x3D; null) &#123;
+            byte[] buf &#x3D; wrapper.getContentAsByteArray();
             if (buf.length &gt; 0) &#123;
                 String payload;
                 try &#123;
-                    payload = new String(buf, 0, buf.length, wrapper.getCharacterEncoding());
+                    payload &#x3D; new String(buf, 0, buf.length, wrapper.getCharacterEncoding());
                 &#125; catch (UnsupportedEncodingException e) &#123;
-                    payload = &quot;[unknown]&quot;;
+                    payload &#x3D; &quot;[unknown]&quot;;
                 &#125;
                 return payload.replaceAll(&quot;\\n&quot;, &quot;&quot;);
             &#125;
@@ -571,22 +572,22 @@ public class LogParamFilter extends OncePerRequestFilter implements Ordered &#12
         return &quot;&quot;;
     &#125;
  
-    /**
+    &#x2F;**
      * 打印返回参数
      *
      * @param response
-     */
+     *&#x2F;
     private String getResponseBody(ContentCachingResponseWrapper response) &#123;
-        ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response,
+        ContentCachingResponseWrapper wrapper &#x3D; WebUtils.getNativeResponse(response,
                 ContentCachingResponseWrapper.class);
-        if (wrapper != null) &#123;
-            byte[] buf = wrapper.getContentAsByteArray();
+        if (wrapper !&#x3D; null) &#123;
+            byte[] buf &#x3D; wrapper.getContentAsByteArray();
             if (buf.length &gt; 0) &#123;
                 String payload;
                 try &#123;
-                    payload = new String(buf, 0, buf.length, wrapper.getCharacterEncoding());
+                    payload &#x3D; new String(buf, 0, buf.length, wrapper.getCharacterEncoding());
                 &#125; catch (UnsupportedEncodingException e) &#123;
-                    payload = &quot;[unknown]&quot;;
+                    payload &#x3D; &quot;[unknown]&quot;;
                 &#125;
                 return payload;
             &#125;
@@ -594,18 +595,18 @@ public class LogParamFilter extends OncePerRequestFilter implements Ordered &#12
         return &quot;&quot;;
     &#125;
  
-    /**
+    &#x2F;**
      * 获取请求地址上的参数
      *
      * @param request
      * @return
-     */
+     *&#x2F;
     public static String getRequestParams(HttpServletRequest request) &#123;
-        StringBuilder sb = new StringBuilder();
-        Enumeration&lt;String&gt; enu = request.getParameterNames();
-        //获取请求参数
+        StringBuilder sb &#x3D; new StringBuilder();
+        Enumeration&lt;String&gt; enu &#x3D; request.getParameterNames();
+        &#x2F;&#x2F;获取请求参数
         while (enu.hasMoreElements()) &#123;
-            String name = enu.nextElement();
+            String name &#x3D; enu.nextElement();
             sb.append(name + SPLIT_STRING_M).append(request.getParameter(name));
             if (enu.hasMoreElements()) &#123;
                 sb.append(SPLIT_STRING_DOT);
@@ -613,9 +614,7 @@ public class LogParamFilter extends OncePerRequestFilter implements Ordered &#12
         &#125;
         return sb.toString();
     &#125;
-&#125;
-</code></pre>
-
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -959,8 +958,6 @@ public class LogParamFilter extends OncePerRequestFilter implements Ordered &#12
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

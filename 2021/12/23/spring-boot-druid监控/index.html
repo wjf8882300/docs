@@ -34,8 +34,7 @@ datasource:
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -476,13 +475,16 @@ datasource:
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="1、配置文件">1、配置文件</h4>
-<pre><code>datasource:
+<pre class="line-numbers language-none"><code class="language-none">datasource:
   druid:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@xxx.xxx.xxx.xxx:1521:orcl
@@ -495,7 +497,7 @@ datasource:
     minIdle: 1
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
-    validationQuery: select 'x' from dual
+    validationQuery: select &#39;x&#39; from dual
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
@@ -504,8 +506,8 @@ datasource:
     # 下面开启监控功能
     web-stat-filter:
       enabled: true
-      url-pattern: /*
-      exclusions: /*.js,/*.gif,/*.jpg,/*.bmp,/*.png,/*.css,/*.ico,/druid/*
+      url-pattern: &#x2F;*
+      exclusions: &#x2F;*.js,&#x2F;*.gif,&#x2F;*.jpg,&#x2F;*.bmp,&#x2F;*.png,&#x2F;*.css,&#x2F;*.ico,&#x2F;druid&#x2F;*
     filter:
       stat:
         enabled: true
@@ -517,8 +519,7 @@ datasource:
       enabled: true
       login-username: btong
       login-password: 
-      allow:
-</code></pre>
+      allow:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-访问监控日志">2.访问监控日志</h4>
 <h5 id="2-1-登录网站">2.1.登录网站</h5>
 <p><a target="_blank" rel="noopener" href="http://xxx.xxx.xxx.xxx/druid/login.html">http://xxx.xxx.xxx.xxx/druid/login.html</a><br>
@@ -870,8 +871,6 @@ datasource:
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
