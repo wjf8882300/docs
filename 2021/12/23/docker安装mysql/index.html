@@ -4,17 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>Tag: docker | 筑梦星海，梦向星辰</title>
+  <title>docker安装mysql | 筑梦星海，梦向星辰</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Now life kill the dream I dreamed.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="筑梦星海，梦向星辰">
-<meta property="og:url" content="https://username.github.io/docs/tags/docker/index.html">
+  <meta name="description" content="1、创建目录1mkdir -p &#x2F;data&#x2F;usr-data 2、启动实例12345678docker run -d \--name&#x3D;&quot;mysql&quot; \--restart always \-e MYSQL_ROOT_HOST&#x3D;% \-e MYSQL_ROOT_PWD&#x3D;KijVtGsAWN2hxLUu \-v &#x2F;data&#x2F;usr-data:&#x2F;data&#x2F;usr-data \-p 3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker安装mysql">
+<meta property="og:url" content="https://username.github.io/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/index.html">
 <meta property="og:site_name" content="筑梦星海，梦向星辰">
-<meta property="og:description" content="Now life kill the dream I dreamed.">
+<meta property="og:description" content="1、创建目录1mkdir -p &#x2F;data&#x2F;usr-data 2、启动实例12345678docker run -d \--name&#x3D;&quot;mysql&quot; \--restart always \-e MYSQL_ROOT_HOST&#x3D;% \-e MYSQL_ROOT_PWD&#x3D;KijVtGsAWN2hxLUu \-v &#x2F;data&#x2F;usr-data:&#x2F;data&#x2F;usr-data \-p 3">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-12-23T05:27:42.000Z">
+<meta property="article:modified_time" content="2021-12-23T05:28:31.365Z">
 <meta property="article:author" content="Nantong Tong Gu Information Service Co., Ltd.">
-<meta property="article:tag" content="docker linux java database blockchain">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/docs/atom.xml" title="筑梦星海，梦向星辰" type="application/atom+xml">
@@ -76,39 +78,66 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/docs/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/docs/2021/12/21/docker/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-12-21T10:18:40.000Z" itemprop="datePublished">Dec 21</time>
+        <section id="main"><article id="post-docker安装mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:27:42.000Z" itemprop="datePublished">2021-12-23</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/docs/2021/12/21/docker/">docker</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      docker安装mysql
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1、创建目录"><a href="#1、创建目录" class="headerlink" title="1、创建目录"></a>1、创建目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/usr-data</span><br></pre></td></tr></table></figure>
+<h4 id="2、启动实例"><a href="#2、启动实例" class="headerlink" title="2、启动实例"></a>2、启动实例</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">--name=&quot;mysql&quot; \</span><br><span class="line">--restart always \</span><br><span class="line">-e MYSQL_ROOT_HOST=% \</span><br><span class="line">-e MYSQL_ROOT_PWD=KijVtGsAWN2hxLUu \</span><br><span class="line">-v /data/usr-data:/data/usr-data \</span><br><span class="line">-p 3306:3306 \</span><br><span class="line">qq79428316/club-mysql:5.7.25</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、创建数据库和普通用户并分配权限"><a href="#3、创建数据库和普通用户并分配权限" class="headerlink" title="3、创建数据库和普通用户并分配权限"></a>3、创建数据库和普通用户并分配权限</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE IF NOT EXISTS live DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</span><br><span class="line"></span><br><span class="line">CREATE USER &#x27;dev-ue-live&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;fiJW6t9m27spYZd0&#x27;;</span><br><span class="line"></span><br><span class="line">GRANT ALL ON live.* TO &#x27;dev-ue-live&#x27;@&#x27;%&#x27;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" data-id="ckxiiy6b20000aw7i14hc8gt0" data-title="docker安装mysql" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mysql关联更新与删除
+        
+      </div>
+    </a>
+  
+  
+    <a href="/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">mysql分区表</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>

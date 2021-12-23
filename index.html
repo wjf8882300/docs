@@ -64,12 +64,12 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/docs/atom.xml" title="RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/docs/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Buscar"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://username.github.io/docs"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://username.github.io/docs"></form>
       </div>
     </div>
   </div>
@@ -77,6 +77,192 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-mysql查询慢SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:31:27.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/">mysql查询慢SQL</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1-查看日志是否打开"><a href="#1-查看日志是否打开" class="headerlink" title="1.查看日志是否打开"></a>1.查看日志是否打开</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#x27;%slow%&#x27;;</span><br><span class="line"></span><br><span class="line">Variable_name              Value                                              </span><br><span class="line">-------------------------  ---------------------------------------------------</span><br><span class="line">log_slow_admin_statements  OFF                                                </span><br><span class="line">log_slow_slave_statements  OFF                                                </span><br><span class="line">slow_launch_time           2                                                  </span><br><span class="line">slow_query_log             ON                                                 </span><br><span class="line">slow_query_log_file        /data/usr-data/mysql-5.7.25/2dc304b65a14-slow.log  </span><br></pre></td></tr></table></figure>
+
+<h4 id="2-设置打开日志"><a href="#2-设置打开日志" class="headerlink" title="2.设置打开日志"></a>2.设置打开日志</h4><p>如果slow_query_log不是on，则设置为on</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL slow_query_log = on;</span><br></pre></td></tr></table></figure>
+<p>slow_query_log_file表示日志路径</p>
+<h4 id="3-设置时间大于1s的记录到慢日志中"><a href="#3-设置时间大于1s的记录到慢日志中" class="headerlink" title="3.设置时间大于1s的记录到慢日志中"></a>3.设置时间大于1s的记录到慢日志中</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL long_query_time = 1;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/" data-id="ckxij5k5b0000d87i3k515x1q" data-title="mysql查询慢SQL" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-mysql关联更新与删除" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:29:39.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/">mysql关联更新与删除</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1-更新子查询语法："><a href="#1-更新子查询语法：" class="headerlink" title="1.更新子查询语法："></a>1.更新子查询语法：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">UPDATE ycd_t_match_term t</span><br><span class="line">INNER JOIN (</span><br><span class="line">    SELECT r.`term_id`,</span><br><span class="line">        DATE_ADD(</span><br><span class="line">        MAX(m.`start_date`),</span><br><span class="line">        INTERVAL 4 HOUR</span><br><span class="line">        ) max_start_date</span><br><span class="line">    FROM ycd_t_term_match_relation r, ycd_t_match m</span><br><span class="line">    WHERE r.`match_id` = m.id</span><br><span class="line">    GROUP BY r.`term_id`</span><br><span class="line">) a ON a.term_id = t.`id`</span><br><span class="line">SET t.`settlement_date` = a.max_start_date</span><br><span class="line">WHERE t.`settlement_date` IS NULL;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-删除子查询语法："><a href="#2-删除子查询语法：" class="headerlink" title="2.删除子查询语法："></a>2.删除子查询语法：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">DELETE d FROM ycd_t_user_activity d</span><br><span class="line">WHERE d.id IN (</span><br><span class="line">SELECT id</span><br><span class="line">FROM</span><br><span class="line">(</span><br><span class="line">    SELECT a.id</span><br><span class="line">    FROM ycd_t_user_activity a</span><br><span class="line">    WHERE a.id != (</span><br><span class="line">        SELECT MIN(e.id)</span><br><span class="line">        FROM ycd_t_user_activity e</span><br><span class="line">        WHERE e.`user_id` = a.user_id)</span><br><span class="line">    ) AS X</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/" data-id="ckxij0rhi0000v07i09h1dklt" data-title="mysql关联更新与删除" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-docker安装mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:27:42.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/">docker安装mysql</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1、创建目录"><a href="#1、创建目录" class="headerlink" title="1、创建目录"></a>1、创建目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/usr-data</span><br></pre></td></tr></table></figure>
+<h4 id="2、启动实例"><a href="#2、启动实例" class="headerlink" title="2、启动实例"></a>2、启动实例</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">--name=&quot;mysql&quot; \</span><br><span class="line">--restart always \</span><br><span class="line">-e MYSQL_ROOT_HOST=% \</span><br><span class="line">-e MYSQL_ROOT_PWD=KijVtGsAWN2hxLUu \</span><br><span class="line">-v /data/usr-data:/data/usr-data \</span><br><span class="line">-p 3306:3306 \</span><br><span class="line">qq79428316/club-mysql:5.7.25</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、创建数据库和普通用户并分配权限"><a href="#3、创建数据库和普通用户并分配权限" class="headerlink" title="3、创建数据库和普通用户并分配权限"></a>3、创建数据库和普通用户并分配权限</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE IF NOT EXISTS live DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</span><br><span class="line"></span><br><span class="line">CREATE USER &#x27;dev-ue-live&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;fiJW6t9m27spYZd0&#x27;;</span><br><span class="line"></span><br><span class="line">GRANT ALL ON live.* TO &#x27;dev-ue-live&#x27;@&#x27;%&#x27;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" data-id="ckxiiy6b20000aw7i14hc8gt0" data-title="docker安装mysql" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-mysql分区表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:23:00.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/">mysql分区表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>mysql 表分区的几种方式：</p>
+<p>RANGE分区：基于属于一个给定连续区间的列值，把多行分配给分区。<br>LIST分区：类似于按RANGE分区，区别在于LIST分区是基于列值匹配一个离散值集合中的某个值来进行选择。<br>HASH分区：基于用户定义的表达式的返回值来进行选择的分区，该表达式使用将要插入到表中的这些行的列值进行计算。这个函数可以包含MySQL中有效的、产生非负整数值的任何表达式。<br>KEY分区：类似于按HASH分区，区别在于KEY分区只支持计算一列或多列，且MySQL服务器提供其自身的哈希函数。必须有一列或多列包含整数值。<br>以xxl-job为例，这是一张日志表，每天产上约30万条记录</p>
+<h4 id="1-创建表xxl-job-log并创建分区"><a href="#1-创建表xxl-job-log并创建分区" class="headerlink" title="1. 创建表xxl_job_log并创建分区"></a>1. 创建表xxl_job_log并创建分区</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">/* 注意：需要id和trigger_time作为双主键，有主键的表但分区字段（trigger_time）不是主键，新建分区表时会报A PRIMARY KEY must include all columns in the table’s partitioning function */</span><br><span class="line">CREATE TABLE `xxl_job_log` (</span><br><span class="line">  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `job_group` INT(11) NOT NULL COMMENT &#x27;执行器主键ID&#x27;,</span><br><span class="line">  `job_id` INT(11) NOT NULL COMMENT &#x27;任务，主键ID&#x27;,</span><br><span class="line">  `executor_address` VARCHAR(255) DEFAULT NULL COMMENT &#x27;执行器地址，本次执行的地址&#x27;,</span><br><span class="line">  `executor_handler` VARCHAR(255) DEFAULT NULL COMMENT &#x27;执行器任务handler&#x27;,</span><br><span class="line">  `executor_param` VARCHAR(512) DEFAULT NULL COMMENT &#x27;执行器任务参数&#x27;,</span><br><span class="line">  `executor_sharding_param` VARCHAR(20) DEFAULT NULL COMMENT &#x27;执行器任务分片参数，格式如 1/2&#x27;,</span><br><span class="line">  `executor_fail_retry_count` INT(11) NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;失败重试次数&#x27;,</span><br><span class="line">  `trigger_time` DATETIME NOT NULL COMMENT &#x27;调度-时间&#x27;,</span><br><span class="line">  `trigger_code` INT(11) NOT NULL COMMENT &#x27;调度-结果&#x27;,</span><br><span class="line">  `trigger_msg` TEXT COMMENT &#x27;调度-日志&#x27;,</span><br><span class="line">  `handle_time` DATETIME DEFAULT NULL COMMENT &#x27;执行-时间&#x27;,</span><br><span class="line">  `handle_code` INT(11) NOT NULL COMMENT &#x27;执行-状态&#x27;,</span><br><span class="line">  `handle_msg` TEXT COMMENT &#x27;执行-日志&#x27;,</span><br><span class="line">  `alarm_status` TINYINT(4) NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;告警状态：0-默认、1-无需告警、2-告警成功、3-告警失败&#x27;,</span><br><span class="line">  PRIMARY KEY (`id`, `trigger_time`),</span><br><span class="line">  KEY `I_trigger_time` (`trigger_time`),</span><br><span class="line">  KEY `I_handle_code` (`handle_code`),</span><br><span class="line">  KEY `I_alarm_status` (`alarm_status`),</span><br><span class="line">  KEY `I_trigger_code` (`trigger_code`),</span><br><span class="line">  KEY `I_job_group` (`job_group`),</span><br><span class="line">  KEY `I_job_id` (`job_id`)</span><br><span class="line">) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;</span><br><span class="line"> </span><br><span class="line">/* 依托字段trigger_time新建分区表，每天一个分区，此处手工创建，需再建一个定时创建分区的任务 */</span><br><span class="line">ALTER TABLE xxl_job_log PARTITION BY RANGE COLUMNS(trigger_time)(</span><br><span class="line">    PARTITION p20211212 VALUES LESS THAN(&#x27;2021-12-12&#x27;),</span><br><span class="line">    PARTITION p20211213 VALUES LESS THAN(&#x27;2021-12-13&#x27;),</span><br><span class="line">    PARTITION p20211214 VALUES LESS THAN(&#x27;2021-12-14&#x27;),</span><br><span class="line">    PARTITION p20211215 VALUES LESS THAN(&#x27;2021-12-15&#x27;),</span><br><span class="line">    PARTITION p20211216 VALUES LESS THAN(&#x27;2021-12-16&#x27;)</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">/* 查询分区表情况 */</span><br><span class="line">SELECT partition_name, partition_description AS val FROM information_schema.partitions</span><br><span class="line">WHERE table_name=&#x27;xxl_job_log&#x27; AND table_schema=&#x27;xxl_job&#x27;;     </span><br><span class="line"> </span><br><span class="line">partition_name  val          </span><br><span class="line">--------------  --------------</span><br><span class="line">p20211212       &#x27;2021-12-12&#x27; </span><br><span class="line">p20211213       &#x27;2021-12-13&#x27; </span><br><span class="line">p20211214       &#x27;2021-12-14&#x27; </span><br><span class="line">p20211215       &#x27;2021-12-15&#x27; </span><br><span class="line">p20211216       &#x27;2021-12-16&#x27;</span><br><span class="line"> </span><br><span class="line">/* 查询分区表情况 */</span><br><span class="line">EXPLAIN PARTITIONS SELECT * FROM xxl_job_log;</span><br><span class="line">    id  select_type  table        partitions                                                             type    possible_keys  key     key_len  ref       rows  filtered  Extra  </span><br><span class="line">------  -----------  -----------  ---------------------------------------------------------------------  ------  -------------  ------  -------  ------  ------  --------  --------</span><br><span class="line">     1  SIMPLE       xxl_job_log  p20211212,p20211213,p20211214,p20211215,p20211216,p20211217,p20211218  ALL     (NULL)         (NULL)  (NULL)   (NULL)  583426    100.00  (NULL)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-创建自动分区"><a href="#2-创建自动分区" class="headerlink" title="2.创建自动分区"></a>2.创建自动分区</h4><h5 id="2-1-创建自动分区存储过程pro-xxl-job-log"><a href="#2-1-创建自动分区存储过程pro-xxl-job-log" class="headerlink" title="2.1 创建自动分区存储过程pro_xxl_job_log"></a>2.1 创建自动分区存储过程pro_xxl_job_log</h5><p>创建存储过程，每天新增3个分区，并删除15天前的分区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line">DROP PROCEDURE IF EXISTS pro_xxl_job_log</span><br><span class="line">$$</span><br><span class="line">CREATE PROCEDURE pro_xxl_job_log()</span><br><span class="line">BEGIN</span><br><span class="line">  DECLARE v_sysdate DATE;</span><br><span class="line">  DECLARE v_mindate DATE;</span><br><span class="line">  DECLARE v_maxdate DATE;</span><br><span class="line">  DECLARE v_pt VARCHAR(20);</span><br><span class="line">  DECLARE v_maxval VARCHAR(20);</span><br><span class="line">  DECLARE i INT;</span><br><span class="line">   </span><br><span class="line">  /*增加新分区代码，执行时，不要复制此行*/</span><br><span class="line">  SELECT MAX(CAST(REPLACE(partition_description, &#x27;&#x27;&#x27;&#x27;, &#x27;&#x27;) AS DATE)) AS val</span><br><span class="line">  INTO   v_maxdate</span><br><span class="line">  FROM   INFORMATION_SCHEMA.PARTITIONS</span><br><span class="line">  WHERE  TABLE_NAME = &#x27;xxl_job_log&#x27; AND TABLE_SCHEMA = &#x27;xxl_job&#x27;;</span><br><span class="line">   </span><br><span class="line">  SET v_sysdate = SYSDATE();</span><br><span class="line">   </span><br><span class="line">  WHILE v_maxdate &lt;= (v_sysdate + INTERVAL 3 DAY) DO</span><br><span class="line">    SET v_pt = DATE_FORMAT(v_maxdate+ INTERVAL 1 DAY ,&#x27;%Y%m%d&#x27;);</span><br><span class="line">    SET v_maxval = DATE_FORMAT(v_maxdate + INTERVAL 1 DAY, &#x27;%Y-%m-%d&#x27;);</span><br><span class="line">    SET @sql = CONCAT(&#x27;alter table xxl_job_log add partition (partition p&#x27;, v_pt, &#x27; values less than(&#x27;&#x27;&#x27;, v_maxval, &#x27;&#x27;&#x27;))&#x27;);</span><br><span class="line">    -- SELECT @sql;</span><br><span class="line">    PREPARE stmt FROM @sql;</span><br><span class="line">    EXECUTE stmt;</span><br><span class="line">    DEALLOCATE PREPARE stmt;</span><br><span class="line">    SET v_maxdate = v_maxdate + INTERVAL 1 DAY;</span><br><span class="line">  END WHILE;</span><br><span class="line">   </span><br><span class="line">  /*删除旧分区，执行时，不要复制此行*/</span><br><span class="line">  SELECT MIN(CAST(REPLACE(partition_description, &#x27;&#x27;&#x27;&#x27;, &#x27;&#x27;) AS DATE)) AS val</span><br><span class="line">  INTO   v_mindate</span><br><span class="line">  FROM   INFORMATION_SCHEMA.PARTITIONS</span><br><span class="line">  WHERE  TABLE_NAME = &#x27;xxl_job_log&#x27; AND TABLE_SCHEMA = &#x27;xxl_job&#x27;;</span><br><span class="line">     </span><br><span class="line">  WHILE v_mindate &lt;= (v_sysdate - INTERVAL 15 DAY) DO</span><br><span class="line">    SET v_pt = DATE_FORMAT(v_mindate - INTERVAL 1 DAY,&#x27;%Y%m%d&#x27;);</span><br><span class="line">    SET @sql = CONCAT(&#x27;alter table xxl_job_log drop partition p&#x27;, v_pt);</span><br><span class="line">    -- SELECT @sql;</span><br><span class="line">    PREPARE stmt FROM @sql;</span><br><span class="line">    EXECUTE stmt;</span><br><span class="line">    DEALLOCATE PREPARE stmt;</span><br><span class="line">    SET v_mindate = v_mindate + INTERVAL 1 DAY;</span><br><span class="line">  END WHILE;</span><br><span class="line">  </span><br><span class="line">END$$</span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>测试存储过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/* 调用存储过程*/</span><br><span class="line">CALL pro_xxl_job_log;</span><br><span class="line"> </span><br><span class="line"> /* 查询分区表情况 */</span><br><span class="line">SELECT partition_name, partition_description AS val FROM information_schema.partitions</span><br><span class="line">WHERE table_name=&#x27;xxl_job_log&#x27; AND table_schema=&#x27;xxl_job&#x27;;     </span><br><span class="line"> </span><br><span class="line">partition_name  val          </span><br><span class="line">--------------  --------------</span><br><span class="line">p20211212       &#x27;2021-12-12&#x27; </span><br><span class="line">p20211213       &#x27;2021-12-13&#x27; </span><br><span class="line">p20211214       &#x27;2021-12-14&#x27; </span><br><span class="line">p20211215       &#x27;2021-12-15&#x27; </span><br><span class="line">p20211216       &#x27;2021-12-16&#x27; </span><br><span class="line">p20211217       &#x27;2021-12-17&#x27; </span><br><span class="line">p20211218       &#x27;2021-12-18&#x27;</span><br><span class="line"> </span><br><span class="line">由上可见新增了p20211217、p20211218两个分区</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-开启事件"><a href="#2-2-开启事件" class="headerlink" title="2.2 开启事件"></a>2.2 开启事件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/* 查询是否开启事件 */</span><br><span class="line">show variables like &quot;event_scheduler&quot;;</span><br><span class="line">Variable_name    Value  </span><br><span class="line">---------------  --------</span><br><span class="line">event_scheduler  OFF   </span><br><span class="line"> </span><br><span class="line">/* 临时开启事件 */</span><br><span class="line">SET GLOBAL event_scheduler = ON;</span><br><span class="line">永久开启事件：修改mysql配置文件my.cnf，在[mysqld]下面增加：event_scheduler=ON</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3-编写事件"><a href="#2-3-编写事件" class="headerlink" title="2.3 编写事件"></a>2.3 编写事件</h5><p>设置从2021-12-15 00:00:00开始，每24小时执行一次</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line">DROP EVENT IF EXISTS auto_pt $$</span><br><span class="line">CREATE EVENT auto_pt</span><br><span class="line">ON SCHEDULE</span><br><span class="line">EVERY 24 HOUR</span><br><span class="line">STARTS &#x27;2021-12-15 00:00:00&#x27;</span><br><span class="line">DO</span><br><span class="line">BEGIN</span><br><span class="line">    CALL pro_xxl_job_log();</span><br><span class="line">END$$</span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>查看事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">show events;</span><br><span class="line"> </span><br><span class="line">Db       Name     Definer  Time zone  Type       Execute at  Interval value  Interval field  Starts               Ends    Status   Originator  character_set_client  collation_connection  Database Collation </span><br><span class="line">-------  -------  -------  ---------  ---------  ----------  --------------  --------------  -------------------  ------  -------  ----------  --------------------  --------------------  --------------------</span><br><span class="line">xxl_job  auto_pt  root@%   SYSTEM     RECURRING  (NULL)      24              HOUR            2021-12-15 00:00:00  (NULL)  ENABLED           1  utf8                  utf8_general_ci       utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" data-id="ckxiiukzn0000787i7414eth9" data-title="mysql分区表" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-redis批量删除key" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -108,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" data-id="ckxg22cy60001nk7i3rkxbhmy" data-title="redis批量删除key" class="article-share-link">Compartir</a>
+      <a data-url="https://username.github.io/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" data-id="ckxg22cy60001nk7i3rkxbhmy" data-title="redis批量删除key" class="article-share-link">Share</a>
       
       
       
@@ -160,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/" data-id="ckxg22cy90003nk7ibqcc842i" data-title="redis集群" class="article-share-link">Compartir</a>
+      <a data-url="https://username.github.io/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/" data-id="ckxg22cy90003nk7ibqcc842i" data-title="redis集群" class="article-share-link">Share</a>
       
       
       
@@ -210,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" data-id="ckxg22cy50000nk7igtb53qy8" data-title="redis安装" class="article-share-link">Compartir</a>
+      <a data-url="https://username.github.io/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" data-id="ckxg22cy50000nk7igtb53qy8" data-title="redis安装" class="article-share-link">Share</a>
       
       
       
@@ -263,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" data-id="ckxg1i37600001g7igsp4e6n3" data-title="hexo搭建github博客" class="article-share-link">Compartir</a>
+      <a data-url="https://username.github.io/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" data-id="ckxg1i37600001g7igsp4e6n3" data-title="hexo搭建github博客" class="article-share-link">Share</a>
       
       
       
@@ -310,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/git/" data-id="ckxfytji30000647ifftcdmfn" data-title="git" class="article-share-link">Compartir</a>
+      <a data-url="https://username.github.io/docs/2021/12/21/git/" data-id="ckxfytji30000647ifftcdmfn" data-title="git" class="article-share-link">Share</a>
       
       
       
@@ -376,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/docker/" data-id="ckxfyie6q0000ms7i4g53cfh3" data-title="docker" class="article-share-link">Compartir</a>
+      <a data-url="https://username.github.io/docs/2021/12/21/docker/" data-id="ckxfyie6q0000ms7i4g53cfh3" data-title="docker" class="article-share-link">Share</a>
       
       
       
@@ -390,48 +576,12 @@
 
 
   
-    <article id="post-java-lamda" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/docs/2021/12/21/java-lamda/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T10:16:25.000Z" itemprop="datePublished">2021-12-21</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/21/java-lamda/">java lamda</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="java-lamda"><a href="#java-lamda" class="headerlink" title="java lamda"></a>java lamda</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">class User &#123;</span><br><span class="line">   /** 用户id */</span><br><span class="line">   private String id;</span><br><span class="line">   /** 用户姓名 */</span><br><span class="line">   private String name;</span><br><span class="line">   /** 性别:0-男/1-女 */</span><br><span class="line">   private String sex;</span><br><span class="line">   /** 年龄 */</span><br><span class="line">   private Integer age;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">@Data</span><br><span class="line">class UserSum &#123;</span><br><span class="line">   /** 性别:0-男/1-女 */</span><br><span class="line">   private String sex;</span><br><span class="line">   /** 年龄 */</span><br><span class="line">   private Integer age;</span><br><span class="line"> </span><br><span class="line">    public UserSum (String sex, Integer age) &#123;</span><br><span class="line">            this.sex= sex;</span><br><span class="line">            this.age= age;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        @Override</span><br><span class="line">        public String toString() &#123;</span><br><span class="line">            return this.sex+ &quot;:&quot; + this.age;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        @Override</span><br><span class="line">        public boolean equals(Object obj) &#123;</span><br><span class="line">            if(obj == null) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            if(!(obj instanceof UserSum)) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            if(obj == this) &#123;</span><br><span class="line">                return  true;</span><br><span class="line">            &#125;</span><br><span class="line">            UserSum o = (UserSum)obj;</span><br><span class="line">            return this.sex.equals(o.sex) &amp;&amp; this.age.equals(o.age);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        @Override</span><br><span class="line">        public int hashCode() &#123;</span><br><span class="line">            return this.sex.hashCode() + this.age.hashCode();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">List&lt;User&gt; userList;</span><br><span class="line"> </span><br><span class="line">// 循环</span><br><span class="line">userList.foreach(m-&gt;&#123;</span><br><span class="line">   // do something</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 过滤（筛选姓名为女的用户）</span><br><span class="line">List&lt;User&gt; list = userList.stream().filter(m-&gt;&quot;1&quot;.equals(m.getSex())).collect(Collectors.toList());</span><br><span class="line">// 两层过滤</span><br><span class="line">List&lt;UserRole&gt; list = userRoleList.stream().filter(m-&gt;userList.stream().filter(a-&gt;a.getId().equals(m.userId())).findFirst().isPresent()).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// list值转换(获取对象某个字段)</span><br><span class="line">List&lt;String&gt; list = userList.stream().map(User::getId).collect(Collectors.toList());</span><br><span class="line">// list值转换（某个对象转为另一个对象）</span><br><span class="line">List&lt;UserVO&gt; list = messageList.stream().map(m-&gt;&#123;</span><br><span class="line">   UserVO userVO = new UserVO();</span><br><span class="line">   userVO.setId(m.getId());</span><br><span class="line">   return userVO;</span><br><span class="line">&#125;).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// list转map</span><br><span class="line">Map&lt;String, String&gt; users = userList.stream().collect(Collectors.toMap(User::getId, User::getName));</span><br><span class="line">Map&lt;String, User&gt; users = userList.stream().collect(Collectors.toMap(User::getName, Function.identity()));</span><br><span class="line">Map&lt;String, String&gt; users = userList.stream().collect(Collectors.toMap(User::getId, u-&gt;u.getAge().toString())); // 类型转换</span><br><span class="line"> // 解决key值重复</span><br><span class="line">Map&lt;String, User&gt; users = userList.stream().collect(Collectors.toMap(User::getName, Function.identity(), (key1, key2) -&gt; key2));</span><br><span class="line"> </span><br><span class="line">// map转list</span><br><span class="line">List&lt;User&gt; userList = map.entrySet().stream().map(e -&gt; new User(e.getKey(),e.getValue())).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// list去重</span><br><span class="line">List&lt;User&gt; userList = users.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparing(user -&gt;user.getName()))), ArrayList::new));</span><br><span class="line"> </span><br><span class="line">// 分组</span><br><span class="line">Map&lt;String, List&lt;User&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(User::getSex));</span><br><span class="line">Map&lt;String, List&lt;User&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(m-&gt;Integer.value(m.getSex())));</span><br><span class="line">Map&lt;String, List&lt;String&gt;&gt; map = userList.parallelStream().collect(Collectors.groupingBy(User::getSex, Collectors.mapping(User::getId, Collectors.toList())));</span><br><span class="line">// 分组并对key排序</span><br><span class="line">TreeMap&lt;String, List&lt;User&gt;&gt;  map = list.stream().collect(Collectors.groupingBy(User::getSex, TreeMap::new, Collectors.toList()));</span><br><span class="line">// 多条件分组</span><br><span class="line">// 方式一</span><br><span class="line">Map&lt;String, Map&lt;String, List&lt;User&gt;&gt;&gt; collect = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName)));</span><br><span class="line">// 方式二</span><br><span class="line">Map&lt;UserSum, List&lt;User&gt;&gt; collect1 = list.stream().collect(Collectors.groupingBy(um -&gt; new UserSum(um.getSex(), um.getName())));</span><br><span class="line">// 分组求和, BigDecimal可以用Collectors.reducing(BigDecimal.ZERO, User::getAge, BigDecimal::add)</span><br><span class="line">Map&lt;String, Map&lt;String, Integer&gt;&gt; collect2 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.groupingBy(User::getName, Collectors.summarizingInt(User::getAge))));</span><br><span class="line">// 求每组最大值（返回对象）</span><br><span class="line">Map&lt;String, User&gt; collect4 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(User::getAge)), Optional::get)));</span><br><span class="line">// 求每组最大值（返回值）</span><br><span class="line">Map&lt;String, Integer&gt; collect5 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.reducing(0, User::getAge, Integer::max)));</span><br><span class="line">// 求平均数</span><br><span class="line">Map&lt;String, Double&gt; collect8 = list.stream().collect(Collectors.groupingBy(User::getSex, Collectors.averagingInt(User::getAge)));</span><br><span class="line">// 获取年龄小于30岁的（having group by ）</span><br><span class="line">Map&lt;Long, Long&gt; collect = result.stream().collect(Collectors.collectingAndThen(Collectors.groupingBy(User::getAge, Collectors.counting()), m -&gt; &#123;</span><br><span class="line">                m.values().removeIf(v -&gt; v &gt;= 30);</span><br><span class="line">                return m;</span><br><span class="line">            &#125;));</span><br><span class="line"> </span><br><span class="line">// 排序</span><br><span class="line">// 反序排序</span><br><span class="line">List&lt;User&gt; list = userList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());</span><br><span class="line">// 按照某个字段排序（默认正序）</span><br><span class="line">List&lt;User&gt; collect = users.stream().sorted(Comparator.comparing(User::getName)).collect(Collectors.toList());</span><br><span class="line">// 按照某个字段排序（倒叙）</span><br><span class="line">List&lt;User&gt; collect = users.stream().sorted(Comparator.comparing(User::getName).reversed()).collect(Collectors.toList());</span><br><span class="line">// 某个字段处理后再排序</span><br><span class="line">Collections.sort(userList, (o1, o2)-&gt;Integer.valueOf(o1.getId()).compareTo(Integer.valueOf(o2.getId())));</span><br><span class="line">// 多字段排序先根据性别正序排序，再根据姓名倒叙排序</span><br><span class="line">List&lt;User&gt; collection = users.stream().sorted(Comparator.comparing(User::getSex).thenComparing(User::getName).reversed()).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// 求最大值、最小值</span><br><span class="line">Integer max = list.stream().map(User::getAge).max(Integer::compareTo).get();</span><br><span class="line">Integer min= list.stream().map(User::getAge).min(Integer::compareTo).get();</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">// 分页，从0开始取前5条</span><br><span class="line">List&lt;User&gt; collection = list.stream().skip(0).limit(5).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">// 初始化map</span><br><span class="line">Map&lt;String, String&gt; events = new ImmutableMap.Builder&lt;String, String&gt;().put(&quot;abc&quot;, &quot;123&quot;).build();    </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">//String 字符串转换list&lt;Integer&gt;类型</span><br><span class="line">List&lt;Integer&gt; channels = Arrays.stream(ids.split(&quot;,&quot;)).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/java-lamda/" data-id="ckxfyie6w0001ms7ife4993pv" data-title="java lamda" class="article-share-link">Compartir</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/java/" rel="tag">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/docs/page/2/">2</a><a class="extend next" rel="next" href="/docs/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -444,7 +594,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
     </div>
   </div>
 
@@ -452,16 +602,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nube de Tags</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/docs/tags/docker/" style="font-size: 10px;">docker</a> <a href="/docs/tags/git/" style="font-size: 15px;">git</a> <a href="/docs/tags/java/" style="font-size: 10px;">java</a> <a href="/docs/tags/redis/" style="font-size: 20px;">redis</a>
+      <a href="/docs/tags/docker/" style="font-size: 10px;">docker</a> <a href="/docs/tags/git/" style="font-size: 15px;">git</a> <a href="/docs/tags/java/" style="font-size: 10px;">java</a> <a href="/docs/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/docs/tags/redis/" style="font-size: 20px;">redis</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archivos</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2021/12/">December 2021</a></li></ul>
     </div>
@@ -471,28 +621,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Posts recientes</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
+            <a href="/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/">mysql查询慢SQL</a>
+          </li>
+        
+          <li>
+            <a href="/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/">mysql关联更新与删除</a>
+          </li>
+        
+          <li>
+            <a href="/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/">docker安装mysql</a>
+          </li>
+        
+          <li>
+            <a href="/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/">mysql分区表</a>
+          </li>
+        
+          <li>
             <a href="/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">redis批量删除key</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/">redis集群</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/">redis安装</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/">hexo搭建github博客</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2021/12/21/git/">git</a>
           </li>
         
       </ul>
@@ -509,7 +659,7 @@
     <div id="footer-info" class="inner">
       
       &copy; 2021 Nantong Tong Gu Information Service Co., Ltd.<br>
-      Construido por <a href="https://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
