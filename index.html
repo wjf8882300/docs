@@ -9,7 +9,7 @@
   <meta name="description" content="Now life kill the dream I dreamed.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="筑梦星海，梦向星辰">
-<meta property="og:url" content="https://username.github.io/docs/index.html">
+<meta property="og:url" content="https://wjf8882300.github.io/index.html">
 <meta property="og:site_name" content="筑梦星海，梦向星辰">
 <meta property="og:description" content="Now life kill the dream I dreamed.">
 <meta property="og:locale">
@@ -17,10 +17,10 @@
 <meta property="article:tag" content="docker linux java database blockchain">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/docs/atom.xml" title="筑梦星海，梦向星辰" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="筑梦星海，梦向星辰" type="application/atom+xml">
   
   
-    <link rel="shortcut icon" href="/docs/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
   
   
     
@@ -28,11 +28,11 @@
 
   
   
-<link rel="stylesheet" href="/docs/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
   
     
-<link rel="stylesheet" href="/docs/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -45,11 +45,11 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/docs/" id="logo">筑梦星海，梦向星辰</a>
+        <a href="/" id="logo">筑梦星海，梦向星辰</a>
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/docs/" id="subtitle">Talk is cheap, show me your code!</a>
+          <a href="/" id="subtitle">Talk is cheap, show me your code!</a>
         </h2>
       
     </div>
@@ -57,19 +57,19 @@
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
         
-          <a class="main-nav-link" href="/docs/">Home</a>
+          <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/docs/archives">Archives</a>
+          <a class="main-nav-link" href="/archives">Archives</a>
         
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/docs/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://username.github.io/docs"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wjf8882300.github.io"></form>
       </div>
     </div>
   </div>
@@ -78,9 +78,308 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java内存诊断" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:59:09.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/">java内存诊断</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>针对内存溢出、内存泄露的情况，需要定位哪些数据占用了大量内存，且不释放，并定位内存溢出或者泄露的代码。</p>
+<h4 id="1-通过dump解析"><a href="#1-通过dump解析" class="headerlink" title="1.通过dump解析"></a>1.通过dump解析</h4><p>java通过dump生成内存分析的文件，再通过eclipse memory analyzer工具分析定位。</p>
+<h5 id="1-1-启动时添加"><a href="#1-1-启动时添加" class="headerlink" title="1.1.启动时添加"></a>1.1.启动时添加</h5><p>启动jar包时添加红字部分，便于通过jvm监控工具链接程序，并进行内存监控。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar -Dspring.profiles.active=$&#123;PROFILE&#125; -Djava.rmi.server.hostname=$&#123;IP&#125; -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.rmi.port=1099 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false bill.1.0.0.jar</span><br></pre></td></tr></table></figure>
+<h5 id="1-2-jvm监控工具"><a href="#1-2-jvm监控工具" class="headerlink" title="1.2.jvm监控工具"></a>1.2.jvm监控工具</h5><p>C:\Program Files (x86)\Java\jdk1.8.0_191\bin\jvisualvm.exe</p>
+<h6 id="1）添加要监控的服务器"><a href="#1）添加要监控的服务器" class="headerlink" title="1）添加要监控的服务器"></a>1）添加要监控的服务器</h6><p><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-01.png">    </p>
+<h6 id="2）监控内存、cpu、线程使用情况"><a href="#2）监控内存、cpu、线程使用情况" class="headerlink" title="2）监控内存、cpu、线程使用情况"></a>2）监控内存、cpu、线程使用情况</h6><p>点击堆Dump即可生成内存分析文件，系统会提示文件存储在服务器上的位置。Docker容器放在设置的数据目录下。</p>
+<p>比如生成文件/tmp/heapdump-1589453851824.hprof，把文件下载到本地，等待分析。<br><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-02.png"><br><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-03.png">    </p>
+<h5 id="1-3-eclipse-memory-analyzer工具"><a href="#1-3-eclipse-memory-analyzer工具" class="headerlink" title="1.3.eclipse memory analyzer工具"></a>1.3.eclipse memory analyzer工具</h5><p>使用本工具打开上个步骤生成的hprof文件，会生成如下图所示。<br><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-04.png">    </p>
+<p><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-05.png">    </p>
+<p><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-06.png">    </p>
+<h4 id="2-通过arthas在线查看"><a href="#2-通过arthas在线查看" class="headerlink" title="2.通过arthas在线查看"></a>2.通过arthas在线查看</h4><p>arthas服务端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -i provider-auth /bin/sh -c &#x27;java -jar /opt/arthas/arthas-boot.jar 6 --attach-only --session-timeout=31536000 --tunnel-server ws://172.19.115.12:7777/ws --agent-id 172.19.115.8&#x27;</span><br></pre></td></tr></table></figure>
+<p>手工调试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it provider-auth sh</span><br><span class="line"></span><br><span class="line">java -jar /opt/arthas/arthas-boot.jar 6</span><br></pre></td></tr></table></figure>
+<p>–attach-only # 表示非交互式启动<br>–tunnel-server # 表示tunnel-server地址和端口<br>–agent-id # 表示当前arthas的标识</p>
+<p><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-07.png">    </p>
+<p>常用命令：<br>help    # 帮助<br>dashboard # 查看面板<br>thread  # 查看所有线程<br>thread -b # 查看锁住的线程<br>thread -n 3 # 查看前3个占用cpu最高的线程</p>
+<p>dashboard命令的使用<br><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-08.png">    </p>
+<p>thread命令的使用<br>下面的例子查看线程id为103的线程，显示出这个线程执行的代码为rabbitmq监听，可以通过这种方式定位出问题的代码。<br><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-09.png">    </p>
+<p>heapdum生成内存分析文件<br><img src="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/java-memory-10.png">    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wjf8882300.github.io/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/" data-id="ckximhz2d0009mk7idigv6o41" data-title="java内存诊断" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-spring-boot-原始报文日志" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/23/spring-boot-%E5%8E%9F%E5%A7%8B%E6%8A%A5%E6%96%87%E6%97%A5%E5%BF%97/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:51:34.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/23/spring-boot-%E5%8E%9F%E5%A7%8B%E6%8A%A5%E6%96%87%E6%97%A5%E5%BF%97/">spring boot 原始报文日志</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>日志记录在进入controller之前</p>
+<h4 id="1-配置FilterConfig"><a href="#1-配置FilterConfig" class="headerlink" title="1.配置FilterConfig"></a>1.配置FilterConfig</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.yier.platform.aop;</span><br><span class="line"> </span><br><span class="line">import org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"> </span><br><span class="line">@Configuration</span><br><span class="line">public class FilterConfig &#123;</span><br><span class="line"> </span><br><span class="line">    @Bean</span><br><span class="line">    public FilterRegistrationBean registFilter() &#123;</span><br><span class="line">        FilterRegistrationBean registration = new FilterRegistrationBean();</span><br><span class="line">        registration.setFilter(new LogParamFilter());</span><br><span class="line">        registration.addUrlPatterns(&quot;/*&quot;);</span><br><span class="line">        registration.setName(&quot;LogFilter&quot;);</span><br><span class="line">        registration.setOrder(0);</span><br><span class="line">        return registration;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-配置LogParamFilter"><a href="#2-配置LogParamFilter" class="headerlink" title="2.配置LogParamFilter"></a>2.配置LogParamFilter</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">package com.yier.platform.aop;</span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import org.springframework.core.Ordered;</span><br><span class="line">import org.springframework.web.filter.OncePerRequestFilter;</span><br><span class="line">import org.springframework.web.util.ContentCachingRequestWrapper;</span><br><span class="line">import org.springframework.web.util.ContentCachingResponseWrapper;</span><br><span class="line">import org.springframework.web.util.WebUtils;</span><br><span class="line"> </span><br><span class="line">import javax.servlet.FilterChain;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.UnsupportedEncodingException;</span><br><span class="line">import java.util.Enumeration;</span><br><span class="line"> </span><br><span class="line">@Slf4j</span><br><span class="line">public class LogParamFilter extends OncePerRequestFilter implements Ordered &#123;</span><br><span class="line">    // put filter at the end of all other filters to make sure we are processing after all others</span><br><span class="line">    private int order = Ordered.LOWEST_PRECEDENCE - 8;</span><br><span class="line">    public static final String SPLIT_STRING_M = &quot;=&quot;;</span><br><span class="line">    public static final String SPLIT_STRING_DOT = &quot;, &quot;;</span><br><span class="line"> </span><br><span class="line">    @Override</span><br><span class="line">    public int getOrder() &#123;</span><br><span class="line">        return order;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @Override</span><br><span class="line">    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,</span><br><span class="line">                                    FilterChain filterChain) throws ServletException, IOException &#123;</span><br><span class="line">        ContentCachingRequestWrapper wrapperRequest = new ContentCachingRequestWrapper(request);</span><br><span class="line">        ContentCachingResponseWrapper wrapperResponse = new ContentCachingResponseWrapper(response);</span><br><span class="line">        //String urlParams = getRequestParams(request);</span><br><span class="line">        filterChain.doFilter(wrapperRequest, wrapperResponse);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        String requestBodyStr = getRequestBody(wrapperRequest);</span><br><span class="line">        log.info(&quot;url:&#123;&#125;, request body:&#123;&#125;&quot;, request.getRequestURI(), requestBodyStr);</span><br><span class="line"> </span><br><span class="line">        String responseBodyStr = getResponseBody(wrapperResponse);</span><br><span class="line">        log.info(&quot;url:&#123;&#125;, response body:&#123;&#125;&quot;, request.getRequestURI(), responseBodyStr);</span><br><span class="line">        wrapperResponse.copyBodyToResponse();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 打印请求参数</span><br><span class="line">     *</span><br><span class="line">     * @param request</span><br><span class="line">     */</span><br><span class="line">    private String getRequestBody(ContentCachingRequestWrapper request) &#123;</span><br><span class="line">        ContentCachingRequestWrapper wrapper = WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);</span><br><span class="line">        if (wrapper != null) &#123;</span><br><span class="line">            byte[] buf = wrapper.getContentAsByteArray();</span><br><span class="line">            if (buf.length &gt; 0) &#123;</span><br><span class="line">                String payload;</span><br><span class="line">                try &#123;</span><br><span class="line">                    payload = new String(buf, 0, buf.length, wrapper.getCharacterEncoding());</span><br><span class="line">                &#125; catch (UnsupportedEncodingException e) &#123;</span><br><span class="line">                    payload = &quot;[unknown]&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">                return payload.replaceAll(&quot;\\n&quot;, &quot;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 打印返回参数</span><br><span class="line">     *</span><br><span class="line">     * @param response</span><br><span class="line">     */</span><br><span class="line">    private String getResponseBody(ContentCachingResponseWrapper response) &#123;</span><br><span class="line">        ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response,</span><br><span class="line">                ContentCachingResponseWrapper.class);</span><br><span class="line">        if (wrapper != null) &#123;</span><br><span class="line">            byte[] buf = wrapper.getContentAsByteArray();</span><br><span class="line">            if (buf.length &gt; 0) &#123;</span><br><span class="line">                String payload;</span><br><span class="line">                try &#123;</span><br><span class="line">                    payload = new String(buf, 0, buf.length, wrapper.getCharacterEncoding());</span><br><span class="line">                &#125; catch (UnsupportedEncodingException e) &#123;</span><br><span class="line">                    payload = &quot;[unknown]&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">                return payload;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 获取请求地址上的参数</span><br><span class="line">     *</span><br><span class="line">     * @param request</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static String getRequestParams(HttpServletRequest request) &#123;</span><br><span class="line">        StringBuilder sb = new StringBuilder();</span><br><span class="line">        Enumeration&lt;String&gt; enu = request.getParameterNames();</span><br><span class="line">        //获取请求参数</span><br><span class="line">        while (enu.hasMoreElements()) &#123;</span><br><span class="line">            String name = enu.nextElement();</span><br><span class="line">            sb.append(name + SPLIT_STRING_M).append(request.getParameter(name));</span><br><span class="line">            if (enu.hasMoreElements()) &#123;</span><br><span class="line">                sb.append(SPLIT_STRING_DOT);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wjf8882300.github.io/2021/12/23/spring-boot-%E5%8E%9F%E5%A7%8B%E6%8A%A5%E6%96%87%E6%97%A5%E5%BF%97/" data-id="ckximhz2n000omk7i0eyq4uo3" data-title="spring boot 原始报文日志" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-spring-boot-访问日志" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/23/spring-boot-%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:51:18.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/23/spring-boot-%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97/">spring boot 访问日志</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>访问日志在进入controller时才调用，若之前发生错误（如参数转换json对象时，参考spring-boot-原始报文日志），此处无法调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package com.yier.platform.aop;</span><br><span class="line"> </span><br><span class="line">import com.yier.platform.common.po.medical.res.BaseMedicalRes;</span><br><span class="line">import com.yier.platform.common.util.JsonUtils;</span><br><span class="line">import com.yier.platform.common.util.WebUtil;</span><br><span class="line">import org.aspectj.lang.ProceedingJoinPoint;</span><br><span class="line">import org.aspectj.lang.annotation.Around;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">import org.springframework.web.context.request.RequestContextHolder;</span><br><span class="line">import org.springframework.web.context.request.ServletRequestAttributes;</span><br><span class="line"> </span><br><span class="line">@Aspect</span><br><span class="line">@Component</span><br><span class="line">public class VisitLogIntercept &#123;</span><br><span class="line"> </span><br><span class="line">    private Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"> </span><br><span class="line">    private static final int MAX_RESULT_LENGTH = 10000;</span><br><span class="line"> </span><br><span class="line">    /** 打印日志与响应时间 */</span><br><span class="line">    @Around(&quot;within(com.yier.platform.controller..*Controller)&quot;)</span><br><span class="line">    public Object around(ProceedingJoinPoint pjp) throws Throwable &#123;</span><br><span class="line">        long curTime = System.currentTimeMillis();</span><br><span class="line">        ServletRequestAttributes req = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();</span><br><span class="line">        String controller = pjp.getTarget().getClass().getName();</span><br><span class="line">        String method =  pjp.getSignature().getName();</span><br><span class="line">        Object args = WebUtil.getArgs(pjp.getArgs());</span><br><span class="line"> </span><br><span class="line">        if(req == null || req.getRequest() == null)&#123;</span><br><span class="line">            return pjp.proceed();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        if(args == null &amp;&amp; req.getRequest().getParameterMap() != null) &#123;</span><br><span class="line">            args = req.getRequest().getParameterMap();</span><br><span class="line">        &#125;</span><br><span class="line">        logger.info(&quot;IP：&#123;&#125;，类：&#123;&#125;，方法：&#123;&#125;，参数：&#123;&#125;&quot;, WebUtil.getHost(req.getRequest()), controller, method, JsonUtils.toJsonString(args));</span><br><span class="line">        Object result = pjp.proceed();</span><br><span class="line"> </span><br><span class="line">        // 若返回结果超过1万，则截取前1万个字符打印（实测发现有超过100万的）</span><br><span class="line">        String strResult = &quot;&quot;;</span><br><span class="line">        if(result != null) &#123;</span><br><span class="line">            if(result instanceof BaseMedicalRes) &#123;</span><br><span class="line">                strResult = JsonUtils.toJsonString(result);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                strResult = result.toString();</span><br><span class="line">            &#125;</span><br><span class="line">            if(strResult.length() &gt; MAX_RESULT_LENGTH) &#123;</span><br><span class="line">                strResult = strResult.substring(0, MAX_RESULT_LENGTH) + &quot;...&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        logger.info(&quot;类：&#123;&#125;，方法：&#123;&#125;，消耗时间：&#123;&#125;ms，结果：&#123;&#125;&quot;, controller, method, System.currentTimeMillis() - curTime, strResult);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">package com.yier.platform.common.util;</span><br><span class="line"> </span><br><span class="line">import com.google.common.collect.Lists;</span><br><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.util.CollectionUtils;</span><br><span class="line">import org.springframework.web.context.request.RequestContextHolder;</span><br><span class="line">import org.springframework.web.context.request.ServletRequestAttributes;</span><br><span class="line">import org.springframework.web.multipart.MultipartFile;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line"> </span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.net.InetAddress;</span><br><span class="line">import java.net.UnknownHostException;</span><br><span class="line">import java.util.List;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> * Web层辅助工具类</span><br><span class="line"> * @author zhimou.qu</span><br><span class="line"> * @create 2018年7月12日</span><br><span class="line"> */</span><br><span class="line">public class WebUtil &#123;</span><br><span class="line"> </span><br><span class="line">    /** 获取当前ServletRequestAttributes */</span><br><span class="line">    public static ServletRequestAttributes getCurServletRequestAttributes() &#123;</span><br><span class="line">        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /** 获取当前HttpServletRequest */</span><br><span class="line">    public static HttpServletRequest getCurRequest() &#123;</span><br><span class="line">        return getCurServletRequestAttributes().getRequest();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /** 获取当前HttpServletResponse */</span><br><span class="line">    public static HttpServletResponse getCurResponse() &#123;</span><br><span class="line">        return getCurServletRequestAttributes().getResponse();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /** 获取客户端IP */</span><br><span class="line">    public static final String getHost(HttpServletRequest request) &#123;</span><br><span class="line">        String ip = request.getHeader(&quot;X-Forwarded-For&quot;);</span><br><span class="line">        if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">            ip = request.getHeader(&quot;Proxy-Client-IP&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">            ip = request.getHeader(&quot;WL-Proxy-Client-IP&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">            ip = request.getHeader(&quot;X-Real-IP&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (StringUtils.isBlank(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">            ip = request.getRemoteAddr();</span><br><span class="line">        &#125;</span><br><span class="line">        if (&quot;127.0.0.1&quot;.equals(ip)) &#123;</span><br><span class="line">            InetAddress inet = null;</span><br><span class="line">            try &#123;</span><br><span class="line">                inet = InetAddress.getLocalHost();</span><br><span class="line">            &#125; catch (UnknownHostException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            ip = inet.getHostAddress();</span><br><span class="line">        &#125;</span><br><span class="line">        if (ip != null &amp;&amp; ip.length() &gt; 15) &#123;</span><br><span class="line">            if (ip.indexOf(&quot;,&quot;) &gt; 0) &#123;</span><br><span class="line">                ip = ip.substring(0, ip.indexOf(&quot;,&quot;));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return ip;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 获取路径</span><br><span class="line">     *</span><br><span class="line">     * @author  wangjf</span><br><span class="line">     * @date    2019年1月24日 下午5:20:22</span><br><span class="line">     * @param request</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static final String getRequestPath(HttpServletRequest request) &#123;</span><br><span class="line">        return request.getServletPath();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 获取参数</span><br><span class="line">     * @param args</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static final Object getArgs(Object args) &#123;</span><br><span class="line">        if(args != null) &#123;</span><br><span class="line">            if(args instanceof Object[]) &#123;</span><br><span class="line">                List&lt;Object&gt; argList = Lists.newArrayList();</span><br><span class="line">                for(Object object : (Object[])args)&#123;</span><br><span class="line">                    if(isServletObject(object)) &#123;</span><br><span class="line">                        continue;</span><br><span class="line">                    &#125;</span><br><span class="line">                    argList.add(object);</span><br><span class="line">                &#125;</span><br><span class="line">                if(CollectionUtils.isEmpty(argList)) &#123;</span><br><span class="line">                    args = null;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    args = argList.toArray();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else if(isServletObject(args)) &#123;</span><br><span class="line">                args = null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return args;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 判断是否是servlet对象</span><br><span class="line">     * @param object</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private static boolean isServletObject(Object object) &#123;</span><br><span class="line">        if(object instanceof Model || object instanceof HttpServletRequest || object instanceof ModelAndView || object instanceof MultipartFile) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wjf8882300.github.io/2021/12/23/spring-boot-%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97/" data-id="ckximhz2r000xmk7i5ds2g9rv" data-title="spring boot 访问日志" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-spring-boot读取属性文件properties的几种方式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/23/spring-boot%E8%AF%BB%E5%8F%96%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6properties%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:50:57.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/23/spring-boot%E8%AF%BB%E5%8F%96%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6properties%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">spring boot读取属性文件properties的几种方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前三种测试配置文件为springboot默认的application.properties文件</p>
+<blockquote><p>com.zyd.url=<a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a></p>
+</blockquote>
+<h4 id="一、-ConfigurationProperties方式"><a href="#一、-ConfigurationProperties方式" class="headerlink" title="一、@ConfigurationProperties方式"></a>一、@ConfigurationProperties方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ConfigurationProperties(prefix = &quot;com.zyd&quot;)</span><br><span class="line">public class PropertiesConfig &#123;</span><br><span class="line">    private String url;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="二、使用-Value注解方式"><a href="#二、使用-Value注解方式" class="headerlink" title="二、使用@Value注解方式"></a>二、使用@Value注解方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Controller</span><br><span class="line">public class TestController &#123;</span><br><span class="line"> </span><br><span class="line">    @Value(&quot;$&#123;com.zyd.url&#125;&quot;)</span><br><span class="line">    private String url;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="三、使用Environment"><a href="#三、使用Environment" class="headerlink" title="三、使用Environment"></a>三、使用Environment</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Controller</span><br><span class="line">public class TestController &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private Environment env;</span><br><span class="line"> </span><br><span class="line">    @RequestMapping(&quot;/env&quot;)</span><br><span class="line">    public Map&lt;String, Object&gt; env() throws UnsupportedEncodingException &#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span><br><span class="line">        map.put(&quot;url&quot;, env.getProperty(&quot;com.zyd.url&quot;));</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="四、使用PropertiesLoaderUtils"><a href="#四、使用PropertiesLoaderUtils" class="headerlink" title="四、使用PropertiesLoaderUtils"></a>四、使用PropertiesLoaderUtils</h4><p>可以自定义属性文件，如app-config.properties</p>
+<blockquote>
+<p>com.zyd.url=<a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a></p>
+</blockquote>
+<pre><code>try &#123;
+            Properties properties = PropertiesLoaderUtils.loadAllProperties(&quot;app-config.properties&quot;);
+            String url = properties.get(&quot;com.zyd.url&quot;);
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wjf8882300.github.io/2021/12/23/spring-boot%E8%AF%BB%E5%8F%96%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6properties%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-id="ckximhz2q000vmk7igbgbcs8p" data-title="spring boot读取属性文件properties的几种方式" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-spring-boot-多数据源" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/23/spring-boot-%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:50:20.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/23/spring-boot-%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/">spring boot 多数据源</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1-配置文件"><a href="#1-配置文件" class="headerlink" title="1.配置文件"></a>1.配置文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">datasource:</span><br><span class="line">    druid:</span><br><span class="line">      football:</span><br><span class="line">        url: jdbc:postgresql://xxx.xxx.xxx:5432/xxx</span><br><span class="line">        username: xxx</span><br><span class="line">        password: xxxxxx</span><br><span class="line">        driver-class-name: org.postgresql.Driver</span><br><span class="line">        filters: stat</span><br><span class="line">        maxActive: 20</span><br><span class="line">        initialSize: 1</span><br><span class="line">        maxWait: 60000</span><br><span class="line">        minIdle: 1</span><br><span class="line">        timeBetweenEvictionRunsMillis: 60000</span><br><span class="line">        minEvictableIdleTimeMillis: 300000</span><br><span class="line">        validationQuery: select &#x27;x&#x27;</span><br><span class="line">        testWhileIdle: true</span><br><span class="line">        testOnBorrow: false</span><br><span class="line">        testOnReturn: false</span><br><span class="line">        poolPreparedStatements: true</span><br><span class="line">        maxOpenPreparedStatements: 20</span><br><span class="line">      basketball:</span><br><span class="line">        url: jdbc:postgresql://xxx.xxx.xxx:5432/xxx</span><br><span class="line">        username: xxx</span><br><span class="line">        password: xxxxxx</span><br><span class="line">        driver-class-name: org.postgresql.Driver</span><br><span class="line">        filters: stat</span><br><span class="line">        maxActive: 20</span><br><span class="line">        initialSize: 1</span><br><span class="line">        maxWait: 60000</span><br><span class="line">        minIdle: 1</span><br><span class="line">        timeBetweenEvictionRunsMillis: 60000</span><br><span class="line">        minEvictableIdleTimeMillis: 300000</span><br><span class="line">        validationQuery: select &#x27;x&#x27;</span><br><span class="line">        testWhileIdle: true</span><br><span class="line">        testOnBorrow: false</span><br><span class="line">        testOnReturn: false</span><br><span class="line">        poolPreparedStatements: true</span><br><span class="line">        maxOpenPreparedStatements: 20</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-DataSourceConfig配置类"><a href="#2-DataSourceConfig配置类" class="headerlink" title="2.DataSourceConfig配置类"></a>2.DataSourceConfig配置类</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package com.uecent.provider.api.module.common.config;</span><br><span class="line"></span><br><span class="line">import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;</span><br><span class="line">import org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class DataSourceConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;footballDataSource&quot;)</span><br><span class="line">    @ConfigurationProperties(prefix=&quot;spring.datasource.druid.football&quot;)</span><br><span class="line">    public DataSource footballDataSource() &#123;</span><br><span class="line">        return DruidDataSourceBuilder.create().build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;basketballDataSource&quot;)</span><br><span class="line">    @ConfigurationProperties(prefix=&quot;spring.datasource.druid.basketball&quot;)</span><br><span class="line">    public DataSource basketballDataSource() &#123;</span><br><span class="line">        return DruidDataSourceBuilder.create().build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-针对两个数据源的配置类"><a href="#3-针对两个数据源的配置类" class="headerlink" title="3.针对两个数据源的配置类"></a>3.针对两个数据源的配置类</h4><p>MybatisBasketballConfig.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">package com.uecent.provider.api.module.common.config;</span><br><span class="line"></span><br><span class="line">import com.baomidou.mybatisplus.core.MybatisConfiguration;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.type.JdbcType;</span><br><span class="line">import org.mybatis.spring.SqlSessionFactoryBean;</span><br><span class="line">import org.mybatis.spring.SqlSessionTemplate;</span><br><span class="line">import org.mybatis.spring.annotation.MapperScan;</span><br><span class="line">import org.springframework.beans.factory.annotation.Qualifier;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.core.io.support.PathMatchingResourcePatternResolver;</span><br><span class="line">import org.springframework.jdbc.datasource.DataSourceTransactionManager;</span><br><span class="line"></span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Mybatis配置</span><br><span class="line"> */</span><br><span class="line">@MapperScan(value = MybatisBasketballConfig.PACKAGE, nameGenerator = MybatisGenerator.class, sqlSessionTemplateRef = &quot;basketballSqlSessionTemplate&quot;)</span><br><span class="line">@Configuration</span><br><span class="line">public class MybatisBasketballConfig &#123;</span><br><span class="line"></span><br><span class="line">    static final String PACKAGE = &quot;com.uecent.provider.api.mapper.basketball&quot;;</span><br><span class="line">    static final String MAPPER_LOCATION = &quot;classpath:mapper/basketball/*.xml&quot;;</span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;basketballTransactionManager&quot;)</span><br><span class="line">    public DataSourceTransactionManager basketballTransactionManager(@Qualifier(&quot;basketballDataSource&quot;) DataSource dataSource) &#123;</span><br><span class="line">        return new DataSourceTransactionManager(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;basketballSqlSessionFactory&quot;)</span><br><span class="line">    public SqlSessionFactory basketballSqlSessionFactory(@Qualifier(&quot;basketballDataSource&quot;) DataSource dataSource)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();</span><br><span class="line">        sessionFactory.setDataSource(dataSource);</span><br><span class="line">        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MybatisBasketballConfig.MAPPER_LOCATION));</span><br><span class="line">        MybatisConfiguration configuration = new MybatisConfiguration();</span><br><span class="line">        configuration.setJdbcTypeForNull(JdbcType.NULL);</span><br><span class="line">        configuration.setMapUnderscoreToCamelCase(true);</span><br><span class="line">        configuration.setCacheEnabled(false);</span><br><span class="line">        sessionFactory.setConfiguration(configuration);</span><br><span class="line">        return sessionFactory.getObject();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;basketballSqlSessionTemplate&quot;)</span><br><span class="line">    public SqlSessionTemplate sqlSessionTemplateOne(@Qualifier(&quot;basketballSqlSessionFactory&quot;) SqlSessionFactory sqlSessionFactory) throws Exception &#123;</span><br><span class="line">        return new SqlSessionTemplate(sqlSessionFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>MybatisFootballConfig.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">package com.uecent.provider.api.module.common.config;</span><br><span class="line"></span><br><span class="line">import com.baomidou.mybatisplus.core.MybatisConfiguration;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.type.JdbcType;</span><br><span class="line">import org.mybatis.spring.SqlSessionFactoryBean;</span><br><span class="line">import org.mybatis.spring.SqlSessionTemplate;</span><br><span class="line">import org.mybatis.spring.annotation.MapperScan;</span><br><span class="line">import org.springframework.beans.factory.annotation.Qualifier;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.context.annotation.Primary;</span><br><span class="line">import org.springframework.core.io.support.PathMatchingResourcePatternResolver;</span><br><span class="line">import org.springframework.jdbc.datasource.DataSourceTransactionManager;</span><br><span class="line"></span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Mybatis配置</span><br><span class="line"> */</span><br><span class="line">@MapperScan(value = MybatisFootballConfig.PACKAGE, nameGenerator = MybatisGenerator.class, sqlSessionTemplateRef = &quot;footballSqlSessionTemplate&quot;)</span><br><span class="line">@Configuration</span><br><span class="line">public class MybatisFootballConfig &#123;</span><br><span class="line"></span><br><span class="line">    static final String PACKAGE = &quot;com.uecent.provider.api.mapper.football&quot;;</span><br><span class="line">    static final String MAPPER_LOCATION = &quot;classpath:mapper/football/*.xml&quot;;</span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;footballTransactionManager&quot;)</span><br><span class="line">    @Primary</span><br><span class="line">    public DataSourceTransactionManager footballTransactionManager(@Qualifier(&quot;footballDataSource&quot;) DataSource dataSource) &#123;</span><br><span class="line">        return new DataSourceTransactionManager(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;footballSqlSessionFactory&quot;)</span><br><span class="line">    @Primary</span><br><span class="line">    public SqlSessionFactory footballSqlSessionFactory(@Qualifier(&quot;footballDataSource&quot;) DataSource dataSource)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();</span><br><span class="line">        sessionFactory.setDataSource(dataSource);</span><br><span class="line">        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MybatisFootballConfig.MAPPER_LOCATION));</span><br><span class="line">        MybatisConfiguration configuration = new MybatisConfiguration();</span><br><span class="line">        configuration.setJdbcTypeForNull(JdbcType.NULL);</span><br><span class="line">        configuration.setMapUnderscoreToCamelCase(true);</span><br><span class="line">        configuration.setCacheEnabled(false);</span><br><span class="line">        sessionFactory.setConfiguration(configuration);</span><br><span class="line">        return sessionFactory.getObject();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean(name = &quot;footballSqlSessionTemplate&quot;)</span><br><span class="line">    @Primary</span><br><span class="line">    public SqlSessionTemplate sqlSessionTemplateOne(@Qualifier(&quot;footballSqlSessionFactory&quot;) SqlSessionFactory sqlSessionFactory) throws Exception &#123;</span><br><span class="line">        return new SqlSessionTemplate(sqlSessionFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wjf8882300.github.io/2021/12/23/spring-boot-%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/" data-id="ckximhz2p000smk7igfs74s2c" data-title="spring boot 多数据源" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-spring-boot-druid监控" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/23/spring-boot-druid%E7%9B%91%E6%8E%A7/" class="article-date">
+  <time class="dt-published" datetime="2021-12-23T05:50:10.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/23/spring-boot-druid%E7%9B%91%E6%8E%A7/">spring boot druid监控</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1、配置文件"><a href="#1、配置文件" class="headerlink" title="1、配置文件"></a>1、配置文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">datasource:</span><br><span class="line">  druid:</span><br><span class="line">    driver-class-name: oracle.jdbc.driver.OracleDriver</span><br><span class="line">    url: jdbc:oracle:thin:@xxx.xxx.xxx.xxx:1521:orcl</span><br><span class="line">    username: bt_test</span><br><span class="line">    password: bt_test2</span><br><span class="line">    filters: stat</span><br><span class="line">    maxActive: 20</span><br><span class="line">    initialSize: 1</span><br><span class="line">    maxWait: 60000</span><br><span class="line">    minIdle: 1</span><br><span class="line">    timeBetweenEvictionRunsMillis: 60000</span><br><span class="line">    minEvictableIdleTimeMillis: 300000</span><br><span class="line">    validationQuery: select &#x27;x&#x27; from dual</span><br><span class="line">    testWhileIdle: true</span><br><span class="line">    testOnBorrow: false</span><br><span class="line">    testOnReturn: false</span><br><span class="line">    poolPreparedStatements: true</span><br><span class="line">    maxOpenPreparedStatements: 20</span><br><span class="line">    # 下面开启监控功能</span><br><span class="line">    web-stat-filter:</span><br><span class="line">      enabled: true</span><br><span class="line">      url-pattern: /*</span><br><span class="line">      exclusions: /*.js,/*.gif,/*.jpg,/*.bmp,/*.png,/*.css,/*.ico,/druid/*</span><br><span class="line">    filter:</span><br><span class="line">      stat:</span><br><span class="line">        enabled: true</span><br><span class="line">        log-slow-sql: true</span><br><span class="line">        slow-sql-millis: 10000</span><br><span class="line">        merge-sql: true</span><br><span class="line">    aop-patterns: com.btong.*</span><br><span class="line">    stat-view-servlet:</span><br><span class="line">      enabled: true</span><br><span class="line">      login-username: btong</span><br><span class="line">      login-password: </span><br><span class="line">      allow:</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-访问监控日志"><a href="#2-访问监控日志" class="headerlink" title="2.访问监控日志"></a>2.访问监控日志</h4><h5 id="2-1-登录网站"><a href="#2-1-登录网站" class="headerlink" title="2.1.登录网站"></a>2.1.登录网站</h5><p><a target="_blank" rel="noopener" href="http://xxx.xxx.xxx.xxx/druid/login.html">http://xxx.xxx.xxx.xxx/druid/login.html</a><br>输入用户名：btong<br>输入密码：btong@123</p>
+<h5 id="2-2-监控截图"><a href="#2-2-监控截图" class="headerlink" title="2.2.监控截图"></a>2.2.监控截图</h5><p><img src="/2021/12/23/spring-boot-druid%E7%9B%91%E6%8E%A7/druid.png" alt="这是druid监控页面截图">      </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wjf8882300.github.io/2021/12/23/spring-boot-druid%E7%9B%91%E6%8E%A7/" data-id="ckximhz2o000qmk7i4h6k1ra3" data-title="spring boot druid监控" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-mysql查询慢SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/" class="article-date">
+    <a href="/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/" class="article-date">
   <time class="dt-published" datetime="2021-12-23T05:31:27.000Z" itemprop="datePublished">2021-12-23</time>
 </a>
     
@@ -92,7 +391,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/">mysql查询慢SQL</a>
+      <a class="p-name article-title" href="/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/">mysql查询慢SQL</a>
     </h1>
   
 
@@ -109,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/" data-id="ckxij5k5b0000d87i3k515x1q" data-title="mysql查询慢SQL" class="article-share-link">Share</a>
+      <a data-url="https://wjf8882300.github.io/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/" data-id="ckximhz2h000emk7ie9yg4oel" data-title="mysql查询慢SQL" class="article-share-link">Teilen</a>
       
       
       
@@ -123,7 +422,7 @@
   
     <article id="post-mysql关联更新与删除" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/" class="article-date">
+    <a href="/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/" class="article-date">
   <time class="dt-published" datetime="2021-12-23T05:29:39.000Z" itemprop="datePublished">2021-12-23</time>
 </a>
     
@@ -135,7 +434,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/">mysql关联更新与删除</a>
+      <a class="p-name article-title" href="/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/">mysql关联更新与删除</a>
     </h1>
   
 
@@ -149,11 +448,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/" data-id="ckxij0rhi0000v07i09h1dklt" data-title="mysql关联更新与删除" class="article-share-link">Share</a>
+      <a data-url="https://wjf8882300.github.io/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/" data-id="ckximhz2e000amk7i899dcwv1" data-title="mysql关联更新与删除" class="article-share-link">Teilen</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
 
     </footer>
   </div>
@@ -165,7 +464,7 @@
   
     <article id="post-docker安装mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" class="article-date">
+    <a href="/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" class="article-date">
   <time class="dt-published" datetime="2021-12-23T05:27:42.000Z" itemprop="datePublished">2021-12-23</time>
 </a>
     
@@ -177,7 +476,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/">docker安装mysql</a>
+      <a class="p-name article-title" href="/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/">docker安装mysql</a>
     </h1>
   
 
@@ -192,11 +491,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" data-id="ckxiiy6b20000aw7i14hc8gt0" data-title="docker安装mysql" class="article-share-link">Share</a>
+      <a data-url="https://wjf8882300.github.io/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/" data-id="ckximhz250002mk7i5s2c0ai0" data-title="docker安装mysql" class="article-share-link">Teilen</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
 
     </footer>
   </div>
@@ -208,7 +507,7 @@
   
     <article id="post-mysql分区表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" class="article-date">
+    <a href="/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" class="article-date">
   <time class="dt-published" datetime="2021-12-23T05:23:00.000Z" itemprop="datePublished">2021-12-23</time>
 </a>
     
@@ -220,7 +519,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/">mysql分区表</a>
+      <a class="p-name article-title" href="/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/">mysql分区表</a>
     </h1>
   
 
@@ -250,323 +549,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" data-id="ckxiiukzn0000787i7414eth9" data-title="mysql分区表" class="article-share-link">Share</a>
+      <a data-url="https://wjf8882300.github.io/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" data-id="ckximhz2g000cmk7icq5udh4o" data-title="mysql分区表" class="article-share-link">Teilen</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-redis批量删除key" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T11:54:27.000Z" itemprop="datePublished">2021-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">redis批量删除key</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>比如删除com:uecent:udata:basketball*</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 redis_delete.py -d 3 -k com:uecent:udata:basketball</span><br></pre></td></tr></table></figure>
-<p>参数说明：<br>-d 表示第几个数据库<br>-k 表示前缀</p>
-<p>redis_delete.py源码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:UTF-8 -*-</span><br><span class="line">import redis</span><br><span class="line">import sys</span><br><span class="line">import getopt</span><br><span class="line"> </span><br><span class="line">############################################</span><br><span class="line"># example:</span><br><span class="line"># delete db0: python3 redis_delete.py  -k &#x27;udata.climb&#x27; -d 0</span><br><span class="line"># delete db1: python3 redis_delete.py  -k &#x27;udata.climb&#x27; -d 1</span><br><span class="line">############################################</span><br><span class="line"> </span><br><span class="line">host = &#x27;127.0.0.1&#x27;</span><br><span class="line">port = &#x27;6379&#x27;</span><br><span class="line">password = &#x27;n2dasUhH0Iziq18Z&#x27;</span><br><span class="line"> </span><br><span class="line">def delete(key, database):</span><br><span class="line">    r = redis.Redis(host=host, port=port, db=database, password=password, decode_responses=True)</span><br><span class="line">    list_keys = r.keys(&quot;%s*&quot; % key)</span><br><span class="line"> </span><br><span class="line">    for key in list_keys:</span><br><span class="line">        r.delete(key)</span><br><span class="line"> </span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    root_path = &quot;&quot;</span><br><span class="line">    is_rename = True</span><br><span class="line"> </span><br><span class="line">    argv = sys.argv[1:]</span><br><span class="line">    if len(argv) &lt; 1:</span><br><span class="line">        print(&#x27;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#x27;)</span><br><span class="line">        sys.exit()</span><br><span class="line"> </span><br><span class="line">    # 获取命令行参数</span><br><span class="line">    try:</span><br><span class="line">        opts, args = getopt.getopt(argv, &quot;hk:d:&quot;, [&quot;kKey=&quot;, &quot;dDatabase=&quot;])</span><br><span class="line">    except getopt.GetoptError:</span><br><span class="line">        print(&#x27;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#x27;)</span><br><span class="line">        sys.exit(2)</span><br><span class="line"> </span><br><span class="line">    for opt, arg in opts:</span><br><span class="line">        if opt == &#x27;-h&#x27;:</span><br><span class="line">            print(&#x27;redis_delete.py -k &lt;Key&gt; -d &lt;Database&gt;&#x27;)</span><br><span class="line">            sys.exit()</span><br><span class="line">        elif opt in (&quot;-k&quot;, &quot;--kKey&quot;):</span><br><span class="line">            key = arg</span><br><span class="line">        elif opt in (&quot;-d&quot;, &quot;--dDatabase&quot;):</span><br><span class="line">            database = arg</span><br><span class="line">    delete(key, int(database))</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" data-id="ckxg22cy60001nk7i3rkxbhmy" data-title="redis批量删除key" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-redis集群" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T11:54:16.000Z" itemprop="datePublished">2021-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/">redis集群</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>一主多从集群<br>以三台机器为例<br>node1: 172.19.192.179:6379<br>node2: 172.19.192.179:6380<br>node3: 172.19.192.179:6381</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># node1: 172.19.192.179:6379</span><br><span class="line">docker run -d --name redis-node1 -p 6379:6379 -v /data/redis/node1:/data redis:5.0.5</span><br><span class="line"># node2: 172.19.192.179:6380</span><br><span class="line">docker run -d --name redis-node2 -p 6380:6379 -v /data/redis/node2:/data redis:5.0.5</span><br><span class="line"># node3: 172.19.192.179:6381</span><br><span class="line">docker run -d --name redis-node3 -p 6381:6379 -v /data/redis/node3:/data redis:5.0.5</span><br><span class="line"></span><br><span class="line"># node2上执行</span><br><span class="line">docker exec -it redis-node2 redis-cli</span><br><span class="line">127.0.0.1:6379&gt; auth n2dasUhH0Iziq18Z</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; slaveof 172.19.192.179 6379</span><br><span class="line">OK</span><br><span class="line"> </span><br><span class="line"># node3上执行</span><br><span class="line">docker exec -it redis-node3 redis-cli</span><br><span class="line">127.0.0.1:6379&gt; auth n2dasUhH0Iziq18Z</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; slaveof 172.19.192.179 6379</span><br><span class="line">OK</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="cluster集群"><a href="#cluster集群" class="headerlink" title="cluster集群"></a>cluster集群</h4><h5 id="1-编写redis-cluster-tmpl"><a href="#1-编写redis-cluster-tmpl" class="headerlink" title="1.编写redis-cluster.tmpl"></a>1.编写redis-cluster.tmpl</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># redis端口</span><br><span class="line">port $&#123;PORT&#125;</span><br><span class="line"># 设置密码</span><br><span class="line">requirepass n2dasUhH0Iziq18Z</span><br><span class="line">masterauth n2dasUhH0Iziq18Z</span><br><span class="line"># 关闭保护模式</span><br><span class="line">protected-mode no</span><br><span class="line"># 开启集群</span><br><span class="line">cluster-enabled yes</span><br><span class="line"># 集群节点配置</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line"># 超时</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line"># 集群节点IP host模式为宿主机IP</span><br><span class="line">cluster-announce-ip 172.19.192.179</span><br><span class="line"># 集群节点端口 7001 - 7006</span><br><span class="line">cluster-announce-port $&#123;PORT&#125;</span><br><span class="line">cluster-announce-bus-port 1$&#123;PORT&#125;</span><br><span class="line"># 开启 appendonly 备份模式</span><br><span class="line">appendonly yes</span><br><span class="line"># 每秒钟备份</span><br><span class="line">appendfsync everysec</span><br><span class="line"># 对aof文件进行压缩时，是否执行同步操作</span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line"># 当目前aof文件大小超过上一次重写时的aof文件大小的100%时会再次进行重写</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line"># 重写前AOF文件的大小最小值 默认 64mb</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-编写redis-cluster-config-sh"><a href="#2-编写redis-cluster-config-sh" class="headerlink" title="2.编写redis-cluster-config.sh"></a>2.编写redis-cluster-config.sh</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for port in `seq 7001 7006`; do \</span><br><span class="line">  mkdir -p ./redis-cluster/$&#123;port&#125;/conf \</span><br><span class="line">  &amp;&amp; PORT=$&#123;port&#125; envsubst &lt; ./redis-cluster.tmpl &gt; ./redis-cluster/$&#123;port&#125;/conf/redis.conf \</span><br><span class="line">  &amp;&amp; mkdir -p ./redis-cluster/$&#123;port&#125;/data; \</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-执行redis-cluster-config-sh创建集群所需目录"><a href="#3-执行redis-cluster-config-sh创建集群所需目录" class="headerlink" title="3.执行redis-cluster-config.sh创建集群所需目录"></a>3.执行redis-cluster-config.sh创建集群所需目录</h5><h5 id="4-编写docker-compose-yaml"><a href="#4-编写docker-compose-yaml" class="headerlink" title="4.编写docker-compose.yaml"></a>4.编写docker-compose.yaml</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;2.2&#x27;</span><br><span class="line"> </span><br><span class="line">services:</span><br><span class="line">  redis7001:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7001</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7001/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7001/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7001:7001&quot;</span><br><span class="line">      - &quot;17001:17001&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;</span><br><span class="line">       </span><br><span class="line">         </span><br><span class="line"> </span><br><span class="line">  redis7002:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7002</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7002/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7002/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7002:7002&quot;</span><br><span class="line">      - &quot;17002:17002&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;  </span><br><span class="line"> </span><br><span class="line">  redis7003:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7003</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7003/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7003/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7003:7003&quot;</span><br><span class="line">      - &quot;17003:17003&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;    </span><br><span class="line">       </span><br><span class="line">  redis7004:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7004</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7004/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7004/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7004:7004&quot;</span><br><span class="line">      - &quot;17004:17004&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;  </span><br><span class="line"> </span><br><span class="line">  redis7005:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7005</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7005/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7005/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7005:7005&quot;</span><br><span class="line">      - &quot;17005:17005&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;   </span><br><span class="line"> </span><br><span class="line">  redis7006:</span><br><span class="line">    image: &#x27;redis&#x27;</span><br><span class="line">    container_name: redis7006</span><br><span class="line">    command:</span><br><span class="line">      [&quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot;]</span><br><span class="line">    volumes:</span><br><span class="line">      - ./redis-cluster/7006/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">      - ./redis-cluster/7006/data:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;7006:7006&quot;</span><br><span class="line">      - &quot;17006:17006&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 设置时区为上海，否则时间会有问题</span><br><span class="line">      - TZ=Asia/Shanghai   </span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      options:</span><br><span class="line">        max-size: &quot;100m&quot;</span><br><span class="line">        max-file: &quot;3&quot;</span><br></pre></td></tr></table></figure>
-<h5 id="5-启动redis集群容器"><a href="#5-启动redis集群容器" class="headerlink" title="5.启动redis集群容器"></a>5.启动redis集群容器</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-
-<h5 id="6-执行命令完成集群配置"><a href="#6-执行命令完成集群配置" class="headerlink" title="6.执行命令完成集群配置"></a>6.执行命令完成集群配置</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis7001 redis-cli -p 7001 -a n2dasUhH0Iziq18Z --cluster create 172.19.192.179:7001 172.19.192.179:7002 172.19.192.179:7003 172.19.192.179:7004 172.19.192.179:7005 172.19.192.179:7006 --cluster-replicas 1</span><br></pre></td></tr></table></figure>
-
-<h5 id="7-测试集群"><a href="#7-测试集群" class="headerlink" title="7.测试集群"></a>7.测试集群</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis7001 redis-cli -h 172.19.192.179 -p 7005 -a n2dasUhH0Iziq18Z ping</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/redis%E9%9B%86%E7%BE%A4/" data-id="ckxg22cy90003nk7ibqcc842i" data-title="redis集群" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-redis安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T11:54:09.000Z" itemprop="datePublished">2021-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/">redis安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="后端启动："><a href="#后端启动：" class="headerlink" title="后端启动："></a>后端启动：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server &amp;</span><br></pre></td></tr></table></figure>
-
-<h4 id="windows服务："><a href="#windows服务：" class="headerlink" title="windows服务："></a>windows服务：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 注册redis服务</span><br><span class="line">redis-server --service-install redis.conf --service-name redis</span><br><span class="line"># 启动redis服务</span><br><span class="line">net start redis</span><br></pre></td></tr></table></figure>
-
-<h4 id="docker方式启动："><a href="#docker方式启动：" class="headerlink" title="docker方式启动："></a>docker方式启动：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/redis</span><br><span class="line">chown -R 1000:1000 /data/redis</span><br><span class="line"> </span><br><span class="line">docker run -d --name redis --restart=always -p 6379:6379 -v /data/redis:/data wjf8882300/redis:latest</span><br></pre></td></tr></table></figure>
-
-<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM redis</span><br><span class="line">MAINTAINER wangjingfeng2008@163.com</span><br><span class="line">COPY redis.conf /usr/local/etc/redis/redis.conf</span><br><span class="line">EXPOSE 6379</span><br><span class="line">CMD [ &quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot; ]</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="修改配置文件-redis-conf"><a href="#修改配置文件-redis-conf" class="headerlink" title="修改配置文件 redis.conf"></a>修改配置文件 redis.conf</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#bind 127.0.0.1</span><br><span class="line"> </span><br><span class="line">requirepass n2dasUhH0Iziq18Z</span><br><span class="line"> </span><br><span class="line">port 6379</span><br><span class="line"> </span><br><span class="line">notify-keyspace-events &quot;Ex&quot;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/redis%E5%AE%89%E8%A3%85/" data-id="ckxg22cy50000nk7igtb53qy8" data-title="redis安装" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hexo搭建github博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T11:43:24.000Z" itemprop="datePublished">2021-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/">hexo搭建github博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>1）GitHub上面新建一个repository</p>
-<p>2）clone到本地</p>
-<p>3）安装hexo<br>npm i hexo-cli -g</p>
-<p>4）验证是否安装成功<br>hexo -v</p>
-<p>5）找个空目录初始化<br>hexo init</p>
-<p>6）生成静态页面<br>hexo g</p>
-<p>7）打开本地网页：<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a><br>hexo s</p>
-<p>8）修改配置文件_config.yml<br>deploy:<br>  type: git<br>  repo: <a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a>:wjf8882300/docs.git<br>  branch: master</p>
-<p>9）安装git插件<br>npm install –save hexo-deployer-git</p>
-<p>10）把生成的文件拷贝到git目录</p>
-<p>11）git提交<br>hexo d</p>
-<p>12）github选择repository——&gt;Settings——&gt;Pages，选择分支和主题。上面就是博客地址。</p>
-<p>13）写文章<br>hexo new post “docker”</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/" data-id="ckxg1i37600001g7igsp4e6n3" data-title="hexo搭建github博客" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/docs/2021/12/21/git/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T10:23:20.000Z" itemprop="datePublished">2021-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/21/git/">git</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="1-全局配置"><a href="#1-全局配置" class="headerlink" title="1.全局配置"></a>1.全局配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;your@email.com&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="2-git中添加ssh说明"><a href="#2-git中添加ssh说明" class="headerlink" title="2.git中添加ssh说明"></a>2.git中添加ssh说明</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;wangjingfeng2008@163.com&quot;</span><br><span class="line"></span><br><span class="line">把专用密钥添加到 ssh-agent 的高速缓存中：</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br><span class="line"></span><br><span class="line">如果在使用shh-add的时候提示：</span><br><span class="line">Could not open a connection to your authentication agent.</span><br><span class="line"></span><br><span class="line">则需手动开启ssh，如下；</span><br><span class="line">eval `ssh-agent -s`</span><br></pre></td></tr></table></figure>
-<h4 id="3-删除远程分支"><a href="#3-删除远程分支" class="headerlink" title="3.删除远程分支"></a>3.删除远程分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r -d origin/branch-name git push origin :branch-name</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-撤销未push的commit"><a href="#4-撤销未push的commit" class="headerlink" title="4.撤销未push的commit"></a>4.撤销未push的commit</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log git reset --hard commit_id</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-翻墙"><a href="#5-翻墙" class="headerlink" title="5.翻墙"></a>5.翻墙</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy http://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global https.proxy https://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global --unset http.proxy</span><br><span class="line"></span><br><span class="line">git config --global --unset https.proxy npm config delete proxy</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/git/" data-id="ckxfytji30000647ifftcdmfn" data-title="git" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-docker" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/docs/2021/12/21/docker/" class="article-date">
-  <time class="dt-published" datetime="2021-12-21T10:18:40.000Z" itemprop="datePublished">2021-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/docs/2021/12/21/docker/">docker</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="1-docker概念与好处"><a href="#1-docker概念与好处" class="headerlink" title="1.docker概念与好处"></a>1.docker概念与好处</h4><p>docker由镜像与容器构成，镜像包含了要运行的所有环境、代码与数据。容器是运行时态生成的运行环境。</p>
-<ol>
-<li>环境隔离  需要的环境都在一个镜像中，运行一个容器就有了所需环境。</li>
-<li>快速部署  制作好镜像之后，可以方便部署。</li>
-<li>配置简单  不管是命令还是配置都简洁高效。</li>
-</ol>
-<h4 id="2-docker安装"><a href="#2-docker安装" class="headerlink" title="2. docker安装"></a>2. docker安装</h4><h5 id="1-centos-7及以上"><a href="#1-centos-7及以上" class="headerlink" title="1. centos 7及以上"></a>1. centos 7及以上</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># step 1: 安装必要的一些系统工具</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"># Step 2: 添加软件源信息</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"># Step 3: 更新并安装 Docker-CE</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">sudo yum -y install docker-ce</span><br></pre></td></tr></table></figure>
-<h5 id="2-Ubuntu-14-04-16-04"><a href="#2-Ubuntu-14-04-16-04" class="headerlink" title="2. Ubuntu 14.04 16.04"></a>2. Ubuntu 14.04 16.04</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># step 1.docker概念与好处1: 安装必要的一些系统工具</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"># step 2: 安装GPG证书</span><br><span class="line">curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"># Step 3: 写入软件源信息</span><br><span class="line">sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;</span><br><span class="line"># Step 4: 更新并安装 Docker-CE</span><br><span class="line">sudo apt-get -y update</span><br><span class="line">sudo apt-get -y install docker-ce</span><br></pre></td></tr></table></figure>
-<h4 id="3-docker开机启动"><a href="#3-docker开机启动" class="headerlink" title="3.docker开机启动"></a>3.docker开机启动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 添加开机启动</span><br><span class="line">systemctl enable docker.service</span><br><span class="line"># 启动docker服务</span><br><span class="line">systemctl start docker.service</span><br></pre></td></tr></table></figure>
-<h4 id="4-docker常用命令"><a href="#4-docker常用命令" class="headerlink" title="4.docker常用命令"></a>4.docker常用命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 查看镜像</span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line"># 拉取镜像</span><br><span class="line">docker pull xxx</span><br><span class="line"></span><br><span class="line"># 删除镜像</span><br><span class="line">docker rmi xxx</span><br><span class="line"></span><br><span class="line"># 查看运行的容器</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"># 启动容器</span><br><span class="line">docker start xxx</span><br><span class="line"></span><br><span class="line"># 停止容器</span><br><span class="line">docker stop xxx</span><br><span class="line"></span><br><span class="line"># 重启容器</span><br><span class="line">docker restart xxx</span><br><span class="line"></span><br><span class="line"># 进入容器</span><br><span class="line">docker exec -it xxx bash</span><br><span class="line"></span><br><span class="line"># 查看日志</span><br><span class="line">docker logs -f xxx --tail=10</span><br><span class="line"></span><br><span class="line"># 查看容器</span><br><span class="line">docker inspect xxx</span><br><span class="line"></span><br><span class="line"># 查看容器状态</span><br><span class="line">docker stats</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-制作镜像"><a href="#5-制作镜像" class="headerlink" title="5.制作镜像"></a>5.制作镜像</h4><h5 id="1-镜像加速"><a href="#1-镜像加速" class="headerlink" title="1. 镜像加速"></a>1. 镜像加速</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://w029dasz.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-准备Dockerfile"><a href="#2-准备Dockerfile" class="headerlink" title="2. 准备Dockerfile"></a>2. 准备Dockerfile</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># java镜像</span><br><span class="line">FROM openjdk:8-jdk-alpine</span><br><span class="line"> </span><br><span class="line"># 将本地文件夹挂载到当前容器</span><br><span class="line"># 创建/tmp目录并持久化到Docker数据文件夹，因为Spring Boot使用的内嵌Tomcat容器默认使用/tmp作为工作目录。</span><br><span class="line">VOLUME [&quot;/tmp&quot;]</span><br><span class="line"> </span><br><span class="line"># 拷贝文件到容器</span><br><span class="line">COPY *.jar /opt/app.jar</span><br><span class="line"> </span><br><span class="line"># 解决容器时间和宿主主机时间不一致问题</span><br><span class="line">RUN echo &#x27;http://mirrors.aliyun.com/alpine/v3.6/community/&#x27;&gt;/etc/apk/repositories &amp;&amp; echo &#x27;http://mirrors.aliyun.com/alpine/v3.6/main/&#x27;&gt;&gt;/etc/apk/repositories &amp;&amp; apk add --no-cache tzdata</span><br><span class="line">ENV TZ Asia/Shanghai</span><br><span class="line">RUN /bin/cp /usr/share/zoneinfo/$&#123;TZ&#125; /etc/localtime &amp;&amp; echo &#x27;$&#123;TZ&#125;&#x27; &gt;/etc/timezone</span><br><span class="line"> </span><br><span class="line">RUN apk add  --no-cache ffmpeg</span><br><span class="line"> </span><br><span class="line"># 打开服务端口</span><br><span class="line">EXPOSE 8080 8080</span><br><span class="line"> </span><br><span class="line"># 配置环境变量 todo jvm优化参数可以设置这里</span><br><span class="line">ENV JAVA_OPTS=&#x27;-Xmx1024m -Xms512m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8077&#x27; APP_OPTS=&#x27;&#x27;</span><br><span class="line"> </span><br><span class="line"># 配置容器启动后执行的命令</span><br><span class="line">ENTRYPOINT java $JAVA_OPTS  -server  -Dfile.encoding=UTF-8 -Duser.language=zh -Duser.region=CN -Djava.security.egd=file:/dev/./urandom $APP_OPTS -jar /opt/app.jar</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-制作镜像"><a href="#3-制作镜像" class="headerlink" title="3. 制作镜像"></a>3. 制作镜像</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 制作镜像</span><br><span class="line">docker build -t registry.uecent.com:5000/provider-auth:1.0.0 .</span><br><span class="line"># 上传镜像(非必要)</span><br><span class="line">docker push registry.uecent.com:5000/provider-auth:1.0.0</span><br><span class="line"># 启动镜像</span><br><span class="line">docker run -d --name provider-auth \ </span><br><span class="line">--restart=always  \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-v /data/provider-auth:/tmp \</span><br><span class="line">-e EUREKA_SERVER=http://172.19.115.13/eureka/ \</span><br><span class="line">-e APP_OPTS=\&quot;spring.profiles.active=dev\&quot; \</span><br><span class="line">--log-opt max-size=100m --log-opt max-file=3 \</span><br><span class="line">registry.uecent.com:5000/provider-auth:1.0.0</span><br></pre></td></tr></table></figure>
-<p>参数说明：<br>-d 表示后台运行<br>–name 指定容器名称<br>–restart always表示总会重启<br>-p 映射端口号<br>-v 映射目录<br>-e 指定环境变量<br>–log-opt 日志相关<br>–privileged 允许root权限<br>–network=host 使用主机网络</p>
-<h4 id="6-docker-compose"><a href="#6-docker-compose" class="headerlink" title="6. docker-compose"></a>6. docker-compose</h4><h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line">sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose docker-compose --version</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-docker-compose-yml"><a href="#2-docker-compose-yml" class="headerlink" title="2. docker-compose.yml"></a>2. docker-compose.yml</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3.2&#x27;</span><br><span class="line"> </span><br><span class="line">services:</span><br><span class="line">  redis:</span><br><span class="line">    container_name:  redis</span><br><span class="line">    image: redis:latest</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;6379:6379&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - /redis/data:/data</span><br><span class="line">  rabbitmq:</span><br><span class="line">    container_name:  rabbitmq</span><br><span class="line">    image: rabbitmq:management</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;15672:15672&quot;</span><br><span class="line">      - &quot;5672:5672&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - /redis/data:/data   </span><br><span class="line">    environment:</span><br><span class="line">      - RABBITMQ_DEFAULT_USER=rabbitmq</span><br><span class="line">      - RABBITMQ_DEFAULT_PASS=Qfka7ls2A40JEoMw</span><br></pre></td></tr></table></figure>
-<h5 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 启动</span><br><span class="line">docker-compose up -d</span><br><span class="line"># 查看</span><br><span class="line">docker-compse ps</span><br></pre></td></tr></table></figure>
-
-<h4 id="7-docker私服"><a href="#7-docker私服" class="headerlink" title="7.docker私服"></a>7.docker私服</h4><h5 id="1-安装-1"><a href="#1-安装-1" class="headerlink" title="1.安装"></a>1.安装</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 拉取镜像</span><br><span class="line">docker pull registry </span><br><span class="line"># 新建仓库目录</span><br><span class="line">mkdir -p /data/registry</span><br><span class="line"># 启动容器</span><br><span class="line">docker run -d -v /data/registry:/var/lib/registry -v /data/cert:/data/cert -p 5000:5000 -e REGISTRY_STORAGE_DELETE_ENABLED=true -e REGISTRY_HTTP_TLS_CERTIFICATE=/data/cert/cert.pem -e REGISTRY_HTTP_TLS_KEY=/data/cert/cert.key --restart=always --privileged=true --name registry registry:latest</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-私服相关操作"><a href="#2-私服相关操作" class="headerlink" title="2.私服相关操作"></a>2.私服相关操作</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">搜索镜像：</span><br><span class="line">curl -X GET https://registry.uecent.com:5000/v2/_catalog</span><br><span class="line"></span><br><span class="line">获取镜像列表：</span><br><span class="line">curl -X GET https://registry.uecent.com:5000/v2/provider-auth/tags/list</span><br><span class="line"></span><br><span class="line">查询镜像tag：</span><br><span class="line">curl -v --silent -H &quot;Accept: application/vnd.docker.distribution.manifest.v2+json&quot; -X GET https://registry.uecent.com:5000/v2/provider-auth/manifests/latest 2&gt;&amp;1 | grep Docker-Content-Digest | awk &#x27;&#123;print ($3)&#125;&#x27;</span><br><span class="line"></span><br><span class="line">删除镜像：</span><br><span class="line">curl -v --silent -H &quot;Accept: application/vnd.docker.distribution.manifest.v2+json&quot; -X DELETE https://registry.uecent.com:5000/v2/provider-auth/manifests/sha256:cc21a69e5d84b78f51eb8003d1f31743fa8cfc629b5e6379e751afff1ca34544</span><br><span class="line"></span><br><span class="line">垃圾回收（在docker服务器上执行）：</span><br><span class="line">docker exec -it registry /bin/registry garbage-collect /etc/docker/registry/config.yml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://username.github.io/docs/2021/12/21/docker/" data-id="ckxfyie6q0000ms7i4g53cfh3" data-title="docker" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/docker/" rel="tag">docker</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
 
     </footer>
   </div>
@@ -580,7 +567,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/docs/page/2/">2</a><a class="extend next" rel="next" href="/docs/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">weiter &raquo;</a>
   </nav>
 
 </section>
@@ -594,7 +581,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/redis/" rel="tag">redis</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li></ul>
     </div>
   </div>
 
@@ -604,16 +591,16 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/docs/tags/docker/" style="font-size: 10px;">docker</a> <a href="/docs/tags/git/" style="font-size: 15px;">git</a> <a href="/docs/tags/java/" style="font-size: 10px;">java</a> <a href="/docs/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/docs/tags/redis/" style="font-size: 20px;">redis</a>
+      <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/redis/" style="font-size: 16.67px;">redis</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2021/12/">December 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li></ul>
     </div>
   </div>
 
@@ -621,28 +608,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/docs/2021/12/23/mysql%E6%9F%A5%E8%AF%A2%E6%85%A2SQL/">mysql查询慢SQL</a>
+            <a href="/2021/12/23/java%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD/">java内存诊断</a>
           </li>
         
           <li>
-            <a href="/docs/2021/12/23/mysql%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%88%A0%E9%99%A4/">mysql关联更新与删除</a>
+            <a href="/2021/12/23/spring-boot-%E5%8E%9F%E5%A7%8B%E6%8A%A5%E6%96%87%E6%97%A5%E5%BF%97/">spring boot 原始报文日志</a>
           </li>
         
           <li>
-            <a href="/docs/2021/12/23/docker%E5%AE%89%E8%A3%85mysql/">docker安装mysql</a>
+            <a href="/2021/12/23/spring-boot-%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97/">spring boot 访问日志</a>
           </li>
         
           <li>
-            <a href="/docs/2021/12/23/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/">mysql分区表</a>
+            <a href="/2021/12/23/spring-boot%E8%AF%BB%E5%8F%96%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6properties%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">spring boot读取属性文件properties的几种方式</a>
           </li>
         
           <li>
-            <a href="/docs/2021/12/21/redis%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">redis批量删除key</a>
+            <a href="/2021/12/23/spring-boot-%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/">spring boot 多数据源</a>
           </li>
         
       </ul>
@@ -667,25 +654,25 @@
     </div>
     <nav id="mobile-nav">
   
-    <a href="/docs/" class="mobile-nav-link">Home</a>
+    <a href="/" class="mobile-nav-link">Home</a>
   
-    <a href="/docs/archives" class="mobile-nav-link">Archives</a>
+    <a href="/archives" class="mobile-nav-link">Archives</a>
   
 </nav>
     
 
 
-<script src="/docs/js/jquery-3.4.1.min.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
-<script src="/docs/fancybox/jquery.fancybox.min.js"></script>
+<script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
 
 
-<script src="/docs/js/script.js"></script>
+<script src="/js/script.js"></script>
 
 
 
