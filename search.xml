@@ -1533,6 +1533,8 @@ hexo d</p>
 <p>12）github选择repository——&gt;Settings——&gt;Pages，选择分支和主题。上面就是博客地址。</p>
 <p>13）写文章<br>
 hexo new post “docker”</p>
+<p>14）新增评论功能<br>
+npm install hexo-generator-searchdb --save</p>
 ]]></content>
       <categories>
         <category>工具</category>
