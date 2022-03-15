@@ -41,3 +41,13 @@ hexo d
 
 13）写文章
 hexo new post "docker"
+
+14）新增搜索功能
+npm install hexo-generator-searchdb --save
+
+15）新增评论
+- 打开“ https://livere.com/”网站进行用户注册
+- 到https://livere.com/apply，选择"City"，点击Install now
+- 填写网站信息
+- 最后一步，获取uid
+- 修改themes\hexo-theme-matery\_config.yml中的livere项，填写uid
