@@ -4,12 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="麻雀分米问题, docker linux java database blockchain">
-    <meta name="description" content="问题
-
-有5只麻雀平分一堆米，第一只麻雀平分为5份之后发现还多1粒，于是他拿走了多余的一粒以及5份中的一份；第二只麻雀像第一只麻雀一样，从剩下的米中拿走多余一粒，剩下的恰好能分成5份。后面几只麻雀都是这样，请问这里面一共有多少粒米？
-
-解决">
+    <meta name="keywords" content="python安装与pip, docker linux java database blockchain">
+    <meta name="description" content="1.python3安装
+从官网下载安装包并点击安装即可。
+官网：https://www.python.org/
+安装路径：可以自定义安装路径（路径建议为全英文），也可以使用默认的安装路径，默认安装路径一般为C:\Users\shangyj\">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>麻雀分米问题 | 筑梦未来</title>
+    <title>python安装与pip | 筑梦未来</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -313,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">麻雀分米问题</h1>
+                    <h1 class="description center-align post-title">python安装与pip</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +433,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                <span class="chip bg-color">算法</span>
+                            <a href="/tags/python/">
+                                <span class="chip bg-color">python</span>
                             </a>
                         
                     </div>
@@ -446,8 +445,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
-                                算法
+                            <a href="/categories/%E8%AF%AD%E8%A8%80/" class="post-category">
+                                语言
                             </a>
                         
                     </div>
@@ -459,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-04
+                    2022-03-15
                 </div>
                 
 
@@ -483,66 +482,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="问题">问题</h3>
+                <h3 id="1-python3安装">1.python3安装</h3>
+<p>从官网下载安装包并点击安装即可。<br>
+官网：<a target="_blank" rel="noopener" href="https://www.python.org/">https://www.python.org/</a><br>
+安装路径：可以自定义安装路径（路径建议为全英文），也可以使用默认的安装路径，默认安装路径一般为C:\Users\shangyj\AppData\Local\Programs\Python\Python37-32</p>
+<h3 id="2-python环境变量配置">2.python环境变量配置</h3>
+<p>为了保证python和pip调用不受路径限制，需要将python安装路径假如环境变量。<br>
+方法：右键点击我的电脑–&gt;属性–&gt;高级系统设置–&gt;高级–&gt;环境变量</p>
+<p>在Path变量中新建两项：<br>
+python.exe所在路径：C:\Users\shangyj\AppData\Local\Programs\Python\Python37-32\（以实际python的安装路径为准）<br>
+python的scripts文件夹路径：C:\Users\shangyj\AppData\Local\Programs\Python\Python37-32\Scripts（以实际scripts路径为准）</p>
 <blockquote>
-<p>有5只麻雀平分一堆米，第一只麻雀平分为5份之后发现还多1粒，于是他拿走了多余的一粒以及5份中的一份；第二只麻雀像第一只麻雀一样，从剩下的米中拿走多余一粒，剩下的恰好能分成5份。后面几只麻雀都是这样，请问这里面一共有多少粒米？</p>
+<p>pip3在python的scripts文件夹下面，如果pip3找不到，就是没有配置这个环境变量。</p>
 </blockquote>
-<h3 id="解决方案">解决方案</h3>
-<p>java代码</p>
-<pre class="line-numbers language-none"><code class="language-none">private static long SIZE &#x3D; 10;
- 
-private static int mi(long x) &#123;
-    int result &#x3D; 0;
-    if ((x - 1) % SIZE &#x3D;&#x3D; 0) &#123;
-        result &#x3D; 1;
-        result +&#x3D; mi((x - 1) - (x - 1) &#x2F; SIZE);
-    &#125;
-    return result;
-&#125;
- 
-public static void main(String[] argv) &#123;
-    long x &#x3D; 0;
-    for (;;) &#123;
-        if (mi(x) &#x3D;&#x3D; SIZE) &#123;
-            System.out.println(x);
-            break;
-        &#125;
-        else &#123;
-            x++;
-        &#125;
-    &#125;
-    return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>C代码</p>
-<pre class="line-numbers language-none"><code class="language-none">#include &lt;stdio.h&gt;
- 
-&#x2F;**
- * 假设可以分的米为x，麻雀拿走1粒米，还能分成5份，即(x-1)%5&#x3D;0;
- * 符合上面条件表示成功，记为1；
- * 再拿走自己的部分(x-1)&#x2F;5，把剩余的(x-1) - (x-1)&#x2F;5按照上面的步骤递归;
- * result等于5的时候说明x已经符合条件。
- *&#x2F;
-int mi(int x) &#123;
-    int result &#x3D; 0;
-    if ((x - 1) % 5 &#x3D;&#x3D; 0) &#123;
-        result &#x3D; 1;
-        result +&#x3D; mi((x-1) - (x-1)&#x2F;5);
-    &#125;
-    return result;
-&#125;
- 
-int main() &#123;
-    int x &#x3D; 0;
-    for(;;)&#123;
-        if(mi(x) &#x3D;&#x3D; 5)&#123;
-            printf(&quot;%d&quot;, x);
-            break;
-        &#125; else &#123;
-            x++;
-        &#125;
-    &#125;
-    return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-pip下载依赖包遇到的一些问题">3 pip下载依赖包遇到的一些问题</h3>
+<h4 id="问题1：Could-not-build-wheels-for-bcrypt-which-use-PEP-517-and-cannot-be-installed-directly">问题1：Could not build wheels for bcrypt which use PEP 517 and cannot be installed directly</h4>
+<pre class="line-numbers language-none"><code class="language-none">python -m pip install --upgrade pip -i  https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple
+pip3 install --no-use-pep517 bcrypt -i  https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="问题2：the-‘make’-utility-is-missing-the-PATH">问题2：the ‘make’ utility is missing the PATH</h4>
+<p>安装MinGW</p>
+<ul>
+<li>1）<a target="_blank" rel="noopener" href="https://cygwin.com/install.html">https://cygwin.com/install.html</a></li>
+<li>2）安装时注意勾选make、gcc<br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/01.png" alt="选择163的源速度比较快">	<br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/02.png" alt="勾选gcc，注意后面版本号">	<br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/03.png" alt="勾选make，注意后面版本号"></li>
+</ul>
+<h4 id="问题3-Microsoft-Visual-C-14-0-or-greater-is-required">问题3.Microsoft Visual C++ 14.0 or greater is required.</h4>
+<p>下载visual studio，并安装，<a target="_blank" href="https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=BuildTools&amp;rel=16">https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=BuildTools&amp;rel=16</a><br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/04.png" alt></p>
+
                 
             </div>
             <hr/>
@@ -568,7 +537,7 @@ int main() &#123;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://wjf8882300.github.io/2022/01/04/%E9%BA%BB%E9%9B%80%E5%88%86%E7%B1%B3%E9%97%AE%E9%A2%98/">https://wjf8882300.github.io/2022/01/04/%E9%BA%BB%E9%9B%80%E5%88%86%E7%B1%B3%E9%97%AE%E9%A2%98/</a>
+                    <a href="https://wjf8882300.github.io/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/">https://wjf8882300.github.io/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -606,8 +575,8 @@ int main() &#123;
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                    <span class="chip bg-color">算法</span>
+                                <a href="/tags/python/">
+                                    <span class="chip bg-color">python</span>
                                 </a>
                             
                         </div>
@@ -805,13 +774,13 @@ int main() &#123;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/">
+                <a href="/2022/03/15/win11-%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%81%A2%E5%A4%8D/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="python安装与pip">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="win11 右键菜单恢复">
                         
-                        <span class="card-title">python安装与pip</span>
+                        <span class="card-title">win11 右键菜单恢复</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -828,8 +797,8 @@ int main() &#123;
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    语言
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
                                 </a>
                             
                             
@@ -839,8 +808,8 @@ int main() &#123;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/python/">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/windows/">
+                        <span class="chip bg-color">windows</span>
                     </a>
                     
                 </div>
@@ -854,13 +823,13 @@ int main() &#123;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/01/04/%E6%95%B0%E5%AD%A6%E9%97%AE%E9%A2%98%EF%BC%8C%E6%89%BE%E5%87%BA%E7%AC%A6%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84%E9%A2%84%E7%AE%97%E7%AC%A6/">
+                <a href="/2022/01/04/%E9%BA%BB%E9%9B%80%E5%88%86%E7%B1%B3%E9%97%AE%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="数学问题，找出符合条件的预算符">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="麻雀分米问题">
                         
-                        <span class="card-title">数学问题，找出符合条件的预算符</span>
+                        <span class="card-title">麻雀分米问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

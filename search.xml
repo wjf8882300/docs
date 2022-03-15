@@ -1533,8 +1533,16 @@ hexo d</p>
 <p>12）github选择repository——&gt;Settings——&gt;Pages，选择分支和主题。上面就是博客地址。</p>
 <p>13）写文章<br>
 hexo new post “docker”</p>
-<p>14）新增评论功能<br>
+<p>14）新增搜索功能<br>
 npm install hexo-generator-searchdb --save</p>
+<p>15）新增评论</p>
+<ul>
+<li>打开“ <a href="https://livere.com/%E2%80%9D%E7%BD%91%E7%AB%99%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C">https://livere.com/”网站进行用户注册</a></li>
+<li>到https://livere.com/apply，选择&quot;City&quot;，点击Install now</li>
+<li>填写网站信息</li>
+<li>最后一步，获取uid</li>
+<li>修改themes\hexo-theme-matery_config.yml中的livere项，填写uid</li>
+</ul>
 ]]></content>
       <categories>
         <category>工具</category>
@@ -6047,6 +6055,64 @@ import com.anysoft.formula.Parser;
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python安装与pip</title>
+    <url>/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/</url>
+    <content><![CDATA[<h3 id="1-python3安装">1.python3安装</h3>
+<p>从官网下载安装包并点击安装即可。<br>
+官网：<a href="https://www.python.org/">https://www.python.org/</a><br>
+安装路径：可以自定义安装路径（路径建议为全英文），也可以使用默认的安装路径，默认安装路径一般为C:\Users\shangyj\AppData\Local\Programs\Python\Python37-32</p>
+<h3 id="2-python环境变量配置">2.python环境变量配置</h3>
+<p>为了保证python和pip调用不受路径限制，需要将python安装路径假如环境变量。<br>
+方法：右键点击我的电脑–&gt;属性–&gt;高级系统设置–&gt;高级–&gt;环境变量</p>
+<p>在Path变量中新建两项：<br>
+python.exe所在路径：C:\Users\shangyj\AppData\Local\Programs\Python\Python37-32\（以实际python的安装路径为准）<br>
+python的scripts文件夹路径：C:\Users\shangyj\AppData\Local\Programs\Python\Python37-32\Scripts（以实际scripts路径为准）</p>
+<blockquote>
+<p>pip3在python的scripts文件夹下面，如果pip3找不到，就是没有配置这个环境变量。</p>
+</blockquote>
+<h3 id="3-pip下载依赖包遇到的一些问题">3 pip下载依赖包遇到的一些问题</h3>
+<h4 id="问题1：Could-not-build-wheels-for-bcrypt-which-use-PEP-517-and-cannot-be-installed-directly">问题1：Could not build wheels for bcrypt which use PEP 517 and cannot be installed directly</h4>
+<pre class="line-numbers language-none"><code class="language-none">python -m pip install --upgrade pip -i  https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple
+pip3 install --no-use-pep517 bcrypt -i  https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="问题2：the-‘make’-utility-is-missing-the-PATH">问题2：the ‘make’ utility is missing the PATH</h4>
+<p>安装MinGW</p>
+<ul>
+<li>1）<a href="https://cygwin.com/install.html">https://cygwin.com/install.html</a></li>
+<li>2）安装时注意勾选make、gcc<br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/01.png" alt="选择163的源速度比较快">	<br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/02.png" alt="勾选gcc，注意后面版本号">	<br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/03.png" alt="勾选make，注意后面版本号"></li>
+</ul>
+<h4 id="问题3-Microsoft-Visual-C-14-0-or-greater-is-required">问题3.Microsoft Visual C++ 14.0 or greater is required.</h4>
+<p>下载visual studio，并安装，<a href="https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=BuildTools&amp;rel=16">https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=BuildTools&amp;rel=16</a><br>
+<img src="/2022/03/15/python%E5%AE%89%E8%A3%85%E4%B8%8Epip/04.png" alt></p>
+]]></content>
+      <categories>
+        <category>语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win11 右键菜单恢复</title>
+    <url>/2022/03/15/win11-%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%81%A2%E5%A4%8D/</url>
+    <content><![CDATA[<h3 id="1-恢复到win10菜单">1.恢复到win10菜单</h3>
+<pre class="line-numbers language-none"><code class="language-none">reg.exe add &quot;HKCU\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;\InprocServer32&quot; &#x2F;f &#x2F;ve<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-恢复到win11菜单">2.恢复到win11菜单</h3>
+<pre class="line-numbers language-none"><code class="language-none">reg.exe delete &quot;HKCU\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;\InprocServer32&quot; &#x2F;va &#x2F;f<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>操作完需要重启</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
       </tags>
   </entry>
 </search>
